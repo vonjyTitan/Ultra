@@ -20,27 +20,27 @@ import utilitaire.SessionUtil;
 import utilitaire.UtilCrypto;
 
 public class LoginAction extends Action {
-	public String testLogin(HttpServletRequest request,HttpServletResponse response){
+	public void testLogin(HttpServletRequest request,HttpServletResponse response){
 		if(request.getParameter("login")==null || request.getParameter("passe")==null)
 		{
 			goTo(request, response, "login.jsp?erreur=Mot de passe ou login obligatoire");
-			return "error";
+			return ;
 		}
 		if(request.getParameter("login").isEmpty() || request.getParameter("passe").isEmpty())
 		{
 			goTo(request, response, "login.jsp?erreur=Mot de passe ou login obligatoire");
-			return "error";
+			return ;
 		}
 		Utilisateur u=null;
 		try {
 			u=LoginService.getInstance().testLogin(request.getParameter("login"), request.getParameter("passe"));
 		} catch (Exception e) {
 			goTo(request, response, "login.jsp?erreur="+e.getMessage());
-			return "error";
+			return ;
 		}
 		if(u==null){
 			goTo(request, response, "login.jsp?erreur=Login ou mot de passe inconnue");
-			return "error";
+			return ;
 		}
 		request.getSession().setAttribute("utilisateur", u);
 		String cible=(String) request.getParameter("cible");
@@ -49,7 +49,6 @@ public class LoginAction extends Action {
 		String idval=(SessionUtil.getValForAttr(request, "id"));
 		String id=(idval!=null && !idval.isEmpty()) ? "&id="+idval : "";
 		goTo(request, response,"get", "main.jsp?cible="+cible+id);
-		return "ok";
 	}
 	public void desactive(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		try{

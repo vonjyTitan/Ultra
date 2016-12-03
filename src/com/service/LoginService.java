@@ -26,6 +26,17 @@ public class LoginService {
 		return rep.size()!=0;
 	}
 	public Utilisateur testLogin(String login,String passe)throws Exception{
+		
+		/*Fake statement */
+		if(true){
+			Utilisateur user=new Utilisateur();
+			user.setNom("test");
+			user.setPrenom("test");
+			user.setIdutilisateur(1);
+			return user;
+		}
+		/*fake statement */
+		
 		Connection connex=null;
 		try{
 			connex=Connecteur.getConnection();
