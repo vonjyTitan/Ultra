@@ -70,7 +70,8 @@
 		
 		                </span>
 		            </label>-->
-		            <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> CONNEXION</button>
+		            <br>
+		            <button class="btn btn-theme btn-block" href="index.html" type="submit" style="background-color : #0086de;" value="Connection"><i class="fa fa-lock"></i> CONNEXION</button>
 		            <hr>
 		            <%
 		            request.getSession().setAttribute("utilisateur", null);
@@ -111,9 +112,10 @@
 		                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
 		
 		                      </div>
+		                      <br>
 		                      <div class="modal-footer">
 		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-		                          <button class="btn btn-theme" type="button">Submit</button>
+		                          <button class="btn btn-theme" type="button" style="background-color : #0086de;">Submit</button>
 		                      </div>
 		                  </div>
 		              </div>
