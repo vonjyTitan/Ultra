@@ -91,7 +91,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 	public String blockFor(Champ f,boolean withDelete)throws Exception{
 		String reponse="";
 		if(isNotVisible(f)){
-			reponse+="<input type=\"hidden\" name=\""+f.getName()+"\" id=\""+f.getName()+"\" value=\""+defaultValudeForField(f)+"\" />";
+			reponse+="<input type=\"hidden\" name=\""+f.getName()+"\" id=\""+f.getName()+"\" value=\""+defaultValudeForField(f,true)+"\" />";
 			if(withDelete)
 				removeChamp(f.getName());
 			return reponse;
@@ -197,7 +197,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		String reponse="";
 		reponse+=select;
 		if(select.length()==0){
-			reponse+=getTypeForField(field)+" name=\""+field.getName()+"\" id=\""+field.getName()+"\"  class=\""+classe+"\" "+add+" "+getEndInput(field,defaultValudeForField(field));
+			reponse+=getTypeForField(field)+" name=\""+field.getName()+"\" id=\""+field.getName()+"\"  class=\""+classe+"\" "+add+" "+getEndInput(field,defaultValudeForField(field,true));
 		}
 		return reponse;
 	}
@@ -215,7 +215,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 			return "<input type=\"text\"";
 		}
 		else if(f.getType().equals(Boolean.class) || f.getType().equals(boolean.class)){
-			if((boolean)defaultValudeForField(f)==true)
+			if((boolean)defaultValudeForField(f,true)==true)
 				return "<input type=\"checkbox\" checked=\"checked\"";
 			return "<input type=\"checkbox\" checked=\"\"";
 		}

@@ -71,7 +71,8 @@ public class UtilisateurAction extends Action {
 				goTo(request, response, "main.jsp?cible=configuration/utilisateur-modif&erreur=Champ manquant");
 				return;
 			}
-			user.setPasse(usernw.getPasse());
+			user.setPasse(UtilCrypto.encrypt(user.getPasse()));
+			user.setEtat(usernw.getEtat());
 			DaoModele.getInstance().update(user);
 			goTo(request, response,"get", "main.jsp?cible=configuration/utilisateur-fiche&id="+user.getIdutilisateur());
 		}

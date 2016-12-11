@@ -27,9 +27,9 @@ public class FilterBuilder<T extends DataEntity> extends FormBuilder<T> {
 		
 	}
 	
-	public String getHTML() throws Exception{
+	public String getHTML(String titre,int size) throws Exception{
 		String reponse=beginHTMLForm();
-		reponse+=HTMLBuilder.beginPanel("Filtre",12,"");
+		reponse+=HTMLBuilder.beginPanel(titre,size,"");
 		reponse+=getHTMLBody();
 		reponse+=getHTMLButton();
 		reponse+=HTMLBuilder.endPanel();

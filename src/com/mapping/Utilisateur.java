@@ -8,6 +8,8 @@ import com.annotations.Parameter;
 import com.annotations.Required;
 import com.annotations.StringRestrict;
 
+import utilitaire.UtilCrypto;
+
 @Entity(reference="utilisateur",pkName="idutilisateur")
 public class Utilisateur extends DataEntity {
 	private int idutilisateur;
@@ -25,6 +27,7 @@ public class Utilisateur extends DataEntity {
 	@Parameter(libelle="Password")
 	@Required
 	private String passe;
+	@Parameter(libelle="Status")
 	private int etat;
 	@Parameter(libelle="Role of the user",reference="idrole")
 	@ForeignKey(toclasse=Role.class,pktable="idrole",libtable="libelle")
@@ -67,10 +70,13 @@ public class Utilisateur extends DataEntity {
 	public void setIdrole(int idrole) {
 		this.idrole = idrole;
 	}
+	public String findPasseDecrypted() throws Exception{
+		return UtilCrypto.decrypt(passe);
+	}
 	public String findActive(){
 		if(getEtat()==1)
-			return "<span class=\"label label-success label-mini\">active</span>";
-		return "<span class=\"label label-danger label-mini\">desactive</span>";
+			return "<span class=\"label label-success label-mini\">Active</span>";
+		return "<span class=\"label label-danger label-mini\">Not active</span>";
 	}
 	public String getOption() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		String reponse=super.getOption();

@@ -111,12 +111,15 @@ public class HTMLBuilder<T extends DataEntity> {
 		this.entity = entity;
 	}
 	protected Object defaultValudeForField(Champ f) throws Exception{
+		return defaultValudeForField(f,false);
+	}
+	protected Object defaultValudeForField(Champ f,boolean withCustumisableFunction) throws Exception{
 		Object val=null;
 		if(f.getField()==null){
 			val = f.getValue();
 		}
 		else
-			val=getEntity().getValueForField(f.getField());
+			val=(!withCustumisableFunction) ? getEntity().getValueForField(f.getField()) : f.getMethodForChamp().invoke(getEntity(), null);
 		if(val!=null){
 			return val;
 		}

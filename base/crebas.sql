@@ -302,6 +302,12 @@ join rolefonctionnalite as rf on rf.idrole=user.idrole
 join fonctionnalite as fonct
 on fonct.idfonctionnalite=rf.idfonctionnalite;
 
+create or replace view utilisateur_libelle
+as 
+select user.*, role.libelle as role
+from utilisateur as user join role 
+on role.idrole=user.idrole;
+
 INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
 (1, 'utilisateur', NULL),
 (2, 'unite', NULL);

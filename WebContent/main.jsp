@@ -3,7 +3,7 @@
 <%@page import="com.mapping.Utilisateur"%>
 <% 
 	String cible=SessionUtil.getValForAttr(request,"cible");
-	String currmenu=SessionUtil.getValForAttr(request,"currmenu");
+	String currmenu=SessionUtil.getValForAttr(request,"cible");
 	String id=SessionUtil.getValForAttr(request,"id");
 	try{
       	SessionUtil.isExisteSession(request);
@@ -246,16 +246,6 @@ try{
                           <li><a  href="#" id="menu-ajout-table">Ajout Nouveau Projet</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cutlery"></i>
-                          <span>Gestion bill</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="#" id="menu-ajout-table">Liste Bill</a></li>
-                          <li><a  href="#" id="menu-ajout-table">Ajout Nouveau Bill</a></li>
-                      </ul>
-                  </li>
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cutlery"></i>
@@ -286,11 +276,11 @@ try{
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cutlery"></i>
-                          <span>Gestion utilsateur</span>
+                          <span>User management</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#" id="menu-ajout-table">Liste Utilisateur</a></li>
-                          <li><a  href="#" id="menu-ajout-table">Ajout Nouvel Utilisateur</a></li>
+                          <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste">List of all user</a></li>
+                          <li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout">Add new user</a></li>
                       </ul>
                   </li>
                    <li class="sub-menu">
@@ -472,7 +462,7 @@ try{
         $(document).ready(function () {
         	$(".active").removeClass("active");
         	<%if(currmenu!=null && currmenu.compareToIgnoreCase("null")!=0){%>
-        	active($("#<%=currmenu%>"));
+        	active($("#<%=currmenu.split("/")[1]%>"));
         	<%}%>
         });
         function active(dom)
