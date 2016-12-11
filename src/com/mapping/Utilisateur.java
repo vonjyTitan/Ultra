@@ -13,16 +13,20 @@ public class Utilisateur extends DataEntity {
 	private int idutilisateur;
 	@Required
 	@StringRestrict(minLength=4)
+	@Parameter(libelle="Last name")
 	private String nom;
 	@Required
 	@StringRestrict(minLength=4)
+	@Parameter(libelle="First name")
 	private String prenom;
 	@Required
 	@StringRestrict(minLength=4)
 	private String login;
+	@Parameter(libelle="Password")
+	@Required
 	private String passe;
 	private int etat;
-	@Parameter(libelle="Role de l'utilisateur",reference="idrole")
+	@Parameter(libelle="Role of the user",reference="idrole")
 	@ForeignKey(toclasse=Role.class,pktable="idrole",libtable="libelle")
 	private int idrole;
 	private String role;
