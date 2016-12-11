@@ -52,10 +52,10 @@ public class UtilisateurAction extends Action {
 				goTo(request,response,"main.jsp?cible=configuration/utilisateur-ajout&erreur=Champ manquant");
 				return "error";
 			}
-			user.setPasse(UtilCrypto.encrypt(user.getLogin()));
+			user.setPasse(UtilCrypto.encrypt(user.getPasse()));
 			user.setEtat(1);
 			DaoModele.getInstance().save(user);
-			goTo(request,response,"get","main.jsp?cible=configuration/liste-utilisateur&"+String.valueOf(user.getIdutilisateur()));
+			goTo(request,response,"get","main.jsp?cible=configuration/utilisateur-liste&id="+String.valueOf(user.getIdutilisateur()));
 			return "ok";
 		}
 		catch(Exception ex){

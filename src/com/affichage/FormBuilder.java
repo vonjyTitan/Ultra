@@ -37,17 +37,17 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		typeSelectGenerique=new HashMap<Champ,List<OptionObject>> ();
 		classForChamp=new HashMap<Champ,String>();
 	}
-	public String getHTML(int taille) throws Exception{
+	public String getHTML(String titre,int taille) throws Exception{
 		String reponse=beginHTMLForm();
-		reponse+=HTMLBuilder.beginPanel("Formulaire general",taille);
+		reponse+=HTMLBuilder.beginPanel(titre,taille);
 		reponse+=getHTMLBody();
 		reponse+=getHTMLButton();
 		reponse+=HTMLBuilder.endPanel();
 		reponse+=endHTMLForm();
 		return reponse;
 	}
-	public String getHTML() throws Exception{
-		return getHTML(12);
+	public String getHTML(String titre) throws Exception{
+		return getHTML(titre,12);
 	}
 	public String beginHTMLForm()throws Exception{
 		return beginHTMLForm(false);

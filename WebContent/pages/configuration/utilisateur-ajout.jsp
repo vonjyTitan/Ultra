@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@page import="utilitaire.SessionUtil"%>
+<%@page import="dao.DaoModele"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
+<%@page import="com.affichage.InsertUpdateBuilder.ERROR_SHOW"%>
+<%@page import="com.affichage.*"%>
+<%@page import="com.mapping.*"%>
+<jsp:include page='../verificateur.jsp'/>
+<%
 
-</body>
-</html>
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Utilisateur(),"utilisateur-ajout",request);
+	builder.removeChamp(new String[]{"idutilisateur","etat"});
+%>
+<%=builder.getHTML("User information",6)%>
