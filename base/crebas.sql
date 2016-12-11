@@ -302,3 +302,32 @@ join rolefonctionnalite as rf on rf.idrole=user.idrole
 join fonctionnalite as fonct
 on fonct.idfonctionnalite=rf.idfonctionnalite;
 
+INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
+(1, 'utilisateur', NULL),
+(2, 'unite', NULL);
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`IDROLE`, `LIBELLE`, `DESCRIPTION`) VALUES
+(1, 'Admin', NULL),
+(2, 'Super admin', NULL);
+
+--
+-- Dumping data for table `rolefonctionnalite`
+--
+
+INSERT INTO `rolefonctionnalite` (`IDFONCTIONNALITE`, `IDROLE`) VALUES
+(2, 1),
+(1, 2),
+(2, 2);
+
+--
+-- Dumping data for table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`IDUTILISATEUR`, `IDROLE`, `LOGIN`, `PASSE`, `ETAT`, `NOM`, `PRENOM`) VALUES
+(1, 2, 'vonjy', 'LIKDYP7P+adsCPSdk7Tw8g==', 1, 'RAHANJONIRINA', 'Herivonjy'),
+(2, 2, 'fanilo', 'zNRaifaQxajyCBYsH1briQ==', 1, 'ANDRIANJAFY', 'Fanilo');
+

@@ -63,20 +63,14 @@ public class Utilisateur extends DataEntity {
 	public void setIdrole(int idrole) {
 		this.idrole = idrole;
 	}
-	public int getActive() {
-		return etat;
-	}
-	public void setActive(int active) {
-		this.etat = active;
-	}
 	public String findActive(){
-		if(etat==1)
+		if(getEtat()==1)
 			return "<span class=\"label label-success label-mini\">active</span>";
 		return "<span class=\"label label-danger label-mini\">desactive</span>";
 	}
 	public String getOption() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		String reponse=super.getOption();
-		if(etat==2){
+		if(getEtat()==2){
 			reponse+= "<a class=\"btn btn-success btn-xs\" href=\"login-active?id="+getIdutilisateur()+"\"><i class=\"fa fa-check\"></i></a>";
 		}
 		else reponse+="<a class=\"btn btn-danger btn-xs\" href=\"login-desactive?id="+getIdutilisateur()+"\"><i class=\"fa fa-trash-o \"></i></a>";
@@ -87,6 +81,12 @@ public class Utilisateur extends DataEntity {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public int getEtat() {
+		return etat;
+	}
+	public void setEtat(int etat) {
+		this.etat = etat;
 	}
 	
 }

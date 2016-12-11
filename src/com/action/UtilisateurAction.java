@@ -20,7 +20,7 @@ public class UtilisateurAction extends Action {
 			{
 				throw new Exception("Utilisateur introuvable");
 			}
-			user.setActive(2);
+			user.setEtat(2);
 			DaoModele.getInstance().update(user);
 			goTo(request, response, "get","main.jsp?cible=configuration/utilisateur-fiche&id="+id);
 		}
@@ -37,7 +37,7 @@ public class UtilisateurAction extends Action {
 			{
 				throw new Exception("Utilisateur introuvable");
 			}
-			user.setActive(1);
+			user.setEtat(1);
 			DaoModele.getInstance().update(user);
 			goTo(request, response, "get","main.jsp?cible=configuration/utilisateur-fiche&id="+id);
 		}
@@ -53,7 +53,7 @@ public class UtilisateurAction extends Action {
 				return "error";
 			}
 			user.setPasse(UtilCrypto.encrypt(user.getLogin()));
-			user.setActive(2);
+			user.setEtat(1);
 			DaoModele.getInstance().save(user);
 			goTo(request,response,"get","main.jsp?cible=configuration/liste-utilisateur&"+String.valueOf(user.getIdutilisateur()));
 			return "ok";

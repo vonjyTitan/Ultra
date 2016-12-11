@@ -20,8 +20,8 @@ public class UtilCrypto {
 	 */
 	private static final String ALGO = "AES";
     private static final byte[] keyValue = 
-        new byte[] { 'R', 'e', 's', 't', 'o', 'p', 'r',
-'j', 'k', 'y', '0','1', '2', '3', '4', '5' };
+        new byte[] { 'B', 'o', 'q', 'l', 'x', 'c', 'a',
+'p', 'p', 'l', '0','1', '2', '3', '4', '5' };
 
 public static String encrypt(String Data) throws Exception {
         Key key = generateKey();
