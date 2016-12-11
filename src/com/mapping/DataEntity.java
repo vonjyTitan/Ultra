@@ -189,7 +189,7 @@ public abstract class DataEntity {
 						req=req || Double.valueOf(String.valueOf(value))==0;
 					}
 					if(req){
-						errorMessage=((Required)annotation).messageOnAny().length()!=0 ? ((Required)annotation).messageOnAny() : "Le champ "+getLibelleForField(f)+" est obligatoire";
+						errorMessage=((Required)annotation).messageOnAny().length()!=0 ? ((Required)annotation).messageOnAny() : "The "+getLibelleForField(f)+" field is required";
 						formError.put(f, errorMessage);
 					}
 				}

@@ -25,7 +25,7 @@ public class LoginService {
 		String fonctionnalite = activite.split("-")[0];
 		RoleFonctionnalite crit = new RoleFonctionnalite();
 		crit.setNomTable("userrole_libelle");
-		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit, " and idutilisateur="+utilisateur.getIdrole()+" and upper(fonctionnalite)=upper('"+activite.toUpperCase()+"')");
+		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit, " and idutilisateur="+utilisateur.getIdrole()+" and upper(fonctionnalite)=upper('"+fonctionnalite+"')");
 		return rep.size()!=0;
 	}
 	public Utilisateur testLogin(String login,String passe)throws Exception{

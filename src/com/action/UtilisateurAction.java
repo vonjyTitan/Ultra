@@ -45,7 +45,7 @@ public class UtilisateurAction extends Action {
 			throw ex;
 		}
 	}
-	public String ajoutUtilisateur(HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public String ajout(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		try{
 			Utilisateur user=new HTMLBuilder<Utilisateur>(new Utilisateur(), request).getValue();
 			if(!user.isValide()){
