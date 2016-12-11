@@ -103,8 +103,9 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 			reponse+="</tr>";
 		}
 		reponse+="</tbody>";
-		reponse+= "</table>"
-				+ "</div>";
+		reponse+= "</table>";
+		reponse+= getPaginnation();
+		reponse+="</div>";
 		return reponse;
 	}
 	private String getSigne(Field f){
@@ -115,21 +116,26 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 	public String getPaginnation() throws Exception
 	{
 		testData();
-		String reponse="<p>";
+		String reponse="<div class=\"col-lg-3 pull-right\">";
+		reponse+=  "<ul class=\"pagination\">";
 		int page=((ListPaginner<T>)data).nbPage;
 		if(actualPage>1)
-			reponse+="<a href=\""+getCompletLien()+"&page="+(actualPage-1)+"\"><< precedant</a>";
-		for(int i=1;i<=page;i++){
-			if(i==actualPage){
-				reponse+=" "+i+" ";
+			reponse+="<li><a href=\""+getCompletLien()+"&page="+(actualPage-1)+"\">&laquo;</a></li>";
+		int depart=actualPage-2;
+		while(depart<=0){
+			depart++;
+		}
+		for(int i=0;i<=5 && depart<=page;i++,depart++){
+			if(depart==actualPage){
+				reponse+=" <li> <a href=\"javascript:;\" style=\"background: #0086de; color: white;\">"+depart+"</a></li>";
 			}
 			else
-				reponse+="<a href=\""+getCompletLien()+"&page="+i+"\"> "+i+" </a>";
+				reponse+="<li><a href=\""+getCompletLien()+"&page="+depart+"\"> "+depart+" </a></li>";
 		}
 		if(actualPage<page){
-			reponse+="<a href=\""+getCompletLien()+"&page="+(actualPage+1)+"\"> suivant >></a>";
+			reponse+="<li><a href=\""+getCompletLien()+"&page="+(actualPage+1)+"\">&raquo;</a></li> ";
 		}
-		return reponse+="</p>";
+		return reponse+="</ul></div>";
 	}
 	private void testData()throws Exception{
 		if(data!=null)
