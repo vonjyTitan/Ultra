@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.mapping.DataEntity;
-import com.mapping.RoleActivite;
+import com.mapping.RoleFonctionnalite;
 import com.mapping.Utilisateur;
 
 import dao.Connecteur;
@@ -22,30 +22,21 @@ public class LoginService {
 		return instance;
 	}
 	public boolean isAllowed(Utilisateur utilisateur,String activite)throws Exception{
-		List<RoleActivite> rep=DaoModele.getInstance().findPageGenerique(1, new RoleActivite(), " and idrole="+utilisateur.getIdrole()+" and upper(activite)='"+activite.toUpperCase()+"'");
+		String fonctionnalite = activite.split("-")[0];
+		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, new RoleFonctionnalite(), " and idrole="+utilisateur.getIdrole()+" and idfonctionnalite="+activite.toUpperCase()+"");
 		return rep.size()!=0;
 	}
 	public Utilisateur testLogin(String login,String passe)throws Exception{
-		
-		/*Fake statement */
-		if(true){
-			Utilisateur user=new Utilisateur();
-			user.setNom("test");
-			user.setPrenom("test");
-			user.setIdutilisateur(1);
-			return user;
-		}
-		/*fake statement */
-		
+			
 		Connection connex=null;
 		try{
 			connex=Connecteur.getConnection();
 			connex.setAutoCommit(false);
 			Utilisateur ob=new Utilisateur();
-			List<Utilisateur> rep=DaoModele.getInstance().findPageGenerique(1, ob,connex," and login='"+login.replace("'", "")+"' and passe='"+UtilCrypto.encrypt(passe)+"' and active=1");
+			List<Utilisateur> rep=DaoModele.getInstance().findPageGenerique(1, ob,connex," and login='"+login.replace("'", "")+"' and passe='"+UtilCrypto.encrypt(passe)+"' and etat=1");
 			if(rep.size()>0)
 			{
-				NotificationService.getInstance().saveNotification("L'utilisateur "+rep.get(0).getNom()+" s'est connecter dans le system", rep.get(0).getIdutilisateur(), connex, rep.get(0));
+				NotificationService.getInstance().saveNotification("The user "+rep.get(0).getNom()+" logged in the application", rep.get(0).getIdutilisateur(), connex, rep.get(0));
 				return rep.get(0);
 			}
 			connex.commit();

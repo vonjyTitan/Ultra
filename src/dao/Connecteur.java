@@ -49,7 +49,7 @@ public class Connecteur
 	{
 		if(dataBaseList==null)
 			instance();
-		return dataBaseList.get("resto").getConnection();
+		return dataBaseList.get("boq").getConnection();
 	}
 
 	/**

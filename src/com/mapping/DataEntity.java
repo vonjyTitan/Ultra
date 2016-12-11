@@ -43,7 +43,7 @@ public abstract class DataEntity {
 	private boolean isIgnoreCase=true;
 	private String nomTable;
 	private int packSize=30;
-	private String dataBaseKey="resto";
+	private String dataBaseKey="boq";
 	private Map<String, String> concatString=new HashMap<String,String>();
 	private String nomChampOrder;
 	private String ordering;

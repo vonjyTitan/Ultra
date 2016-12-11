@@ -21,8 +21,7 @@ public class Utilisateur extends DataEntity {
 	@StringRestrict(minLength=4)
 	private String login;
 	private String passe;
-	@Parameter(libelle="etat")
-	private int active;
+	private int etat;
 	@Parameter(libelle="Role de l'utilisateur",reference="idrole")
 	@ForeignKey(toclasse=Role.class,pktable="idrole",libtable="libelle")
 	private int idrole;
@@ -65,19 +64,19 @@ public class Utilisateur extends DataEntity {
 		this.idrole = idrole;
 	}
 	public int getActive() {
-		return active;
+		return etat;
 	}
 	public void setActive(int active) {
-		this.active = active;
+		this.etat = active;
 	}
 	public String findActive(){
-		if(active==1)
+		if(etat==1)
 			return "<span class=\"label label-success label-mini\">active</span>";
 		return "<span class=\"label label-danger label-mini\">desactive</span>";
 	}
 	public String getOption() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		String reponse=super.getOption();
-		if(active==2){
+		if(etat==2){
 			reponse+= "<a class=\"btn btn-success btn-xs\" href=\"login-active?id="+getIdutilisateur()+"\"><i class=\"fa fa-check\"></i></a>";
 		}
 		else reponse+="<a class=\"btn btn-danger btn-xs\" href=\"login-desactive?id="+getIdutilisateur()+"\"><i class=\"fa fa-trash-o \"></i></a>";

@@ -1,10 +1,12 @@
 package com.mapping;
 
 import com.annotations.Entity;
+import com.annotations.Required;
 
 @Entity(pkName="idrole", reference="role")
 public class Role extends DataEntity {
 	private int idrole;
+	@Required
 	private String libelle;
 	private String description;
 	public int getIdrole() {
