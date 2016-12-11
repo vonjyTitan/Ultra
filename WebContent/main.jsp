@@ -71,144 +71,7 @@ try{
             <a href="main.jsp?cible=stat" class="logo"><img src="assets/img/lxc_logo.png" class="" style="background-color: white;margin-top: -10px;" width="150"></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
-                <!--  notification start -->
-                <!-- <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <!-- <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-tasks"></i>
-                            <span class="badge bg-theme">4</span>
-                        </a>
-                        <ul class="dropdown-menu extended tasks-bar">
-                            <div class="notify-arrow notify-arrow-green"></div>
-                            <li>
-                                <p class="green">You have 4 pending tasks</p>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">DashGum Admin Panel</div>
-                                        <div class="percent">40%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Database Update</div>
-                                        <div class="percent">60%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Product Development</div>
-                                        <div class="percent">80%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Payments Sent</div>
-                                        <div class="percent">70%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                            <span class="sr-only">70% Complete (Important)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="external">
-                                <a href="#">See All Tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- settings end -->
-                    <!-- inbox dropdown start-->
-                   <!--  <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-theme">5</span>
-                        </a>
-                        <ul class="dropdown-menu extended inbox">
-                            <div class="notify-arrow notify-arrow-green"></div>
-                            <li>
-                                <p class="green">You have 5 new messages</p>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Zac Snider</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hi mate, how is everything?
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Divya Manian</span>
-                                    <span class="time">40 mins.</span>
-                                    </span>
-                                    <span class="message">
-                                     Hi, I need your help with this.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Dan Rogers</span>
-                                    <span class="time">2 hrs.</span>
-                                    </span>
-                                    <span class="message">
-                                        Love your new Dashboard.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Dj Sherman</span>
-                                    <span class="time">4 hrs.</span>
-                                    </span>
-                                    <span class="message">
-                                        Please, answer asap.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">See all messages</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- inbox dropdown end -->
-                <!-- </ul>
-                <!--  notification end -->
+                
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
@@ -241,46 +104,46 @@ try{
                           <span>Gestion projet</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#" id="menu-liste-table">Résumé</a></li>
-                          <li><a  href="#" id="menu-ajout-table">Liste Projet</a></li>
-                          <li><a  href="#" id="menu-ajout-table">Ajout Nouveau Projet</a></li>
+                          <li><a  href="#" id="menu-liste-table"><i class="fa fa-archive"></i>Résumé</a></li>
+                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>Liste Projet</a></li>
+                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Projet</a></li>
                       </ul>
                   </li>
                    <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-cutlery"></i>
+                          <i class="fa fa-cube"></i>
                           <span>Gestion tiers</span>
                       </a>
                       <ul class="sub-menu">
                       <li>
-                      	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout">Client</a>
+                      	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Client</a>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table">Liste Client</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Client</a></li>
                			</ul>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table">Ajout Nouveau Client</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouveau Client</a></li>
                			</ul>
                       </li>
                       	
                       <li>
-                      	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste">Entreprise</a>
+                      	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Entreprise</a>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table">Liste Entreprise</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Entreprise</a></li>
                			</ul>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table">Ajout Nouvelle Entreprise</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouvelle Entreprise</a></li>
                			</ul>
                       </li>
                   </ul>
                   </li>
                    <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-cutlery"></i>
-                          <span>User management</span>
+                          <i class="fa fa-users"></i>
+                          <span>Gestion utilisateur</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste">List of all user</a></li>
-                          <li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout">Add new user</a></li>
+                          <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List of all user</a></li>
+                          <li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Add new user</a></li>
                       </ul>
                   </li>
                    <li class="sub-menu">
@@ -290,30 +153,30 @@ try{
                       </a>
                       <ul class="sub">
                        	<li>
-                       		<a  href="#" id="menu-ajout-table">Item</a>
-	                       	<ul class="sub">
-	                      		<li><a  href="#" id="menu-liste-table">Liste Item</a></li>
+                       		<a  href="#" id="menu-ajout-table"><i class="fa fa-cubes"></i>Item</a>
+	                       	<ul class="sub-sub-item">
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Item</a></li>
 	               			</ul>
-	                      	<ul class="sub">
-	                      		<li><a  href="#" id="menu-liste-table">Ajout Nouveau Item</a></li>
+	                      	<ul class="sub-sub-item">
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouveau Item</a></li>
 	               			</ul>
                        	</li>
                       	<li>
-                      		<a  href="#" id="menu-ajout-table">Matériel</a>
+                      		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Matériel</a>
 	                      	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table">Liste Matériel</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Matériel</a></li>
 	               			</ul>
 	                      	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table">Ajout Nouveau Matériel</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouveau Matériel</a></li>
 	               			</ul>
                       	</li>
                    	  	<li>
-                   	  		<a  href="#" id="menu-ajout-table">Unité</a>
+                   	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Unité</a>
 	                   	  	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table">Liste Unité</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Unité</a></li>
 	               			</ul>
-	                      	<ul class="sub">
-	                      		<li><a  href="#" id="menu-liste-table">Ajout Nouvelle Unité</a></li>
+	                      	<ul class="sub-sub-item">
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouvelle Unité</a></li>
 	               			</ul>
                    	  	</li>
                       </ul>
