@@ -232,153 +232,103 @@ try{
                   <li class="mt">
                       <a class="active" id="menu-ecceuil" href="main.jsp?cible=stat&currmenu=menu-ecceuil" >
                           <i class="fa fa-dashboard"></i>
-                          <span>Acceuil</span>
+                          <span>Tableau de bord</span>
                       </a>
                   </li>
 					<li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-table"></i>
-                          <span>Table</span>
+                          <span>Gestion projet</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="main.jsp?cible=configuration/table-gestion&currmenu=menu-liste-table" id="menu-liste-table">Liste des tables</a></li>
-                          <li><a  href="main.jsp?cible=configuration/table-ajout&currmenu=menu-ajout-table" id="menu-ajout-table">Ajout table</a></li>
+                          <li><a  href="#" id="menu-liste-table">Résumé</a></li>
+                          <li><a  href="#" id="menu-ajout-table">Liste Projet</a></li>
+                          <li><a  href="#" id="menu-ajout-table">Ajout Nouveau Projet</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cutlery"></i>
-                          <span>Commande</span>
+                          <span>Gestion bill</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout">Ajout commande</a></li>
-                          <li><a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste">Liste des commandes</a></li>
+                          <li><a  href="#" id="menu-ajout-table">Liste Bill</a></li>
+                          <li><a  href="#" id="menu-ajout-table">Ajout Nouveau Bill</a></li>
                       </ul>
                   </li>
-                  <!-- <li class="sub-menu">
+                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-phone-square"></i>
-                          <span>Reservation</span>
+                          <i class="fa fa-cutlery"></i>
+                          <span>Gestion tiers</span>
+                      </a>
+                      <ul class="sub-menu">
+                      <li>
+                      	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout">Client</a>
+                      	<ul class="sub-sub-item">
+                      		<li><a  href="#" id="menu-liste-table">Liste Client</a></li>
+               			</ul>
+                      	<ul class="sub-sub-item">
+                      		<li><a  href="#" id="menu-liste-table">Ajout Nouveau Client</a></li>
+               			</ul>
+                      </li>
+                      	
+                      <li>
+                      	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste">Entreprise</a>
+                      	<ul class="sub-sub-item">
+                      		<li><a  href="#" id="menu-liste-table">Liste Entreprise</a></li>
+               			</ul>
+                      	<ul class="sub-sub-item">
+                      		<li><a  href="#" id="menu-liste-table">Ajout Nouvelle Entreprise</a></li>
+               			</ul>
+                      </li>
+                  </ul>
+                  </li>
+                   <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-cutlery"></i>
+                          <span>Gestion utilsateur</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="general.html">Liste des reservations</a></li>
-                          <li><a  href="buttons.html">Ajout reservation</a></li>
+                          <li><a  href="#" id="menu-ajout-table">Liste Utilisateur</a></li>
+                          <li><a  href="#" id="menu-ajout-table">Ajout Nouvel Utilisateur</a></li>
                       </ul>
-                  </li>-->
-
+                  </li>
+                   <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-cog"></i>
+                          <span>Configuration</span>
+                      </a>
+                      <ul class="sub">
+                       	<li>
+                       		<a  href="#" id="menu-ajout-table">Item</a>
+	                       	<ul class="sub">
+	                      		<li><a  href="#" id="menu-liste-table">Liste Item</a></li>
+	               			</ul>
+	                      	<ul class="sub">
+	                      		<li><a  href="#" id="menu-liste-table">Ajout Nouveau Item</a></li>
+	               			</ul>
+                       	</li>
+                      	<li>
+                      		<a  href="#" id="menu-ajout-table">Matériel</a>
+	                      	<ul class="sub-sub-item">
+	                      		<li><a  href="#" id="menu-liste-table">Liste Matériel</a></li>
+	               			</ul>
+	                      	<ul class="sub-sub-item">
+	                      		<li><a  href="#" id="menu-liste-table">Ajout Nouveau Matériel</a></li>
+	               			</ul>
+                      	</li>
+                   	  	<li>
+                   	  		<a  href="#" id="menu-ajout-table">Unité</a>
+	                   	  	<ul class="sub-sub-item">
+	                      		<li><a  href="#" id="menu-liste-table">Liste Unité</a></li>
+	               			</ul>
+	                      	<ul class="sub">
+	                      		<li><a  href="#" id="menu-liste-table">Ajout Nouvelle Unité</a></li>
+	               			</ul>
+                   	  	</li>
+                      </ul>
+                  </li>
                   
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cog"></i>
-                          <span>Configuration stock</span>
-                      </a>
-                      <ul class="sub">
-                      	 <li class="sub-menu">
-			                      <a href="javascript:;" >
-			                         <!--  <i class="fa fa-users"></i>-->
-			                          <span>Article</span>
-			                      </a>
-			                      <ul class="sub"><li><a  href="main.jsp?cible=configuration/article-liste&currmenu=menu-article-liste" id="menu-article-liste">Liste des articles</a></li>
-			                      <li><a  href="main.jsp?cible=configuration/article-ajout&currmenu=menu-article-ajout" id="menu-article-ajout">Ajout article</a></li>
-			                      </ul>
-	                      </li>
-                          <li class="sub-menu">
-			                      <a href="javascript:;" >
-			                         <!--  <i class="fa fa-users"></i>-->
-			                          <span>Unite d'article</span>
-			                      </a>
-			                      <ul class="sub"><li><a  href="main.jsp?cible=configuration/unite-liste&currmenu=menu-unite-liste" id="menu-unite-liste">Liste des unites</a></li>
-			                      <li><a  href="main.jsp?cible=configuration/unite-ajout&currmenu=menu-unite-ajout" id="menu-unite-ajout">Ajout unite</a></li>
-			                      </ul>
-	                      </li>
-	                      <li class="sub-menu">
-			                      <a href="javascript:;" >
-			                         <!--  <i class="fa fa-users"></i>-->
-			                          <span>Categorie d'article</span>
-			                      </a>
-			                      <ul class="sub"><li><a  href="main.jsp?cible=configuration/categorie-liste&currmenu=menu-categorie-liste" id="menu-categorie-liste">Liste des categories</a></li>
-			                      <li><a  href="main.jsp?cible=configuration/categorie-ajout&currmenu=menu-categorie-ajout" id="menu-categorie-ajout">Categorie ajout</a></li>
-			                      </ul>
-	                      </li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cog"></i>
-                          <span>Configuration Generale</span>
-                      </a>
-                      <ul class="sub">
-	                      <li class="sub-menu">
-			                      <a href="javascript:;" >
-			                            <i class="fa fa-users"></i>
-			                          <span>Utilisateur</span>
-			                      </a>
-			                      <ul class="sub"><li><a class="active"  href="main.jsp?cible=configuration/liste-utilisateur&currmenu=menu-utilisateur-liste" id="menu-utilisateur-liste">Liste des utilisateurs</a>
-			                      <li><a  href="main.jsp?cible=configuration/utilisateur-ajout&currmenu=menu-utilisateur-ajout" id="menu-utilisateur-ajout">Ajout utilisateur</a>
-			                      </li>
-			                      </ul>
-	                      </li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cog"></i>
-                          <span>Configuration Commande</span>
-                      </a>
-                      <ul class="sub">
-	                      <li class="sub-menu">
-			                      <a href="javascript:;" >
-			                          <i class="fa fa-liste"></i>
-			                          <span>Menu</span>
-			                      </a>
-			                      <ul class="sub"><li><a  href="main.jsp?cible=configuration/menu-liste&currmenu=menu-menu-liste" id="menu-menu-liste">Liste des menus</a>
-			                      <li><a  href="main.jsp?cible=configuration/menu-ajout&currmenu=menu-menu-ajout" id="menu-menu-ajout">Ajout menu</a>
-			                      </li>
-			                      </ul>
-	                      </li>
-	                      <li class="sub-menu">
-			                      <a href="javascript:;" >
-			                          <i class="fa fa-object-group"></i>
-			                          <span>Famille de menu</span>
-			                      </a>
-			                      <ul class="sub"><li><a  href="main.jsp?cible=configuration/famille-liste&currmenu=menu-famille-liste" id="menu-famille-liste">Liste des familles</a>
-			                      <li><a  href="main.jsp?cible=configuration/famille-ajout&currmenu=menu-famille-ajout" id="menu-famille-ajout">Ajout famille</a>
-			                      </li>
-			                      </ul>
-	                      </li>
-                      </ul>
-                  </li>
-                  <!-- <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>Forms</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="form_component.html">Form Components</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-th"></i>
-                          <span>Data Tables</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="basic_table.html">Basic Table</a></li>
-                          <li><a  href="responsive_table.html">Responsive Table</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class=" fa fa-bar-chart-o"></i>
-                          <span>Charts</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="morris.html">Morris</a></li>
-                          <li><a  href="chartjs.html">Chartjs</a></li>
-                      </ul>
-                  </li>-->
-
-              </ul>
               <!-- sidebar menu end-->
           </div>
       </aside>
