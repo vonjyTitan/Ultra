@@ -23,7 +23,9 @@ public class LoginService {
 	}
 	public boolean isAllowed(Utilisateur utilisateur,String activite)throws Exception{
 		String fonctionnalite = activite.split("-")[0];
-		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, new RoleFonctionnalite(), " and idrole="+utilisateur.getIdrole()+" and idfonctionnalite="+activite.toUpperCase()+"");
+		RoleFonctionnalite crit = new RoleFonctionnalite();
+		crit.setNomTable("userrole_libelle");
+		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit, " and idrole="+utilisateur.getIdrole()+" and upper(fonctionnalite)=upper('"+activite.toUpperCase()+"')");
 		return rep.size()!=0;
 	}
 	public Utilisateur testLogin(String login,String passe)throws Exception{

@@ -297,7 +297,7 @@ alter table PROJET add constraint FK_ASSOCIATION_5 foreign key (IDENTREPRISE)
 alter table UTILISATEUR add constraint FK_ASSOCIATION_7 foreign key (IDROLE)
       references ROLE (IDROLE) on delete restrict on update restrict;
 	  
-create or replace view userrole_libelle as select user.idutilisateur from utilisateur as user 
+create or replace view userrole_libelle as select user.idutilisateur,'fonctionnalite.NOM' as fonctionnalite from utilisateur as user 
 join rolefonctionnalite as rf on rf.idrole=user.idrole
 join fonctionnalite as fonct
 on fonct.idfonctionnalite=rf.idfonctionnalite;
