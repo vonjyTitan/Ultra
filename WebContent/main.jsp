@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="com.mapping.Utilisateur"%>
+<%@page import="com.service.LoginService"%>
 <% 
 	String cible=SessionUtil.getValForAttr(request,"cible");
 	String currmenu=SessionUtil.getValForAttr(request,"cible");
@@ -14,12 +15,14 @@
       		return ;
       }
 try{
-  	//SessionUtil.testAcces(request);
+	if(cible.split("/").length>1 && !LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"),cible.split("/")[1])){
+  		throw new Exception("You don't have permission for this page");
+  	}
   }
   catch(Exception ex)
   {
 	  %><script language="JavaScript">
-	  alert("Vous n'avez pas acces a cette page!");
+	  alert('<%=ex.getMessage()%>');
          history.back();</script><%
   		return ;
   }
@@ -149,11 +152,32 @@ try{
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>
-                          <span>Gestion utilisateur</span>
+                          <span>Gestion de compte</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List Utilisateur</a></li>
-                          <li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Ajout Nouvel Utilisateur</a></li>
+                      
+                      <li class="sub-menu">
+			                      <a href="javascript:;" >
+			                          <i class="fa fa-users"></i>
+			                          <span>Utilisateur</span>
+			                      </a>
+			                      <ul class="sub">
+			                      <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List Utilisateur</a></li>
+                          			<li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Ajout Nouvel Utilisateur</a></li>
+			                      </ul>
+	                      </li>
+	                      
+	                       <li class="sub-menu">
+			                      <a href="javascript:;" >
+			                          <i class="fa fa-check-circle"></i>
+			                          <span>Role</span>
+			                      </a>
+			                      <ul class="sub">
+			                      <li><a  href="main.jsp?cible=configuration/role-liste" id="role-liste"><i class="fa fa-list"></i>List Role</a></li>
+                          			<li><a  href="main.jsp?cible=configuration/role-ajout" id="role-ajout"><i class="fa fa-plus"></i>Ajout Role</a></li>
+			                      </ul>
+	                      </li>
+	                      
                       </ul>
                   </li>
                    <li class="sub-menu">
