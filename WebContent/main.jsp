@@ -98,7 +98,7 @@ try{
                           <span>Tableau de bord</span>
                       </a>
                   </li>
-					<li class="sub-menu">
+				<li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-table"></i>
                           <span>Gestion projet</span>
@@ -108,9 +108,19 @@ try{
                           <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>Liste Projet</a></li>
                           <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Projet</a></li>
                       </ul>
-                  </li>
-                   <li class="sub-menu">
+                </li>
+                <li class="sub-menu">
                       <a href="javascript:;" >
+                          <i class="fa fa-tasks"></i>
+                          <span>Gestion Bill</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>Liste Bill</a></li>
+                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Bill</a></li>
+                      </ul>
+                </li>
+				<li class="sub-menu">
+					<a href="javascript:;" >
                           <i class="fa fa-cube"></i>
                           <span>Gestion tiers</span>
                       </a>
@@ -142,8 +152,8 @@ try{
                           <span>Gestion utilisateur</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List of all user</a></li>
-                          <li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Add new user</a></li>
+                          <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List Utilisateur</a></li>
+                          <li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Ajout Nouvel Utilisateur</a></li>
                       </ul>
                   </li>
                    <li class="sub-menu">
