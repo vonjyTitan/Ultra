@@ -109,7 +109,7 @@ try{
                           <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Projet</a></li>
                       </ul>
                 </li>
-                <li class="sub-menu">
+                <!-- <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
                           <span>Gestion Bill</span>
@@ -118,7 +118,7 @@ try{
                           <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>Liste Bill</a></li>
                           <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Bill</a></li>
                       </ul>
-                </li>
+                </li>-->
 				<li class="sub-menu">
 					<a href="javascript:;" >
                           <i class="fa fa-cube"></i>
