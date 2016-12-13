@@ -107,18 +107,18 @@ try{
                   <li class="mt">
                       <a class="active" id="menu-ecceuil" href="main.jsp?cible=stat&currmenu=menu-ecceuil" >
                           <i class="fa fa-dashboard"></i>
-                          <span>Tableau de bord</span>
+                          <span>Dashboard</span>
                       </a>
                   </li>
 				<li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-table"></i>
-                          <span>Gestion projet</span>
+                          <span>Manage Project</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#" id="menu-liste-table"><i class="fa fa-archive"></i>Résumé</a></li>
-                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>Liste Projet</a></li>
-                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Projet</a></li>
+                          <li><a  href="#" id="menu-liste-table"><i class="fa fa-archive"></i>Summary</a></li>
+                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>List Project</a></li>
+                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Add New Project</a></li>
                       </ul>
                 </li>
                 <!-- <li class="sub-menu">
@@ -134,26 +134,26 @@ try{
 				<li class="sub-menu">
 					<a href="javascript:;" >
                           <i class="fa fa-cube"></i>
-                          <span>Gestion tiers</span>
+                          <span>Third Party</span>
                       </a>
                       <ul class="sub-menu">
                       <li>
                       	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Client</a>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Client</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Customer</a></li>
                			</ul>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouveau Client</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Customer</a></li>
                			</ul>
                       </li>
                       	
                       <li>
-                      	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Entreprise</a>
+                      	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Company</a>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Entreprise</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Company</a></li>
                			</ul>
                       	<ul class="sub-sub-item">
-                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouvelle Entreprise</a></li>
+                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Company</a></li>
                			</ul>
                       </li>
                   </ul>
@@ -161,29 +161,29 @@ try{
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>
-                          <span>Gestion de compte</span>
+                          <span>Manage User</span>
                       </a>
                       <ul class="sub">
                       
                       <li class="sub-menu">
 			                      <a href="javascript:;" >
 			                          <i class="fa fa-users"></i>
-			                          <span>Utilisateur</span>
+			                          <span>User</span>
 			                      </a>
 			                      <ul class="sub">
-			                      <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List Utilisateur</a></li>
-                          			<li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Ajout Nouvel Utilisateur</a></li>
+			                      <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List User</a></li>
+                          			<li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Ajout New User</a></li>
 			                      </ul>
 	                      </li>
 	                      
 	                       <li class="sub-menu">
 			                      <a href="javascript:;" >
 			                          <i class="fa fa-check-circle"></i>
-			                          <span>Role</span>
+			                          <span>User Type</span>
 			                      </a>
 			                      <ul class="sub">
-			                      <li><a  href="main.jsp?cible=configuration/role-liste" id="role-liste"><i class="fa fa-list"></i>List Role</a></li>
-                          			<li><a  href="main.jsp?cible=configuration/role-ajout" id="role-ajout"><i class="fa fa-plus"></i>Ajout Role</a></li>
+			                      <li><a  href="main.jsp?cible=configuration/role-liste" id="role-liste"><i class="fa fa-list"></i>List User Type</a></li>
+                          			<li><a  href="main.jsp?cible=configuration/role-ajout" id="role-ajout"><i class="fa fa-plus"></i>Add New User Type</a></li>
 			                      </ul>
 	                      </li>
 	                      
@@ -192,34 +192,34 @@ try{
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cog"></i>
-                          <span>Configuration</span>
+                          <span>Settings</span>
                       </a>
                       <ul class="sub">
                        	<li>
                        		<a  href="#" id="menu-ajout-table"><i class="fa fa-cubes"></i>Item</a>
 	                       	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Item</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Item</a></li>
 	               			</ul>
 	                      	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouveau Item</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Item</a></li>
 	               			</ul>
                        	</li>
                       	<li>
-                      		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Matériel</a>
+                      		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Material</a>
 	                      	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Matériel</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Material</a></li>
 	               			</ul>
 	                      	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouveau Matériel</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Material</a></li>
 	               			</ul>
                       	</li>
                    	  	<li>
-                   	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Unité</a>
+                   	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Unit</a>
 	                   	  	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>Liste Unité</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Unit</a></li>
 	               			</ul>
 	                      	<ul class="sub-sub-item">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Ajout Nouvelle Unité</a></li>
+	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Unit</a></li>
 	               			</ul>
                    	  	</li>
                       </ul>
