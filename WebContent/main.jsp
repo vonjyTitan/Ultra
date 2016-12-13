@@ -72,9 +72,18 @@ try{
               </div>
             <!--logo start-->
             <a href="main.jsp?cible=stat" class="logo"><img src="assets/img/lxc_logo.png" class="" style="background-color: white;margin-top: -10px;" width="150"></a>
+            
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
-                
+            
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+            	
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
