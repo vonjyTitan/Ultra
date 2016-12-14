@@ -11,4 +11,5 @@
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Utilisateur(),"utilisateur-ajout",request);
 	builder.removeChamp(new String[]{"idutilisateur","etat"});
 %>
+<h3> Add new User</h3>
 <%=builder.getHTML("User information",6)%>

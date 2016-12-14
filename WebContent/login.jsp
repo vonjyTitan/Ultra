@@ -36,7 +36,7 @@
 	  	<div class="container">
 	  	
 		      <form class="form-login" action="login-testLogin" method="POST">
-		        <h2 class="form-login-heading">Authentification</h2>
+		        <h2 class="form-login-heading">Login page</h2>
 		        <div class="login-wrap">
 		            <input type="text" name="login" class="form-control" placeholder="Utilisateur" autofocus>
 		            <br>
@@ -71,7 +71,7 @@
 		                </span>
 		            </label>-->
 		            <br>
-		            <button class="btn btn-theme btn-block" href="index.html" type="submit" style="background-color : #0086de;" value="Connection"><i class="fa fa-lock"></i> CONNEXION</button>
+		            <button class="btn btn-theme btn-block" href="index.html" type="submit" style="background-color : #0086de;" value="Connection"><i class="fa fa-lock"></i> CONNECTION</button>
 		            <hr>
 		            <%
 		            request.getSession().setAttribute("utilisateur", null);

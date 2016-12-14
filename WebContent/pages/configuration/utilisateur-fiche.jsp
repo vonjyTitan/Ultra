@@ -25,7 +25,7 @@
 		{
 		%><a class="btn btn-danger btn-xs" href="utilisateur-desactive?id=<%=((Utilisateur)builder.getEntity()).getIdutilisateur()%>"><i class="fa fa-trash-o "></i> Disabled</a>
 		<%} %>
-		<a class="btn btn-primary btn-xs" href="main.jsp?cible=configuration/utilisateur-modif&id=<%=((Utilisateur)builder.getEntity()).getIdutilisateur()%>"><i class="fa fa-pencil "></i> Modifier</a>
+		<a class="btn btn-primary btn-xs" href="main.jsp?cible=configuration/utilisateur-modif&id=<%=((Utilisateur)builder.getEntity()).getIdutilisateur()%>"><i class="fa fa-pencil "></i> Update</a>
 </div>
 <%=builder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Recent activity", 6)%>

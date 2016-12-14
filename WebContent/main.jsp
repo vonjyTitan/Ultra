@@ -76,7 +76,6 @@ try{
             <!--logo end-->
            
             <div class="nav notify-row" id="top_menu">
-              
             <ul class="nav top-menu">
                     <!-- settings start -->
                     <li class="dropdown">
@@ -148,7 +147,7 @@ try{
                     </li>
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
-                    <li id="header_inbox_bar" class="dropdown">
+                    <!-- <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme">5</span>
@@ -210,7 +209,7 @@ try{
                                 <a href="index.html#">See all messages</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
                     <!-- inbox dropdown end -->
                 </ul>
                 <!--  notification end -->
@@ -237,13 +236,13 @@ try{
               
               	   <!-- <p class="centered"><a href="profile.html"><img src="assets/img/lxc_logo.png" class="img-circle" width="60"></a></p>-->
               	  <h5 class="centered"><%=((Utilisateur)request.getSession().getAttribute("utilisateur")).getNom()%></h5>
-                  <form action="" class="search-form">
+                  <!-- <form action="" class="search-form">
                 <div class="form-group has-feedback">
             		<label for="search" class="sr-only">Search</label>
             		<input type="text" class="form-control" name="search" id="search" placeholder="search">
               		<span class="glyphicon glyphicon-search form-control-feedback"></span>
             	</div>
-            </form>
+            </form>-->
                   <li class="mt">
                       <a class="active" id="menu-ecceuil" href="main.jsp?cible=stat&currmenu=menu-ecceuil" >
                           <i class="fa fa-dashboard"></i>
@@ -312,7 +311,7 @@ try{
 			                      </a>
 			                      <ul class="sub">
 			                      <li><a  href="main.jsp?cible=configuration/utilisateur-liste" id="utilisateur-liste"><i class="fa fa-list"></i>List User</a></li>
-                          			<li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Ajout New User</a></li>
+                          			<li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Add New User</a></li>
 			                      </ul>
 	                      </li>
 	                      

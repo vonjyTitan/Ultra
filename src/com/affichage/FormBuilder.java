@@ -241,7 +241,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		String reponse="";
 		String option="";
 		if(this.getClass().equals(FilterBuilder.class))
-			option+="<option value=\"\">Tous</option>";
+			option+="<option value=\"\">All</option>";
 		else if(nullable)
 		{
 			option+="<option value=\"\"> -- </option>";
