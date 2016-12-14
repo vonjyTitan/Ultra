@@ -74,18 +74,151 @@ try{
             <a href="main.jsp?cible=stat" class="logo"><img src="assets/img/lxc_logo.png" class="" style="background-color: white;margin-top: -10px;" width="150"></a>
             
             <!--logo end-->
+           
             <div class="nav notify-row" id="top_menu">
-            
-            <form action="" class="search-form">
-                <div class="form-group has-feedback">
-            		<label for="search" class="sr-only">Search</label>
-            		<input type="text" class="form-control" name="search" id="search" placeholder="search">
-              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
-            	</div>
-            </form>
-            	
+              
+            <ul class="nav top-menu">
+                    <!-- settings start -->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <i class="fa fa-tasks"></i>
+                            <span class="badge bg-theme">4</span>
+                        </a>
+                        <ul class="dropdown-menu extended tasks-bar">
+                            <div class="notify-arrow notify-arrow-green"></div>
+                            <li>
+                                <p class="green">You have 4 Projects in Progress</p>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Project FLIC EN FLAC</div>
+                                        <div class="percent">40%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Project 2</div>
+                                        <div class="percent">60%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Project 3</div>
+                                        <div class="percent">80%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            <span class="sr-only">80% Complete</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Project 4</div>
+                                        <div class="percent">70%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                            <span class="sr-only">70% Complete (Important)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="external">
+                                <a href="#">See All Projects</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- settings end -->
+                    <!-- inbox dropdown start-->
+                    <li id="header_inbox_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge bg-theme">5</span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div class="notify-arrow notify-arrow-green"></div>
+                            <li>
+                                <p class="green">You have 5 new messages</p>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Zac Snider</span>
+                                    <span class="time">Just now</span>
+                                    </span>
+                                    <span class="message">
+                                        Hi mate, how is everything?
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Divya Manian</span>
+                                    <span class="time">40 mins.</span>
+                                    </span>
+                                    <span class="message">
+                                     Hi, I need your help with this.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Dan Rogers</span>
+                                    <span class="time">2 hrs.</span>
+                                    </span>
+                                    <span class="message">
+                                        Love your new Dashboard.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Dj Sherman</span>
+                                    <span class="time">4 hrs.</span>
+                                    </span>
+                                    <span class="message">
+                                        Please, answer asap.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">See all messages</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- inbox dropdown end -->
+                </ul>
+                <!--  notification end -->
+          
             </div>
+            
             <div class="top-menu">
+            
             	<ul class="nav pull-right top-menu">
                     <li><a class="logout" href="login.jsp">Deconnexion</a></li>
             	</ul>
@@ -104,6 +237,13 @@ try{
               
               	   <!-- <p class="centered"><a href="profile.html"><img src="assets/img/lxc_logo.png" class="img-circle" width="60"></a></p>-->
               	  <h5 class="centered"><%=((Utilisateur)request.getSession().getAttribute("utilisateur")).getNom()%></h5>
+                  <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
                   <li class="mt">
                       <a class="active" id="menu-ecceuil" href="main.jsp?cible=stat&currmenu=menu-ecceuil" >
                           <i class="fa fa-dashboard"></i>
@@ -138,7 +278,7 @@ try{
                       </a>
                       <ul class="sub-menu">
                       <li>
-                      	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Client</a>
+                      	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Customer</a>
                       	<ul class="sub-sub-item">
                       		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Customer</a></li>
                			</ul>
@@ -286,26 +426,6 @@ try{
     <script src="assets/js/sparkline-chart.js"></script>    
 	<script src="assets/js/zabuto_calendar.js"></script>	
 	
-	<script type="text/javascript">
-       /* $(document).ready(function () {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Notification',
-            // (string | mandatory) the text inside the notification
-            text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
-            // (string | optional) the image to display on the left
-            image: 'assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
-
-        return false;
-        });*/
-	</script>
 	
 	<script type="application/javascript">
         $(document).ready(function () {
