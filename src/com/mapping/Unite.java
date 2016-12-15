@@ -3,7 +3,7 @@ package com.mapping;
 import com.annotations.Entity;
 import com.annotations.Required;
 
-@Entity(pkName="idunite",reference="unite_article")
+@Entity(pkName="idunite",reference="unite")
 public class Unite extends DataEntity {
 	private int idunite;
 	@Required

@@ -350,9 +350,9 @@ try{
                    	  	<li class="sub-menu">
                    	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Unit</a>
 	                   	  	<ul class="sub">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Unit</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/unite-liste" id="unite-liste"><i class="fa fa-list"></i>List Unit</a></li>
 	               			
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Unit</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/unite-ajout" id="unite-ajout"><i class="fa fa-plus"></i>Add New Unit</a></li>
 	               			</ul>
                    	  	</li>
                       </ul>
