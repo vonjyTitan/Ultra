@@ -275,23 +275,21 @@ try{
                           <i class="fa fa-cube"></i>
                           <span>Third Party</span>
                       </a>
-                      <ul class="sub-menu">
-                      <li>
+                      <ul class="sub">
+                      <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Customer</a>
-                      	<ul class="sub-sub-item">
+                      	<ul class="sub">
                       		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Customer</a></li>
-               			</ul>
-                      	<ul class="sub-sub-item">
+               			
                       		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Customer</a></li>
                			</ul>
                       </li>
                       	
-                      <li>
+                      <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Company</a>
-                      	<ul class="sub-sub-item">
+                      	<ul class="sub">
                       		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Company</a></li>
-               			</ul>
-                      	<ul class="sub-sub-item">
+               			
                       		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Company</a></li>
                			</ul>
                       </li>
@@ -334,30 +332,26 @@ try{
                           <span>Settings</span>
                       </a>
                       <ul class="sub">
-                       	<li>
+                       	<li class="sub-menu">
                        		<a  href="#" id="menu-ajout-table"><i class="fa fa-cubes"></i>Item</a>
-	                       	<ul class="sub-sub-item">
+	                       	<ul class="sub">
 	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Item</a></li>
-	               			</ul>
-	                      	<ul class="sub-sub-item">
 	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Item</a></li>
 	               			</ul>
                        	</li>
-                      	<li>
+                      	<li class="sub-menu">
                       		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Material</a>
-	                      	<ul class="sub-sub-item">
+	                      	<ul class="sub">
 	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Material</a></li>
-	               			</ul>
-	                      	<ul class="sub-sub-item">
+	               			
 	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Material</a></li>
 	               			</ul>
                       	</li>
-                   	  	<li>
+                   	  	<li class="sub-menu">
                    	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Unit</a>
-	                   	  	<ul class="sub-sub-item">
+	                   	  	<ul class="sub">
 	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Unit</a></li>
-	               			</ul>
-	                      	<ul class="sub-sub-item">
+	               			
 	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Unit</a></li>
 	               			</ul>
                    	  	</li>
