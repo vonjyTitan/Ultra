@@ -309,8 +309,16 @@ from utilisateur as user join role
 on role.idrole=user.idrole;
 
 INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
-(1, 'utilisateur', NULL),
-(2, 'unite', NULL);
+(1, 'utilisateur', 'Gestion d''utilisateur'),
+(2, 'unite', 'Gestion d''unite'),
+(3, 'role', 'Gestion de role'),
+(4, 'bill', 'Bill Manage'),
+(5, 'client', 'Client Manage'),
+(6, 'entreprise', 'Contractor manage'),
+(7, 'ingenieur', 'Engineer manage'),
+(8, 'item', 'Item manage'),
+(9, 'materiel', 'Material manage'),
+(10, 'project', 'Project manage');
 
 --
 -- Dumping data for table `role`

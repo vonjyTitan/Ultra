@@ -72,12 +72,12 @@ public class Serveur {
 			try {
 				SessionUtil.isExisteSession(request);
 			} catch (Exception e) {
-					response.sendRedirect("login.jsp?erreur=Veuillez vous connecter d'abord!");
+					response.sendRedirect("login.jsp?erreur=Please login first!");
 					return;
 			}
 			try {
 				if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"),action))
-					throw new Exception("Vous n'avez pas acces a cette page!");
+					throw new Exception("You do not have access to this page");
 			} catch (Exception e) {
 				back(request,response,e.getMessage());
 				return;

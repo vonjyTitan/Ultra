@@ -11,12 +11,12 @@ public class SessionUtil {
 	public static void testAcces(HttpServletRequest request)throws Exception{
 		String cible=getValForAttr(request,"cible");
 		if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"),cible))
-			throw new Exception("Vous n'avez pas acces a cette page!");
+			throw new Exception("You do not have access to this page");
 	}
 	
 	public static void isExisteSession(HttpServletRequest request)throws Exception{
 		if(request.getSession().getAttribute("utilisateur")==null)
-			throw new Exception("Veuillez vous connecter d'abord!");
+			throw new Exception("Please login first!");
 	}
 	public static String getValForAttr(HttpServletRequest request,String attr){
 		String reponse=request.getParameter(attr);
