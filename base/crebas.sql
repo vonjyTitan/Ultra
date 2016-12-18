@@ -345,3 +345,6 @@ INSERT INTO `utilisateur` (`IDUTILISATEUR`, `IDROLE`, `LOGIN`, `PASSE`, `ETAT`, 
 (1, 2, 'vonjy', 'LIKDYP7P+adsCPSdk7Tw8g==', 1, 'RAHANJONIRINA', 'Herivonjy'),
 (2, 2, 'fanilo', 'zNRaifaQxajyCBYsH1briQ==', 1, 'ANDRIANJAFY', 'Fanilo');
 
+create or replace view materiel_libelle as SELECT materiel.*,unite.libelle as unite FROM materiel
+join unite on materiel.idunite=unite.idunite;
+

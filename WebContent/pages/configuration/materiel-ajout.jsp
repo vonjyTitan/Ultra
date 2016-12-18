@@ -7,9 +7,10 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Unite(),"crud-insert?classenom=com.mapping.Unite&cible=configuration/unite-liste&refereur=main.jsp?cible=unite-ajout",request);
-	builder.removeChamp("idunite");
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Materiel(),"crud-insert?classenom=com.mapping.Materiel&cible=configuration/materiel-liste&referreur=main.jsp?cible=configuration/meteriel-ajout",request);
+	builder.removeChamp("idmateriel");
+	builder.setOrdre(new String[]{"libelle","idunite","description"});
 	builder.setChampTextarea("description");
 %>
-<h3> Add new Unit</h3>
+<h3>Add new Material</h3>
 <%=builder.getHTML("General information", 6)%>

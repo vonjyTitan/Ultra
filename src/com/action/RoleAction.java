@@ -35,6 +35,6 @@ public class RoleAction extends Action {
 			throw new Exception("You must check at least one Access !");
 		}
 		RoleService.getInstance().updateRole(role, idfonctionnalites);
-		goTo(request, response, "get", "main.jsp?cible=configuration/role-fiche?id="+role.getIdrole());
+		goTo(request, response, "get", "main.jsp?cible=configuration/role-fiche&id="+role.getIdrole());
 	}
 }

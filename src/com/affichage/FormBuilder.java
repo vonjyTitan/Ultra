@@ -119,8 +119,8 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		String reponse="<div class=\""+defaultClassForContainer+"\">";
 		reponse+="<label class=\"control-label col-lg-4\"></label>"
               	+"<div class=\"col-lg-8\">";
-		reponse+=" <input type=\"submit\"  class=\""+classForValidation+"\" value=\"Valider\"/>";
-		reponse+=" <input type=\"reset\"  class=\""+classForReset+"\" value=\"Annuler\"/>";
+		reponse+=" <input type=\"submit\"  class=\""+classForValidation+"\" value=\"Submit\"/>";
+		reponse+=" <input type=\"reset\"  class=\""+classForReset+"\" value=\"Reset\"/>";
 		reponse+="</div>";
 		reponse+="</div>";
 		return reponse;

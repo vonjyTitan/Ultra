@@ -14,4 +14,6 @@ public @interface Entity{
 	String reference() default "";
 	String pkName() default "id";
 	String dataBasekey() default "";
+	String actionName() default "";
+
 }

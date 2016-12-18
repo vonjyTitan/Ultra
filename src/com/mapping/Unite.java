@@ -1,14 +1,18 @@
 package com.mapping;
 
 import com.annotations.Entity;
+import com.annotations.Parameter;
 import com.annotations.Required;
 
 @Entity(pkName="idunite",reference="unite")
 public class Unite extends DataEntity {
+	@Parameter(libelle="idunit")
 	private int idunite;
 	@Required
+	@Parameter(libelle="label")
 	private String libelle;
 	private String description;
+	
 	public int getIdunite() {
 		return idunite;
 	}

@@ -497,6 +497,16 @@ public abstract class DataEntity {
 		for(String s:champs)
 			addGroupChamp(s);
 	}
+	
+	public String getActionName(){
+		Entity entity=(Entity) this.getClass().getAnnotation(Entity.class);
+		if(entity==null)
+			return this.getClass().getSimpleName().toLowerCase();
+		if( entity.actionName()==null || entity.actionName().length()==0 )
+			return this.getClass().getSimpleName().toLowerCase();
+		return entity.actionName();
+	}
+	
 	// ===========================================================
     // private method
     // ===========================================================

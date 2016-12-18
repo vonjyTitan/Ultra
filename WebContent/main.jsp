@@ -16,13 +16,14 @@
       }
 try{
 	if(cible.split("/").length>1 && !LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"),cible.split("/")[1])){
-  		throw new Exception("You don't have permission for this page");
+  		throw new Exception("You do not have permission for this page");
   	}
   }
   catch(Exception ex)
   {
+	  ex.printStackTrace();
 	  %><script language="JavaScript">
-	  alert('<%=ex.getMessage()%>');
+	  alert("<%=ex.getMessage()%>");
          history.back();</script><%
   		return ;
   }
@@ -342,9 +343,9 @@ try{
                       	<li class="sub-menu">
                       		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Material</a>
 	                      	<ul class="sub">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Material</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/materiel-liste" id="materiel-liste"><i class="fa fa-list"></i>List Material</a></li>
 	               			
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Material</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/materiel-ajout" id="materiel-ajout"><i class="fa fa-plus"></i>Add New Material</a></li>
 	               			</ul>
                       	</li>
                    	  	<li class="sub-menu">
@@ -377,6 +378,7 @@ try{
                 <% 
                 }
           		catch (Exception e) {
+          			e.printStackTrace();
           			%>
                     <script language="JavaScript"> alert('<%=e.getMessage().toUpperCase() %>');
                         history.back();</script>

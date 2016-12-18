@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.affichage.HTMLBuilder;
 import com.mapping.DataEntity;
+import com.mapping.Utilisateur;
 import com.rooteur.Action;
+import com.service.LoginService;
 
 import dao.DaoModele;
 import utilitaire.SessionUtil;
@@ -27,6 +29,8 @@ public class CrudAction extends Action {
 		catch(Exception ex){
 			throw new Exception("La class doit heritE de la class DataEntity!");
 		}
+		if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"), entity.getActionName()+"-ajout"))
+			throw new Exception("Yout do not have access to this page");
 		entity=new HTMLBuilder(entity, request).getEntity();
 		if(!entity.isValide())
 		{
@@ -51,6 +55,8 @@ public class CrudAction extends Action {
 		catch(Exception ex){
 			throw new Exception("La class doit heritE de la class DataEntity!");
 		}
+		if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"), entity.getActionName()+"-ajout"))
+			throw new Exception("Yout do not have access to this page");
 		entity=new HTMLBuilder(entity, request).getEntity();
 		if(!entity.isValide())
 		{
@@ -63,7 +69,8 @@ public class CrudAction extends Action {
 		}
 		DaoModele.getInstance().update(entity);
 		String cible=SessionUtil.getValForAttr(request, "cible");
-		goTo(request,response,"get","main.jsp?cible="+cible);
+		Object id=entity.getPkValue();
+		goTo(request,response,"get","main.jsp?cible="+cible+"&id="+id);
 	}
 	public void delete(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		String classe=SessionUtil.getValForAttr(request, "classenom");
@@ -79,6 +86,8 @@ public class CrudAction extends Action {
 		catch(Exception ex){
 			throw new Exception("La class doit heritE de la class DataEntity!");
 		}
+		if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"), entity.getActionName()+"-ajout"))
+			throw new Exception("Yout do not have access to this page");
 		entity.setValueForField(entity.getFieldByName(entity.getPkName()),Integer.valueOf((String)SessionUtil.getValForAttr(request, "id")));
 		if(DaoModele.getInstance().findById(entity)==null)
 		{

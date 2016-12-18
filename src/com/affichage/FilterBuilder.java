@@ -81,8 +81,8 @@ public class FilterBuilder<T extends DataEntity> extends FormBuilder<T> {
 		String reponse="<div class=\"col-lg-12\">";
 		reponse+="<label class=\"control-label col-lg-4\"></label>"
               	+"<div class=\"col-lg-8\">";
-		reponse+=" <input type=\"submit\"  class=\""+classForValidation+"\" value=\"Chercher\"></input>";
-		reponse+=" <input type=\"reset\"  class=\""+classForReset+"\" value=\"Reinitialiser\"></input>";
+		reponse+=" <input type=\"submit\"  class=\""+classForValidation+"\" value=\"Search\"></input>";
+		reponse+=" <input type=\"reset\"  class=\""+classForReset+"\" value=\"Reset\"></input>";
 		reponse+="</div>";
 		reponse+="</div>";
 		return reponse;

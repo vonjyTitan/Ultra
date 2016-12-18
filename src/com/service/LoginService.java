@@ -23,6 +23,8 @@ public class LoginService {
 	}
 	public boolean isAllowed(Utilisateur utilisateur,String activite)throws Exception{
 		String fonctionnalite = activite.split("-")[0];
+		if(fonctionnalite.compareToIgnoreCase("crud")==0)
+			return true;
 		RoleFonctionnalite crit = new RoleFonctionnalite();
 		crit.setNomTable("userrole_libelle");
 		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit, " and idutilisateur="+utilisateur.getIdrole()+" and upper(fonctionnalite)=upper('"+fonctionnalite+"')");
