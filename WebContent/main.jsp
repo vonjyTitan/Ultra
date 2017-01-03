@@ -336,8 +336,8 @@ try{
                        	<li class="sub-menu">
                        		<a  href="#" id="menu-ajout-table"><i class="fa fa-cubes"></i>Item</a>
 	                       	<ul class="sub">
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Item</a></li>
-	                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Item</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/item-liste" id="item-liste"><i class="fa fa-list"></i>List Item</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/item-ajout" id="item-ajout"><i class="fa fa-plus"></i>Add New Item</a></li>
 	               			</ul>
                        	</li>
                       	<li class="sub-menu">

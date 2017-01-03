@@ -9,7 +9,7 @@
 <%
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Materiel(),"crud-insert?classenom=com.mapping.Materiel&cible=configuration/materiel-liste&referreur=main.jsp?cible=configuration/meteriel-ajout",request);
 	builder.removeChamp("idmateriel");
-	builder.setOrdre(new String[]{"libelle","idunite","description"});
+	builder.setOrdre(new String[]{"code","libelle","idunite","description"});
 	builder.setChampTextarea("description");
 %>
 <h3>Add new Material</h3>

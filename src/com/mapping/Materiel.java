@@ -7,6 +7,7 @@ import com.annotations.Required;
 
 @Entity(pkName="idmateriel",reference="materiel")
 public class Materiel extends DataEntity {
+	private String code;
 	@Parameter(libelle="idmaterial")
 	private int idmateriel;
 	@ForeignKey(toclasse=Unite.class,pktable="idunite",libtable="libelle")
@@ -47,5 +48,11 @@ public class Materiel extends DataEntity {
 	}
 	public void setUnite(String unite) {
 		this.unite = unite;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

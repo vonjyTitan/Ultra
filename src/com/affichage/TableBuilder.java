@@ -55,7 +55,10 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 			reponse+="<th></th>";
 		}
 		Champ pk=getFieldByName(entity.getPkName());
-		reponse+="<th>"+getSigne(pk.getField())+" <a href=\""+getSimpleLien()+"&nomChampOrder="+pk.getName()+"&ordering="+getOrderForField(pk.getField())+"\">"+pk.getLibelle()+"</a></th>";
+		Boolean nvid=pk==null || isNotVisible(pk);
+		if(!nvid){
+			reponse+="<th>"+getSigne(pk.getField())+" <a href=\""+getSimpleLien()+"&nomChampOrder="+pk.getName()+"&ordering="+getOrderForField(pk.getField())+"\">"+pk.getLibelle()+"</a></th>";
+		}
 		for(Champ f:fieldsAvalaible){
 			if(f.getName().compareToIgnoreCase(entity.getPkName())==0 || isNotVisible(f))
 				continue;
@@ -67,17 +70,19 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 		reponse+="<tbody>";
 		for(DataEntity ob:data)
 		{
-			Object valId=ob.getPkValue();
-			reponse+="<tr id=\"tr"+valId+"\">";
-			if(withcheckbox){
-				reponse+="<td style=\"text-align:left;\"><input type=\"checkbox\" value=\""+valId+"\" name=\""+nomCheckbox+"\"/></td>";
+			if(!nvid){
+				Object valId=ob.getPkValue();
+				reponse+="<tr id=\"tr"+valId+"\">";
+				if(withcheckbox){
+					reponse+="<td style=\"text-align:left;\"><input type=\"checkbox\" value=\""+valId+"\" name=\""+nomCheckbox+"\"/></td>";
+				}
+				String idval="<td style=\"text-align:left;\">"+valId+"</td>";
+				if(lienForId!=null){
+					idval="<td style=\"text-align:left;\"><a href=\""+lienForId+"&id="+valId+"\">"+valId+"</a></td>";
+				}
+				
+				reponse+=idval;
 			}
-			String idval="<td style=\"text-align:left;\">"+valId+"</td>";
-			if(lienForId!=null){
-				idval="<td style=\"text-align:left;\"><a href=\""+lienForId+"&id="+valId+"\">"+valId+"</a></td>";
-			}
-			
-			reponse+=idval;
 			for(Champ f:fieldsAvalaible){
 				if(f.getName().compareToIgnoreCase(entity.getPkName())==0 || isNotVisible(f))
 					continue;
@@ -93,9 +98,9 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 					value=UtileAffichage.getNonNullValue(value, f.getField().getType());
 				}
 				if(value !=null && DataEntity.isNumberType(value.getClass()))
-					reponse+="<td>"+getLienForField(f.getField(), value)+"</td>";
+					reponse+="<td>"+getLienForField(f, value,ob)+"</td>";
 				else
-					reponse+="<td style=\"text-align:left;\">"+getLienForField(f.getField(), value)+"</td>";
+					reponse+="<td style=\"text-align:left;\">"+getLienForField(f, value,ob)+"</td>";
 			}
 			ob.setLienForModif(entity.getLienForModif());
 			ob.setLienForDelete(entity.findLienForDelete());
@@ -177,11 +182,11 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 			setClassForEntete(champ[i],classe[i]);
 		}
 	}
-	private String getLienForField(Field f,Object value) throws Exception{
+	private String getLienForField(Champ f,Object value,DataEntity ob) throws Exception{
 		String reponse="";
 		Champ fid=idchampForchamp.get(f);
 		if(fid!=null){
-			Object id=entity.getValueForField(fid.getField());
+			Object id=ob.getValueForField(fid.getField());
 			return "<a href=\""+lienForChamp.get(f)+"&id="+id+"\">"+value+"</a>";
 		}
 		return String.valueOf(value);

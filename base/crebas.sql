@@ -320,6 +320,7 @@ INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
 (9, 'materiel', 'Material manage'),
 (10, 'project', 'Project manage');
 
+
 --
 -- Dumping data for table `role`
 --
@@ -348,3 +349,10 @@ INSERT INTO `utilisateur` (`IDUTILISATEUR`, `IDROLE`, `LOGIN`, `PASSE`, `ETAT`, 
 create or replace view materiel_libelle as SELECT materiel.*,unite.libelle as unite FROM materiel
 join unite on materiel.idunite=unite.idunite;
 
+ALTER TABLE `materiel` ADD `code` VARCHAR( 50 ) ;
+ALTER TABLE `bill` ADD `code` VARCHAR( 50 ) ;
+
+create or replace view item_libelle as
+select item.*, unite.libelle as unite from 
+item join unite
+on unite.idunite=item.idunite;

@@ -10,7 +10,7 @@
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Materiel(), "crud-update?classenom=com.mapping.Materiel&cible=configuration/materiel-fiche&referreur=main.jsp?cible=configuration/materiel-fiche",request);
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
 	builder.addNotVisibleChamp("idmateriel");
-	builder.setOrdre(new String[]{"libelle","idunite","description"});
+	builder.setOrdre(new String[]{"code","libelle","idunite","description"});
 	builder.setChampTextarea("description");
 %>
 <h3>Material update</h3>

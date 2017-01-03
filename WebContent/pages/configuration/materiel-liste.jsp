@@ -12,7 +12,8 @@
 	TableBuilder builder=new TableBuilder(crit,request);
 	builder.removeChamp("description");
 	builder.removeChamp("idunite");
-	builder.setLienForId("main.jsp?cible=configuration/materiel-fiche");
+	builder.setLienForChamp("code","main.jsp?cible=configuration/materiel-fiche","idmateriel");
+	builder.removeChamp("idmateriel");
 	builder.setLienForModif("main.jsp?cible=configuration/materiel-modif");
 	builder.getFilterBuilder().removeChamp("unite");
 %>
