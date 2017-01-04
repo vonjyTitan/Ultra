@@ -10,7 +10,7 @@
 <%
 	PageFiche builder=new PageFiche(new Utilisateur(),request);
 	builder.getEntity().setNomTable("utilisateur_libelle");
-	builder.addNotVisibleChamp(new String[]{"login","passe","idrole"});
+	builder.addNotVisibleChamp(new String[]{"login","passe","idrole","isingenieur"});
 	builder.getFieldByName("etat").setMethodForChamp("findActive");
 %>
 <h3><a href="main.jsp?cible=configuration/utilisateur-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> User Details</h3>

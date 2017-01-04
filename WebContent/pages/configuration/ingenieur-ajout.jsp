@@ -7,9 +7,9 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-
-	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Utilisateur(),"utilisateur-ajout",request);
-	builder.removeChamp(new String[]{"idutilisateur","etat","isingenieur"});
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Utilisateur(),"ingenieur-insert",request);
+	builder.removeChamp(new String[]{"isingenieur","idutilisateur","etat"});
+	builder.setLibelleFor("idrole", "Role of engineer");
 %>
-<h3> Add new User</h3>
-<%=builder.getHTML("User information",6)%>
+<h3>Add new Engineer</h3>
+<%=builder.getHTML("General information", 6)%>

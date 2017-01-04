@@ -296,6 +296,16 @@ try{
                       </li>
                   </ul>
                   </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-user-circle-o"></i>
+                          <span>Manage Engineer</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="main.jsp?cible=configuration/ingenieur-liste" id="ingenieur-liste"><i class="fa fa-list"></i>List of Engineer</a></li>
+                          <li><a  href="main.jsp?cible=configuration/ingenieur-ajout" id="ingenieur-ajout"><i class="fa fa-plus"></i>Add New Engineer</a></li>
+                      </ul>
+                </li>
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>

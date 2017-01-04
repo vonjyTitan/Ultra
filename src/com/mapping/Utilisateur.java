@@ -33,6 +33,7 @@ public class Utilisateur extends DataEntity {
 	@ForeignKey(toclasse=Role.class,pktable="idrole",libtable="libelle")
 	private int idrole;
 	private String role;
+	private int isingenieur;
 	
 	public int getIdutilisateur() {
 		return idutilisateur;
@@ -97,6 +98,12 @@ public class Utilisateur extends DataEntity {
 	}
 	public void setEtat(int etat) {
 		this.etat = etat;
+	}
+	public int getIsingenieur() {
+		return isingenieur;
+	}
+	public void setIsingenieur(int isingenieur) {
+		this.isingenieur = isingenieur;
 	}
 	
 }

@@ -306,7 +306,7 @@ create or replace view utilisateur_libelle
 as 
 select user.*, role.libelle as role
 from utilisateur as user join role 
-on role.idrole=user.idrole;
+on role.idrole=user.idrole where isingenieur=0;
 
 INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
 (1, 'utilisateur', 'Gestion d''utilisateur'),
@@ -356,3 +356,11 @@ create or replace view item_libelle as
 select item.*, unite.libelle as unite from 
 item join unite
 on unite.idunite=item.idunite;
+
+ALTER TABLE `utilisateur` ADD `isingenieur` integer default 0;
+
+create or replace view ingenieur_libelle
+as 
+select user.*, role.libelle as role
+from utilisateur as user join role 
+on role.idrole=user.idrole where isingenieur=1;

@@ -10,7 +10,7 @@
 <% InsertUpdateBuilder builder=new InsertUpdateBuilder(new Utilisateur(),"utilisateur-modif",request); 
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
 	builder.removeChamp(new String[]{"etat"});
-	builder.addNotVisibleChamp(new String[]{"idutilisateur"});
+	builder.addNotVisibleChamp(new String[]{"idutilisateur","isingenieur"});
 	builder.getFieldByName("passe").setMethodForChamp("findPasseDecrypted");%>
 	
 	<h3><a href="main.jsp?cible=configuration/utilisateur-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> User update</h3>
