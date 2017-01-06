@@ -280,8 +280,7 @@ try{
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Customer</a>
                       	<ul class="sub">
-                      		<li><a  href="#" id="menu-liste-table"><i class="fa fa-list"></i>List Customer</a></li>
-               			
+                      		<li><a href="main.jsp?cible=Tiers/client-liste" id="menu-liste-table"><i class="fa fa-list"></i>List Customer</a></li>               
                       		<li><a  href="#" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Customer</a></li>
                			</ul>
                       </li>
