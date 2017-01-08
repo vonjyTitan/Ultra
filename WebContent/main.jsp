@@ -297,7 +297,7 @@ try{
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-user-circle-o"></i>
+                          <i class="fa fa-users"></i>
                           <span>Manage Engineer</span>
                       </a>
                       <ul class="sub">

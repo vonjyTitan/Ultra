@@ -22,6 +22,11 @@ public class UtilisateurAction extends Action {
 			}
 			user.setEtat(2);
 			DaoModele.getInstance().update(user);
+			if(user.getIsingenieur()==1)
+			{
+				goTo(request, response, "get","main.jsp?cible=configuration/ingenieur-fiche&id="+id);
+				return;
+			}
 			goTo(request, response, "get","main.jsp?cible=configuration/utilisateur-fiche&id="+id);
 		}
 		catch(Exception ex){
@@ -39,6 +44,11 @@ public class UtilisateurAction extends Action {
 			}
 			user.setEtat(1);
 			DaoModele.getInstance().update(user);
+			if(user.getIsingenieur()==1)
+			{
+				goTo(request, response, "get","main.jsp?cible=configuration/ingenieur-fiche&id="+id);
+				return;
+			}
 			goTo(request, response, "get","main.jsp?cible=configuration/utilisateur-fiche&id="+id);
 		}
 		catch(Exception ex){
