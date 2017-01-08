@@ -14,4 +14,4 @@
 	builder.setChampTextarea("description");
 %>
 <h3>Customer update</h3>
-<%=builder.getHTML("General information", 6)%>
+<%=builder.getHTML("General information", 12)%>

@@ -12,6 +12,6 @@
 	builder.setLienForId("main.jsp?cible=Tiers/entreprise-fiche");
 %>
 <%=builder.getFilterBuilder().getHTML("filter") %>
-<%=HTMLBuilder.beginPanel("List of Company", 6) %>
+<%=HTMLBuilder.beginPanel("List of Company", 12) %>
 <%=builder.getHTML()%> 
 <%=HTMLBuilder.endPanel()%>

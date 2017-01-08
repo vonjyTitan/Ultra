@@ -1,13 +1,16 @@
 package com.mapping;
 
 import com.annotations.Entity;
+import com.annotations.Parameter;
 import com.annotations.Required;
 
 @Entity(pkName="idclient", reference="client")
 public class Client extends DataEntity {
 	private int idclient;
 	@Required
+	@Parameter(libelle="Name")
 	private String nom;
+	@Parameter(libelle="Description")
 	private String description;
 	public int getIdclient() {
 		return idclient;
