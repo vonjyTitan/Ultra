@@ -7,10 +7,9 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Client(), "crud-update?classenom=com.mapping.Client&cible=Tiers/client-fiche&referreur=main.jsp?cible=Tiers/client-fiche",request);
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Entreprise(), "crud-update?classenom=com.mapping.Entreprise&cible=Tiers/entreprise-fiche&referreur=main.jsp?cible=Tiers/entreprise-fiche",request);
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
-	builder.addNotVisibleChamp("idclient");
-	//builder.setOrdre(new String[]{"idcustomer","Name","Description"});
+	builder.addNotVisibleChamp("identreprise");
 	builder.setChampTextarea("description");
 %>
 <h3>Customer update</h3>
