@@ -237,6 +237,7 @@ create table UTILISATEUR
    ETAT                 int,
    NOM                  varchar(100),
    PRENOM               varchar(50),
+   isingenieur integer default 0,
    primary key (IDUTILISATEUR)
 );
 
@@ -357,7 +358,6 @@ select item.*, unite.libelle as unite from
 item join unite
 on unite.idunite=item.idunite;
 
-ALTER TABLE `utilisateur` ADD `isingenieur` integer default 0;
 
 create or replace view ingenieur_libelle
 as 
