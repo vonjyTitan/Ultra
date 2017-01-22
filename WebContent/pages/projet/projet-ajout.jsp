@@ -16,7 +16,14 @@
 	List<Utilisateur> ingenieurs = DaoModele.getInstance().findPageGenerique(1, crit);
 %>
 <h3>Add new project</h3>
-<%=builder.getHTML("General informations", 6)%>
+<%=HTMLBuilder.beginPanel("General informations", 6)%>
+<%=builder.beginHTMLForm(true)%>
+<%=builder.getHTMLBody() %>
+<div id="datefincontainer" class="form-group col-lg-12">
+<div class="col-sm-4 col-sm-4 ">
+<label class="control-label" for="datefin">Attached file </label></div><div class="col-sm-7"><input name="file" id="file" type="file"></div></div>
+<%=builder.endHTMLFormWithButton()%>
+<%=HTMLBuilder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Engineers", 6)%>
 <div class="panel-body form-horizontal style-form">
 <table class="table table-striped table-advance table-hover table-bordered">
