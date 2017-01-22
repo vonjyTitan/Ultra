@@ -1,0 +1,1 @@
+ALTER TABLE `projet` ADD `code` VARCHAR( 50 ) NOT NULL;
