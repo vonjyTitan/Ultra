@@ -256,9 +256,9 @@ try{
                           <span>Manage Project</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#" id="menu-liste-table"><i class="fa fa-archive"></i>Summary</a></li>
+                          <!--  <li><a  href="#" id="menu-liste-table"><i class="fa fa-archive"></i>Summary</a></li>-->
                           <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>List Project</a></li>
-                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Add New Project</a></li>
+                          <li><a  href="main.jsp?cible=projet/projet-ajout" id="projet-ajout"><i class="fa fa-plus"></i>Add New Project</a></li>
                       </ul>
                 </li>
                 <!-- <li class="sub-menu">

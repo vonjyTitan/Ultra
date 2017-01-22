@@ -318,7 +318,7 @@ INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
 (7, 'ingenieur', 'Engineer manage'),
 (8, 'item', 'Item manage'),
 (9, 'materiel', 'Material manage'),
-(10, 'project', 'Project manage');
+(10, 'projet', 'Project manage');
 
 
 --

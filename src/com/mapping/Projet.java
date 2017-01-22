@@ -14,8 +14,10 @@ public class Projet extends DataEntity {
 	private String lieu;
 	private String description;
 	@ForeignKey(toclasse=Client.class,libtable="nom",pktable="idclient")
+	@Parameter(libelle="Customer")
 	private int idclient;
 	@ForeignKey(toclasse=Entreprise.class, libtable="nom",pktable="identreprise")
+	@Parameter(libelle="Company")
 	private int identreprise;
 	@Parameter(libelle="Start Date ()")
 	private java.sql.Date datedebut;
