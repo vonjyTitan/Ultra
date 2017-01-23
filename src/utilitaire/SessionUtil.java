@@ -1,7 +1,11 @@
 package utilitaire;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.FileItem;
 
 import com.mapping.Utilisateur;
 import com.service.LoginService;
@@ -26,6 +30,22 @@ public class SessionUtil {
 		}
 		return reponse;
 	}
-	
+	public static String getValForAttr(List<FileItem> items,String attr){
+		String response = "";
+		boolean trouver = false;
+		for (FileItem item : items) {
+            if (item.isFormField() && item.getFieldName().compareToIgnoreCase(attr)==0) {
+            	trouver = true;
+            	response+= (response.length()>0) ? ","+item.getString() : item.getString();
+            } 
+		}
+		if(trouver)
+			return response;
+		return null;
+	}
+	public static String[] getParameterValues(List<FileItem> items,String attr){
+		String val = getValForAttr(items,attr);
+		return val!=null ? val.split(",") : new String[]{};
+	}
 	
 }

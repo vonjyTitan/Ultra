@@ -13,6 +13,10 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.affichage.InsertUpdateBuilder.ERROR_SHOW;
 import com.mapping.DataEntity;
 
@@ -126,21 +130,33 @@ public class HTMLBuilder<T extends DataEntity> {
 		
 		return "";
 	}
+	
 	public T getValue() throws Exception{
 		T reponse=(T) getEntity().getClass().newInstance();
 		//Field[] fields=reponse.getAllFields();
+		if (request.getContentType() != null && 
+			    request.getContentType().toLowerCase().indexOf("multipart/form-data") > -1 ) 
+			{
+			reponse.setFileItems(new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request));
+			}
 		for(Champ field:fieldsAvalaible)
 		{
-			if(SessionUtil.getValForAttr(request,field.getName())!=null)
+			String value = null;
+			if(reponse.getFileItems()!=null){
+				value=SessionUtil.getValForAttr(reponse.getFileItems(),field.getName());
+			}
+			else{
+				value=SessionUtil.getValForAttr(request,field.getName());
+			}
+			if(value!=null && !value.isEmpty())
 			{
-				if(SessionUtil.getValForAttr(request,field.getName()).isEmpty())
-					continue;
-				//test 
 				if(field.getField()==null){
-					field.setValue(UtileAffichage.parseFromRequest(SessionUtil.getValForAttr(request,field.getName()),field.getType()));
+					field.setValue(UtileAffichage.parseFromRequest(value,field.getType()));
 					continue;
 				}
-				reponse.setValueForField(field.getField(), UtileAffichage.parseFromRequest(SessionUtil.getValForAttr(request,field.getName()),field.getType()));
+				Object realvalue = UtileAffichage.parseFromRequest(value,field.getType());
+				//System.out.println("field name : "+field.getName()+", value : "+value+", type : "+field.getType()+", valueType : "+realvalue.getClass());
+				reponse.setValueForField(field.getField(), realvalue);
 			}
 		}
 		if(request.getParameter("nomChampOrder")!=null)

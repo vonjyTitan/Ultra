@@ -17,6 +17,8 @@ import java.util.Map;
 import javax.management.ListenerNotFoundException;
 import javax.swing.text.DateFormatter;
 
+import org.apache.commons.fileupload.FileItem;
+
 import com.annotations.Entity;
 import com.annotations.Extension;
 import com.annotations.ForeignKey;
@@ -56,6 +58,7 @@ public abstract class DataEntity {
 	private int count=0;
 	private String lienForModif="";
 	private String lienForDelete="";
+	private List<FileItem> fileItems=null;
 	public int findPackSize() {
 		return packSize;
 	}
@@ -600,6 +603,14 @@ public abstract class DataEntity {
 
 	public void setLienForDelete(String lienForDelete) {
 		this.lienForDelete = lienForDelete;
+	}
+
+	public List<FileItem> getFileItems() {
+		return fileItems;
+	}
+
+	public void setFileItems(List<FileItem> fileItems) {
+		this.fileItems = fileItems;
 	}
 	
 }

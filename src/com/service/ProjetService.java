@@ -60,7 +60,7 @@ public class ProjetService {
 				inter.setIdprojet(idprojet);
 				inter.setEtat(ConstantEtat.MOIS_CREATED);
 				inter.setEstimation(Double.valueOf(estimation[i]));
-				inter.setMois((Date) UtileAffichage.getNonNullValue(dates[i], Date.class));
+				inter.setMois((Date) UtileAffichage.parseFromRequest(dates[i], Date.class));
 				mois.add(inter);
 			}
 		}

@@ -36,7 +36,11 @@ public class UtileAffichage {
 		if(type.equals(java.util.Date.class) || type.equals(java.sql.Date.class))
 		{
 			DateFormat form=new SimpleDateFormat("dd/MM/yyyy"); 
-			return form.parseObject((String) value);
+			Date response = (Date) form.parseObject((String) value);
+			if(type.equals(java.sql.Date.class)){
+				return new java.sql.Date(response.getTime());
+			}
+			return response;
 		}
 		else if (type.equals(int.class)){
 			return Integer.valueOf("0"+((String)value));

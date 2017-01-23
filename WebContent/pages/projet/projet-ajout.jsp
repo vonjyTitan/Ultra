@@ -16,13 +16,12 @@
 	List<Utilisateur> ingenieurs = DaoModele.getInstance().findPageGenerique(1, crit);
 %>
 <h3>Add new project</h3>
-<%=HTMLBuilder.beginPanel("General informations", 6)%>
 <%=builder.beginHTMLForm(true)%>
+<%=HTMLBuilder.beginPanel("General informations", 6)%>
 <%=builder.getHTMLBody() %>
 <div id="datefincontainer" class="form-group col-lg-12">
 <div class="col-sm-4 col-sm-4 ">
-<label class="control-label" for="datefin">Attached file </label></div><div class="col-sm-7"><input name="file" id="file" type="file"></div></div>
-<%=builder.endHTMLFormWithButton()%>
+<label class="control-label" for="datefin">Attached file </label></div><div class="col-sm-7"><input name="attachement" id="file" type="file"></div></div>
 <%=HTMLBuilder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Engineers", 6)%>
 <div class="panel-body form-horizontal style-form">
@@ -79,6 +78,8 @@
 </div>
 </div>
 <%=HTMLBuilder.endPanel()%>
+<%=builder.getHTMLButton() %>
+<%=builder.endHTMLForm()%>
 <script src="assets/js/jquery.min.js"></script>
 <script>
 var taille=<%=ingenieurs.size()%>;
@@ -117,8 +118,8 @@ function addChildEstim(){
 	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
 }
 function addChildBill(){
-	var node = "<tr><td><input type=\"text\" name=\"codebill\"/></td>";
-	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"libellebill\"/></td><td><textarea style=\"height: 25px;\" name=\"descriptionbill\"></textarea></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
+	var node = "<tr><td><input type=\"text\" style=\"width: 50px;\" name=\"codebill\"/></td>";
+	node+="<td><input type=\"text\" name=\"libellebill\"/></td><td><textarea style=\"height: 25px;\" name=\"descriptionbill\"></textarea></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#bills").append(node);
 	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
