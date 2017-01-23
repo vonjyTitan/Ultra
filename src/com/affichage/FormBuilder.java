@@ -212,7 +212,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		}
 		else if(f.getType().equals(Date.class) || f.getType().equals(java.sql.Date.class))
 		{
-			return "<input type=\"text\"";
+			return "<input type=\"text\" placeholder=\"dd/MM/yyyy\" ";
 		}
 		else if(f.getType().equals(Boolean.class) || f.getType().equals(boolean.class)){
 			if((boolean)defaultValudeForField(f,true)==true)

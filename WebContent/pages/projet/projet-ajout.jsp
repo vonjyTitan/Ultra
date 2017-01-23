@@ -7,7 +7,7 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder = new InsertUpdateBuilder(new Projet(),"",request);
+	InsertUpdateBuilder builder = new InsertUpdateBuilder(new Projet(),"projet-ajout",request);
 	builder.removeChamp(new String[]{"idprojet","etat"});
 	builder.setChampTextarea("description");
 	Utilisateur crit = new Utilisateur();
@@ -67,6 +67,7 @@
 		<tr>
 			<th>Bill Code</th>
 			<th>Label</th>
+			<th>Description</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -109,7 +110,7 @@ function addChildIng(){
 	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
 }
 function addChildEstim(){
-	var node = "<tr><td><input type=\"text\" name=\"dateestimation\"/></td>";
+	var node = "<tr><td><input placeholder=\"dd/MM/yyyy\" type=\"text\" name=\"dateestimation\"/></td>";
 	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#estimates").append(node);
@@ -117,7 +118,7 @@ function addChildEstim(){
 }
 function addChildBill(){
 	var node = "<tr><td><input type=\"text\" name=\"codebill\"/></td>";
-	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"libelle\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
+	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"libellebill\"/></td><td><textarea style=\"height: 25px;\" name=\"descriptionbill\"></textarea></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#bills").append(node);
 	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
