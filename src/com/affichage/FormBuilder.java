@@ -19,6 +19,7 @@ import com.mapping.OptionObject;
 
 import dao.Connecteur;
 import dao.DaoModele;
+import utilitaire.UtileAffichage;
 
 public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 
@@ -204,7 +205,11 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 	private String getEndInput(Champ field,Object value){
 		if(field.isTextarea())
 			return ">"+value+"</textarea>";
-		return "value=\""+value+"\" />";
+		Object val = value;
+		if(value.getClass()==java.sql.Date.class || value.getClass()==java.util.Date.class){
+			val = UtileAffichage.formatAfficherDate((Date) value);
+		}
+		return "value=\""+val+"\" />";
 	}
 	private String getTypeForField(Champ f)throws Exception{
 		if(getEntity().isNumberType(f.getType())){
