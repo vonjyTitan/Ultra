@@ -72,7 +72,7 @@ public class Serveur {
 			try {
 				SessionUtil.isExisteSession(request);
 			} catch (Exception e) {
-					response.sendRedirect("login.jsp?erreur=Please login first!");
+					response.sendRedirect("login.jsp?error=Please login first!");
 					return;
 			}
 			try {

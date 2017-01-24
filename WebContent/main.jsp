@@ -280,17 +280,17 @@ try{
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Customer</a>
                       	<ul class="sub">
-                      		<li><a href="main.jsp?cible=Tiers/client-liste" id="menu-liste-table"><i class="fa fa-list"></i>List Customer</a></li>               
-                      		<li><a href="main.jsp?cible=Tiers/client-ajout" id="menu-liste-table"><i class="fa fa-plus"></i>Add New Customer</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/client-liste" id="client-liste"><i class="fa fa-list"></i>List Customer</a></li>               
+                      		<li><a href="main.jsp?cible=Tiers/client-ajout" id="client-ajout"><i class="fa fa-plus"></i>Add New Customer</a></li>
                			</ul>
                       </li>
                       	
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Company</a>
                       	<ul class="sub">
-                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="menu-liste-table"></i>List Company</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="entreprise-liste"></i>List Company</a></li>
                			
-                      		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="menu-liste-table"></i>Add New Company</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="entreprise-ajout"></i>Add New Company</a></li>
                			</ul>
                       </li>
                   </ul>

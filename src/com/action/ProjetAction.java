@@ -67,7 +67,7 @@ public class ProjetAction extends Action {
 			 
 			 ProjetService.getInstance().setEstimation(mois, estim, projet.getIdprojet(), conn);
 			 ProjetService.getInstance().setIngenieur(idingenieurs, projet.getIdprojet(), conn);
-			 FileService.getInstance().saveAndUploadFile(projet,"projet",projet.getIdprojet(),conn);
+			 FileService.getInstance().saveAndUploadFile(projet,conn);
 			 conn.commit();
 			 goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+projet.getIdprojet());
 		 }

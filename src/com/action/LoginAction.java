@@ -23,23 +23,23 @@ public class LoginAction extends Action {
 	public void testLogin(HttpServletRequest request,HttpServletResponse response){
 		if(request.getParameter("login")==null || request.getParameter("passe")==null)
 		{
-			goTo(request, response, "login.jsp?erreur=Mot de passe ou login obligatoire");
+			goTo(request, response, "login.jsp?error=Password or login mandatory");
 			return ;
 		}
 		if(request.getParameter("login").isEmpty() || request.getParameter("passe").isEmpty())
 		{
-			goTo(request, response, "login.jsp?erreur=Mot de passe ou login obligatoire");
+			goTo(request, response, "login.jsp?error=Password or login mandatory");
 			return ;
 		}
 		Utilisateur u=null;
 		try {
 			u=LoginService.getInstance().testLogin(request.getParameter("login"), request.getParameter("passe"));
 		} catch (Exception e) {
-			goTo(request, response, "login.jsp?erreur="+e.getMessage());
+			goTo(request, response, "login.jsp?error="+e.getMessage());
 			return ;
 		}
 		if(u==null){
-			goTo(request, response, "login.jsp?erreur=Login ou mot de passe inconnue");
+			goTo(request, response, "login.jsp?error=Login or password unknown");
 			return ;
 		}
 		request.getSession().setAttribute("utilisateur", u);

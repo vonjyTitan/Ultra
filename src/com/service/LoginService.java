@@ -1,6 +1,7 @@
 package com.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mapping.DataEntity;
@@ -13,8 +14,12 @@ import utilitaire.UtilCrypto;
 
 public class LoginService {
 	private static LoginService instance=null;
+	private static List<String> excludeInTestAccess=null;
 	private LoginService(){
 		instance=this;
+		excludeInTestAccess= new ArrayList<String>();
+		excludeInTestAccess.add("crud");
+		excludeInTestAccess.add("attachement");
 	}
 	public static LoginService getInstance(){
 		if(instance==null)
@@ -23,7 +28,7 @@ public class LoginService {
 	}
 	public boolean isAllowed(Utilisateur utilisateur,String activite)throws Exception{
 		String fonctionnalite = activite.split("-")[0];
-		if(fonctionnalite.compareToIgnoreCase("crud")==0)
+		if(excludeInTestAccess.contains(fonctionnalite.toLowerCase()))
 			return true;
 		RoleFonctionnalite crit = new RoleFonctionnalite();
 		crit.setNomTable("userrole_libelle");

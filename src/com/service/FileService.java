@@ -41,7 +41,7 @@ public class FileService {
 			conn = Connecteur.getConnection();
 			conn.setAutoCommit(false);
 			
-			saveAndUploadFile(entity,table,idintable,conn);
+			saveAndUploadFile(entity,conn);
 			
 			conn.commit();
 		}
@@ -55,20 +55,45 @@ public class FileService {
 				conn.close();
 		}
 	}
-	
-	public void saveAndUploadFile(DataEntity entity,String table,int idintable,Connection conn)throws Exception{
-		String filepath = ConfigUtil.getConfigBundle().getString("file.path");
-		
-		for (FileItem item : entity.getFileItems()) {
+	public void saveAndUploadFile(List<FileItem> items,String table,int idintable)throws Exception{
+		Connection conn = null;
+		try{
+			conn = Connecteur.getConnection();
+			conn.setAutoCommit(false);
+			
+			saveAndUploadFile(items,table,idintable,conn);
+			
+			conn.commit();
+		}
+		catch(Exception ex){
+			if(conn!=null)
+				conn.rollback();;
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+	}
+	public void saveAndUploadFile(List<FileItem> items,String table,int idintable,Connection conn)throws Exception{
+
+		String filepath = ConfigUtil.getConfigBundle().getString("file.path")+"/"+table+"_"+idintable;
+		File folder = new File(filepath);
+		if(!folder.exists()){
+			folder.mkdirs();
+		}
+		for (FileItem item : items) {
             if (!item.isFormField()) {
                 InputStream stream = item.getInputStream();
+                if(item.getName() == null || item.getName().isEmpty()||item.getSize() == 0)
+                	continue;
         		OutputStream output = null;
         		try{
         			String filename = item.getName();
         			Attachement attache = new Attachement();
         			attache.setTable(table);
         			attache.setIdintable(idintable);
-        			attache.setCible(filename);
+        			attache.setCible(table+"_"+idintable+"/"+filename);
         			DaoModele.getInstance().save(attache, conn);
         			
         			File tofile = new File(filepath+"/"+filename);
@@ -89,19 +114,20 @@ public class FileService {
         			if(output!=null)
         				output.close();
         		}
-            } 
-		}
-		
+            }
+        }
+	}
+	public void saveAndUploadFile(DataEntity entity,Connection conn)throws Exception{
+		int idintable=(int) entity.getPkValue();
+		String table=entity.findReference();
+		List<FileItem> items =entity.getFileItems();
+		saveAndUploadFile(items,table,idintable,conn);
 	}
 	
 	public List<Attachement> getAttachement(String nomtable,int idintable)throws Exception{
 		Attachement crit = new Attachement();
 		crit.setTable(nomtable);
 		crit.setIdintable(idintable);
-		String filepath = ConfigUtil.getConfigBundle().getString("file.url");
-		Map<String,String> concat = new HashMap<String,String>();
-		concat.put("cible", filepath);
-		crit.setConcatString(concat);
 		return DaoModele.getInstance().findPageGenerique(1, crit);
 	}
 }
