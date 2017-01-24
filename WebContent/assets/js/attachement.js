@@ -5,7 +5,7 @@ function attachement(container,inputname){
 	+"<tr><td><input type=\"file\" name=\""+inputname+"\"></td><td></td></tr>"
 	+"</tbody>"
 	+"</table>" ;
-		var	scriptBut="<div class=\"col-lg-12\" style=\"text-align:center;\">"
+		var	scriptBut="<div class=\"col-lg-12\" style=\"text-align:center; margin-top: 10px;\">"
 			+"<a href=\"javascript:;\" id=\"addfile\" class=\"btn btn-primary btn-xs\" style=\"width:150px;\"><i class=\"fa fa-plus\"></i></a>"+
 			"</div>";
 	$(container).append(scriptTab);

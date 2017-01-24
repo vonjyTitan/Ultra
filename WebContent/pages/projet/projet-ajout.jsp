@@ -21,7 +21,9 @@
 <%=builder.getHTMLBody() %>
 <div id="datefincontainer" class="form-group col-lg-12">
 <div class="col-sm-4 col-sm-4 ">
-<label class="control-label" for="datefin">Attached file </label></div><div class="col-sm-7"><input name="attachement" id="file" type="file"></div></div>
+<label class="control-label" for="datefin">Attached files </label></div>
+<div class="col-sm-7" id="filescontainer">
+</div></div>
 <%=HTMLBuilder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Engineers", 6)%>
 <div class="panel-body form-horizontal style-form">
@@ -81,10 +83,12 @@
 <%=builder.getHTMLButton() %>
 <%=builder.endHTMLForm()%>
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/attachement.js"></script>
 <script>
 var taille=<%=ingenieurs.size()%>;
 var ingenieurs=[];
 $(document).ready(function(){
+	attachement($("#filescontainer"),"file");
 	<%int ii=0;for(Utilisateur ingenieur:ingenieurs){%>ingenieurs[<%=ii%>]=[];ingenieurs[<%=ii%>]["id"]=<%=ingenieur.getIdutilisateur() %>;ingenieurs[<%=ii%>]["lib"]='<%=(ingenieur.getPrenom()+" "+ingenieur.getNom())%>';<%ii++;}%>
 	$("#addingeneur").on("click",function(){
 		addChildIng();
