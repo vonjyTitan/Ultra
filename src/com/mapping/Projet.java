@@ -28,7 +28,21 @@ public class Projet extends DataEntity {
 	private java.sql.Date datefin;
 	@Parameter(libelle="Status")
 	private int etat;
+	private String client;
+	private String entreprise;
 	
+	public String getClient() {
+		return client;
+	}
+	public void setClient(String client) {
+		this.client = client;
+	}
+	public String getEntreprise() {
+		return entreprise;
+	}
+	public void setEntreprise(String entreprise) {
+		this.entreprise = entreprise;
+	}
 	public int getIdprojet() {
 		return idprojet;
 	}
