@@ -7,7 +7,7 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder = new InsertUpdateBuilder(new Projet(),"projet-ajout",request);
+	InsertUpdateBuilder builder = new InsertUpdateBuilder(new Projet(),"projet-modif",request);
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
 	builder.addNotVisibleChamp(new String[]{"idprojet","etat"});
 	builder.setChampTextarea("description");

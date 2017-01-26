@@ -9,3 +9,7 @@ join entreprise on entreprise.identreprise =projet.identreprise
 select user.*, role.libelle as role
 from utilisateur as user join role 
 on role.idrole=user.idrole where isingenieur=1;
+
+create or replace view ingenieurprojet_libelle as
+select p.*,ingenieurprojet.idutilisateur as idingenieur from projet_libelle p join
+ingenieurprojet on p.idprojet=ingenieurprojet.idprojet;

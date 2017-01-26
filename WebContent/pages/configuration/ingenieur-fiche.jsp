@@ -13,6 +13,10 @@
 	builder.addNotVisibleChamp(new String[]{"login","passe","idrole","isingenieur"});
 	builder.setLibelleFor("idutilisateur", "idEngineer");
 	builder.getFieldByName("etat").setMethodForChamp("findActive");
+	Projet p=new Projet();
+	p.setNomTable("ingenieurprojet_libelle");
+	p.setPackSize(150);
+	List<Projet> projets = DaoModele.getInstance().findPageGenerique(1, p, " and idingenieur="+SessionUtil.getValForAttr(request, "id"));
 %>
 <h3><a href="main.jsp?cible=configuration/ingenieur-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Engineer Details</h3>
 <%=builder.beginPanel("General Information", 6) %>
@@ -29,5 +33,28 @@
 		<a class="btn btn-primary btn-xs" href="main.jsp?cible=configuration/ingenieur-modif&id=<%=((Utilisateur)builder.getEntity()).getIdutilisateur()%>"><i class="fa fa-pencil "></i> Update</a>
 </div>
 <%=builder.endPanel() %>
-<%=HTMLBuilder.beginPanel("Project", 6)%>
+<%=HTMLBuilder.beginPanel("Projects", 6)%>
+<table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Name</th>
+			<th>Custommer</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+	for(Projet projet:projets){
+	%>
+		<tr>
+			<td><a href="main.jsp?cible=projet/projet-fiche&id=<%=projet.getIdprojet()%>"><%=projet.getCode() %></a></td>
+			<td><%=projet.getLibelle() %></td>
+			<td><a href="main.jsp?cible=Tiers/client-fiche&id=<%=projet.getIdclient()%>"><%=projet.getClient() %></a></td>
+		</tr>
+	<%
+	}
+	%>
+	
+	</tbody>
+</table>
 <%=HTMLBuilder.endPanel()%>

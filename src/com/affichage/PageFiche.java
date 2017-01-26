@@ -40,7 +40,7 @@ public class PageFiche<T extends DataEntity> extends HTMLBuilder<DataEntity> {
 						continue;
 					Object value=field.getMethodForChamp().invoke(entity, null);
 					Object lastVal=UtileAffichage.getNonNullValue(value,field.getField().getType());
-					String withLien=getLien(value,field);
+					String withLien=getLien(lastVal,field);
 					reponse+="<div class=\"form-group col-lg-12\">"
 							+"<p class=\"col-lg-6\">"+field.getLibelle()+" : </p>";
 					reponse+="<p class=\"col-lg-6\">"+withLien+"</p>";

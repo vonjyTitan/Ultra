@@ -82,4 +82,15 @@ public class ProjetAction extends Action {
 				 conn.close();
 		 }
 	}
+	public void modif(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Projet projet = new HTMLBuilder<Projet>(new Projet(), request).getEntity();
+		if(!projet.isValide()){
+			goTo(request,response,"main.jsp?cible=projet/projet-modif&id="+projet.getIdprojet()+"&erreur=ugyh");
+			return;
+		}
+		Projet depart = DaoModele.getInstance().findById(projet);
+		projet.setEtat(depart.getEtat());
+		DaoModele.getInstance().update(projet);
+		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+projet.getIdprojet());
+	}
 }
