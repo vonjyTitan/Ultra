@@ -104,7 +104,7 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 			}
 			ob.setLienForModif(entity.getLienForModif());
 			ob.setLienForDelete(entity.findLienForDelete());
-			reponse+="<td style=\"text-align:left;\">"+ob.getOptions()+"</td>";
+			reponse+="<td style=\"text-align:left;\">"+getOption(ob)+"</td>";
 			reponse+="</tr>";
 		}
 		reponse+="</tbody>";
@@ -112,6 +112,9 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 		reponse+= getPaginnation();
 		reponse+="</div>";
 		return reponse;
+	}
+	public String getOption(DataEntity ob) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		return ob.getOption();
 	}
 	private String getSigne(Field f){
 		if(classForEntete.containsKey(f))

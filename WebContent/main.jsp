@@ -522,7 +522,10 @@ try{
 			}
         	
         }
-        
+        function HandlePopupResult(id,libelle,inputname){
+        	$("[name='"+inputname+"']").prop("value",id);
+        	$("#"+inputname+"_lib").prop("value",libelle);
+        }
     </script>
   
 

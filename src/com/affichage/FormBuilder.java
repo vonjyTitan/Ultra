@@ -240,6 +240,11 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		{
 			return buildSelect(f,f.getForeignKeyData(),classe,f.getFk().nullable());
 		}
+		else if(f.isForeignKey() && f.getFk().selecttype()==SELECT_TYPE.POP_UP){
+			String reponse="<div class=\"col-md-9\" style=\"margin-left: 0px;padding-left: 0px !important;\"><input type=\"hidden\" name=\""+f.getName()+"\"><input id=\""+f.getName()+"_lib\" disabled=\"true\" class=\"form-control\" type=\"text\"></div><div class=\"col-lg-2\" style=\"padding-left: 0px !important;margin-top: 1px;\"><a href=\"javascript:;\" "
+					+ "onclick=\"window.open('popup.jsp?cible="+f.getFk().popupCible()+"&libtable="+f.getFk().libtable()+"&inputname="+f.getName()+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" class=\"btn btn-primary btn-xs\">...</a></div>";
+			return reponse;
+		}
 		return "";
 	}
 	private String buildSelect(Champ f,List<OptionObject> data,String classe,boolean nullable) throws Exception{

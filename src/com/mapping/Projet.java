@@ -4,6 +4,7 @@ import com.annotations.Entity;
 import com.annotations.ForeignKey;
 import com.annotations.Parameter;
 import com.annotations.Required;
+import com.annotations.SELECT_TYPE;
 
 @Entity(pkName="idprojet",reference="projet")
 public class Projet extends DataEntity {
@@ -16,7 +17,7 @@ public class Projet extends DataEntity {
 	@Parameter(libelle="Localisation")
 	private String lieu;
 	private String description;
-	@ForeignKey(toclasse=Client.class,libtable="nom",pktable="idclient")
+	@ForeignKey(toclasse=Client.class,libtable="nom",pktable="idclient",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-client")
 	@Parameter(libelle="Custommer")
 	private int idclient;
 	@ForeignKey(toclasse=Entreprise.class, libtable="nom",pktable="identreprise")
