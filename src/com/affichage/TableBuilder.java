@@ -104,7 +104,7 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 			}
 			ob.setLienForModif(entity.getLienForModif());
 			ob.setLienForDelete(entity.findLienForDelete());
-			reponse+="<td style=\"text-align:left;\">"+ob.getOption()+"</td>";
+			reponse+="<td style=\"text-align:left;\">"+ob.getOptions()+"</td>";
 			reponse+="</tr>";
 		}
 		reponse+="</tbody>";

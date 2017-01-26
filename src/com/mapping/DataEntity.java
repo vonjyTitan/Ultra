@@ -59,6 +59,7 @@ public abstract class DataEntity {
 	private String lienForModif="";
 	private String lienForDelete="";
 	private List<FileItem> fileItems=null;
+	private String option=null;
 	public int findPackSize() {
 		return packSize;
 	}
@@ -470,7 +471,12 @@ public abstract class DataEntity {
 	public Object getPkValue() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		return  this.getValueForField(this.getFieldByName(this.getPkName()));
 	}
-	public String getOption() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+	public String getOptions() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		if(this.option!=null)
+			return this.option;
+		return this.getOption();
+	}
+	protected String getOption() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		String reponse="";
 		if(lienForModif!=null && !lienForModif.isEmpty()){
 			reponse+=" <a href=\""+lienForModif+"&id="+getValueForField(getFieldByName(getPkName()))+"\" class=\"btn btn-primary btn-xs\"><i class=\"fa fa-pencil\"></i></a> ";
@@ -479,6 +485,9 @@ public abstract class DataEntity {
 			reponse+=" <a href=\""+lienForDelete+"&id="+getValueForField(getFieldByName(getPkName()))+"\" class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a> ";
 		}
 		return (reponse.isEmpty()) ? "-" : reponse;
+	}
+	public void setOption(String option){
+		this.option = option;
 	}
 	public void addCountChamp(String champ)throws Exception{
 		Field f=this.getFieldByName(champ);
