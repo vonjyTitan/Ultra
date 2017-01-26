@@ -9,6 +9,7 @@ import dao.DaoModele;
 
 public class ListPaginner<E> extends ArrayList<E> {
 	public int nbPage=1;
+	public int totalNumber = 0;
 	public Object findSummeByField(String fieldName) throws Exception{
 		if(this.size()==0)
 			return 0;

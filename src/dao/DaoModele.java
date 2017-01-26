@@ -55,9 +55,12 @@ public class DaoModele {
     	
     	return reponse;
     }
-    public int getNbPage(String nomTable,DataEntity objet,Connection connection)throws Exception
+    public Map<String,Integer> getNbPage(String nomTable,DataEntity objet,Connection connection)throws Exception
     {
-    	int reponse=0;
+    	Map<String,Integer> reponse = new HashMap<String,Integer>();
+    	reponse.put("nbpage", 0);
+    	reponse.put("nbtotal", 0);
+    	
 		Statement stat=null;
 		ResultSet rs=null;
 		try{
@@ -66,7 +69,8 @@ public class DaoModele {
             stat=connection.createStatement();
              rs=stat.executeQuery(query);
             while(rs.next()){
-            	reponse=calculePage(rs.getInt("sum"), objet.findPackSize());
+            	reponse.put("nbtotal", rs.getInt("sum"));
+            	reponse.put("nbpage", calculePage(rs.getInt("sum"), objet.findPackSize()));
             	
             }
 		}
@@ -192,7 +196,9 @@ public class DaoModele {
 		String nomTable;
 		try{
 			nomTable=getNomTable(objet,connection,apresWhere);
-			((ListPaginner<T>)(reponse)).nbPage = this.getNbPage(nomTable,objet,connection);
+			Map<String,Integer> intoNb = this.getNbPage(nomTable,objet,connection);
+			((ListPaginner<T>)(reponse)).nbPage = intoNb.get("nbpage");
+			((ListPaginner<T>)(reponse)).totalNumber = intoNb.get("nbtotal");
 			if(page<=0)
 				return reponse;
 			int nbpage=((ListPaginner<DataEntity>)(reponse)).nbPage;
