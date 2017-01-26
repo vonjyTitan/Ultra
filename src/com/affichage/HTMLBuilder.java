@@ -162,9 +162,14 @@ public class HTMLBuilder<T extends DataEntity> {
 		if(request.getParameter("nomChampOrder")!=null)
 			if(!request.getParameter("nomChampOrder").isEmpty() && request.getParameter("nomChampOrder").compareToIgnoreCase("null")!=0)
 				reponse.setNomChampOrder(request.getParameter("nomChampOrder"));
-		if(request.getParameter("ordering")!=null)
+		if(request.getParameter("ordering")!=null){
 			if(!request.getParameter("ordering").isEmpty() && request.getParameter("ordering").compareToIgnoreCase("null")!=0)
 				reponse.setOrdering(request.getParameter("ordering"));
+		}
+		else{
+				reponse.setNomChampOrder(reponse.getReferenceForField(reponse.getFieldByName(reponse.getPkName())));
+				reponse.setOrdering(DataEntity.DESC);
+		}
 		return reponse;
 	}
 	public void setOrdre(String[] ordre){
