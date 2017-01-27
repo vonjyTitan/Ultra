@@ -20,6 +20,8 @@
 	active.put("2", "Not active");
 	builder.getFilterBuilder().setChampSelect("etat", active);
 	builder.setLienForModif("main.jsp?cible=projet/projet-modif");
+	builder.setLienForChamp("entreprise","main.jsp?cible=Tiers/entreprise-fiche","identreprise");
+	builder.setLienForChamp("client","main.jsp?cible=Tiers/client-fiche","idclient");
 %>
 <%=builder.getFilterBuilder().getHTML("filter") %>
 <%=HTMLBuilder.beginPanel("List of Project", 12) %>
