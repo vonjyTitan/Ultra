@@ -524,7 +524,7 @@ try{
         	
         }
         function HandlePopupResult(id,libelle,inputname){
-        	$("#"+inputname+"_val").prop("value",id);
+        	$("#"+inputname+"_val").val(id).trigger('change');
         	$("#"+inputname+"_lib").prop("value",libelle);
         }
     </script>

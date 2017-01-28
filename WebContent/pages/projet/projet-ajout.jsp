@@ -87,6 +87,7 @@
 <script>
 var taille=<%=ingenieurs.size()%>;
 var ingenieurs=[];
+var indice=1;
 $(document).ready(function(){
 	attachement($("#filescontainer"),"file");
 	<%int ii=0;for(Utilisateur ingenieur:ingenieurs){%>ingenieurs[<%=ii%>]=[];ingenieurs[<%=ii%>]["id"]=<%=ingenieur.getIdutilisateur() %>;ingenieurs[<%=ii%>]["lib"]='<%=(ingenieur.getPrenom()+" "+ingenieur.getNom())%>';<%ii++;}%>
@@ -104,15 +105,12 @@ $(document).ready(function(){
 	addChildBill();
 });
 function addChildIng(){
-	var node = "<tr><td><select name=\"idingenieur\" onChange=\"changeUnite(this);\" style=\"width:200px;\"><option value=\"\" >--</option>";
-	for(var ii=0;ii<taille;ii++){
-			node+="<option value=\""+ingenieurs[ii]["id"]+"\">"+ingenieurs[ii]["lib"]+"</option>";
-	}
-	node+="</select></td>";
+	var node = "<tr><td><div class=\"col-sm-7\"><input id=\"idingenieur"+indice+"_val\" name=\"idingenieur\" onChange=\"changeUnite(this);\" type=\"hidden\"><input id=\"idingenieur"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-ingenieur&amp;libtable=prenom&amp;inputname=idingenieur"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a></div></td>";
 	node+="<td style=\"width: 100px;\"><a href=\"javascript:;\">details</a></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#ingenieurs").append(node);
 	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
+	indice++;
 }
 function addChildEstim(){
 	var node = "<tr><td><input placeholder=\"dd/MM/yyyy\" type=\"text\" name=\"dateestimation\"/></td>";
@@ -130,7 +128,7 @@ function addChildBill(){
 }
 
 function changeUnite(select){
-	var node = $("a",$(select).parent("td").next());
+	var node = $("a",$(select).parent("div").parent("td").next());
 	node.prop("href","main.jsp?cible=configuration/ingenieur-fiche&id="+select.value);
 	node.prop("target","_blank");
 }
