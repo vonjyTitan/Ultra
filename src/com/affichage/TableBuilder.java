@@ -21,7 +21,7 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 	private List<T> data=null;
 	private String lienForId=null;
 	private String apresWhere="";
-	private String lien="";
+	protected String lien="";
 	private int actualPage=1;
 	private String classForTabe="table table-striped table-advance table-hover table-bordered";
 	private Map<Champ,String> classForEntete=null;

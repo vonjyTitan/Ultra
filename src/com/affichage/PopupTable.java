@@ -30,4 +30,16 @@ public class PopupTable<T extends DataEntity>  extends TableBuilder<T> {
 		String libelle = (String) ob.getValueForField(ob.getFieldByName(SessionUtil.getValForAttr(request, "libtable")));
 		return "<a href=\"javascript:;\" onclick=\"select("+ob.getValueForField(ob.getFieldByName(ob.getPkName()))+",'"+libelle+"')\" class=\"btn btn-success  btn-xs\"><i class=\"fa fa-check\"></i></a>";
 	}
+	@Override
+	public String getSimpleLien() throws Exception {
+		if(lien!="" && lien!=null)
+			return lien;
+		return request.getRequestURI()+"?cible="+request.getParameter("cible")+getCompletFilterString()+"&libtable="+SessionUtil.getValForAttr(request, "libtable")+"&inputname="+SessionUtil.getValForAttr(request, "inputname");
+	}
+	@Override
+	public String getCompletLien() throws Exception {
+		if(lien!="" && lien!=null)
+			return lien;
+		return request.getRequestURI()+"?cible="+request.getParameter("cible")+getCompletFilterString()+"&libtable="+SessionUtil.getValForAttr(request, "libtable")+"&inputname="+SessionUtil.getValForAttr(request, "inputname");
+	}
 }

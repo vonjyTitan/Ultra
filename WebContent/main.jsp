@@ -52,6 +52,7 @@ try{
     <link href="assets/css/style-responsive.css" rel="stylesheet">
 
     <script src="assets/js/chart-master/Chart.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -523,7 +524,7 @@ try{
         	
         }
         function HandlePopupResult(id,libelle,inputname){
-        	$("[name='"+inputname+"']").prop("value",id);
+        	$("#"+inputname+"_val").prop("value",id);
         	$("#"+inputname+"_lib").prop("value",libelle);
         }
     </script>

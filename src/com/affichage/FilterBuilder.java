@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.affichage.InsertUpdateBuilder.ERROR_SHOW;
 import com.mapping.DataEntity;
 
+import utilitaire.SessionUtil;
 import utilitaire.UtileAffichage;
 
 public class FilterBuilder<T extends DataEntity> extends FormBuilder<T> {
@@ -81,10 +82,12 @@ public class FilterBuilder<T extends DataEntity> extends FormBuilder<T> {
 		String reponse="<div class=\"col-lg-12\">";
 		reponse+="<label class=\"control-label col-lg-4\"></label>"
               	+"<div class=\"col-lg-8\">";
-		reponse+=" <input type=\"submit\"  class=\""+classForValidation+"\" value=\"Search\"></input>";
+		reponse+="<input type=\"hidden\" name=\"inputname\" value=\""+SessionUtil.getValForAttr(request, "inputname")+"\">"
+				+ "<input type=\"hidden\" name=\"libtable\" value=\""+SessionUtil.getValForAttr(request, "libtable")+"\">"
+				+ " <input type=\"submit\"  class=\""+classForValidation+"\" value=\"Search\"></input>";
 		reponse+=" <input type=\"reset\"  class=\""+classForReset+"\" value=\"Reset\"></input>";
 		reponse+="</div>";
-		reponse+="</div>";
+		reponse+="</div><script>$(\"[type='reset']\").on(\"click\",function(){$(\"[type='hidden']\").each(function(){$(this).prop(\"value\",\"\");});});</script>";
 		return reponse;
 	}
 	public String labelleFor(Champ f,String classe){
