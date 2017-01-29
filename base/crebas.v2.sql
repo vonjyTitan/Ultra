@@ -13,3 +13,12 @@ on role.idrole=user.idrole where isingenieur=1;
 create or replace view ingenieurprojet_libelle as
 select p.*,ingenieurprojet.idutilisateur as idingenieur from projet_libelle p join
 ingenieurprojet on p.idprojet=ingenieurprojet.idprojet;
+
+create or replace view bill_libelle as
+SELECT bill . * , projet.libelle AS projet
+FROM bill
+JOIN projet ON projet.idprojet = bill.idprojet;
+
+create or replace view billitem_libelle as
+select item.*, bi.pu, bi.idbill,bi.estimation from
+item_libelle item join billitem bi on item.iditem=bi.iditem;

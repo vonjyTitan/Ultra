@@ -1,0 +1,92 @@
+<%@page import="utilitaire.SessionUtil"%>
+<%@page import="dao.DaoModele"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
+<%@page import="com.affichage.InsertUpdateBuilder.ERROR_SHOW"%>
+<%@page import="com.affichage.*"%>
+<%@page import="com.mapping.*"%>
+<jsp:include page='../verificateur.jsp'/>
+<%
+	Bill crit = new Bill();
+	crit.setNomTable("bill_libelle");
+	Bill data = DaoModele.getInstance().findById(crit,Integer.valueOf( SessionUtil.getValForAttr(request, "id")));
+	PageFiche builder = new PageFiche(crit,request);
+	builder.setData(data);
+	builder.addNotVisibleChamp(new String[]{"idbill","idprojet"});
+	builder.setLienForAttr("projet", "main.jsp?cible=projet/projet-fiche", "id", "idprojet");
+	ItemBill critItem = new ItemBill();
+	critItem.setNomTable("billitem_libelle");
+	critItem.setPackSize(100);
+	List<ItemBill> items = DaoModele.getInstance().findPageGenerique(1, critItem," and idbill="+SessionUtil.getValForAttr(request, "id"));
+%>
+<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=data.getIdprojet() %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Bill details</h3>
+<%=HTMLBuilder.beginPanel("General informations", 5) %>
+<%=builder.getBody()%>
+<div class="form-group col-lg-12" style="text-align: right;">
+		<a class="btn btn-primary btn-xs" href="main.jsp?cible=Bill/bill-modif&id=<%=data.getIdbill()%>"><i class="fa fa-pencil "></i> Update</a>
+</div>
+<%=HTMLBuilder.endPanel() %>
+<%=HTMLBuilder.beginPanel("Items", 7)%>
+<table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Label</th>
+			<th>PU</th>
+			<th>Estimate</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<%
+		for(ItemBill item:items){
+		%>
+			<tr>
+				<td><%=item.getCode() %></td>
+				<td><%=item.getLibelle() %></td>
+				<td><%=item.getPu() %></td>
+				<td><%=item.getEstimation() %></td>
+				<td></td>
+			</tr>
+		<%
+		}
+		%>
+	</tbody>
+</table>
+<%=HTMLBuilder.endPanel() %>
+<%=HTMLBuilder.beginPanel("Add news Items", 7)%>
+<form method="post" action="bill-ajoutitem">
+<table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>PU</th>
+			<th>Estimate</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id="items">
+	</tbody>
+</table>
+<div class="col-lg-12" style="text-align:center;">
+<a href="javascript:;" id="additem" class="btn btn-primary btn-xs" style="width:150px;"><i class="fa fa-plus"></i></a>
+</div>
+</form>
+<%=HTMLBuilder.endPanel()%>
+<script>
+var indice=1;
+$(document).ready(function(){
+	$("#additem").on("click",function(){
+		additem();
+	});
+	additem();
+});
+function additem(){
+	var node = "<tr><td><div class=\"col-sm-12\"><input id=\"iditem"+indice+"_val\" name=\"iditem\" onChange=\"changeUnite(this);\" type=\"hidden\"><input id=\"iditem"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-item&amp;libtable=libelle&amp;inputname=iditem"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a></div></td>";
+	node+="<td style=\"width: 100px;\"><input type=\"pu\"/></td><td><input name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
+	
+	$("#items").append(node);
+	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
+	indice++;
+}
+</script>

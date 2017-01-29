@@ -1,14 +1,17 @@
 package com.mapping;
 
 import com.annotations.Entity;
+import com.annotations.Parameter;
 
 @Entity(pkName="idbill",reference="bill")
 public class Bill extends DataEntity {
 	private int idbill;
 	private String code;
 	private int idprojet;
+	@Parameter(libelle="Label")
 	private String libelle;
 	private String description;
+	private String projet;
 	public int getIdbill() {
 		return idbill;
 	}
@@ -38,6 +41,12 @@ public class Bill extends DataEntity {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getProjet() {
+		return projet;
+	}
+	public void setProjet(String projet) {
+		this.projet = projet;
 	}
 	
 }

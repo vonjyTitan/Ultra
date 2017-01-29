@@ -14,17 +14,18 @@ public class Item extends DataEntity {
 	private int idunite;
 	@Parameter(libelle="Unit")
 	private String unite;
+	@Required
+	@Parameter(libelle="label")
+	private String libelle;
+	@Parameter(libelle="Description")
+	private String discription;
+	
 	public String getUnite() {
 		return unite;
 	}
 	public void setUnite(String unite) {
 		this.unite = unite;
 	}
-	@Required
-	@Parameter(libelle="label")
-	private String libelle;
-	@Parameter(libelle="Description")
-	private String discription;
 	public String getCode() {
 		return code;
 	}
