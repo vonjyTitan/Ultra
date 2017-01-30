@@ -20,5 +20,5 @@ FROM bill
 JOIN projet ON projet.idprojet = bill.idprojet;
 
 create or replace view billitem_libelle as
-select item.*, bi.pu, bi.idbill,bi.estimation from
+select item.*, bi.pu, bi.idbill,bi.estimation,bi.idbillitem from
 item_libelle item join billitem bi on item.iditem=bi.iditem;

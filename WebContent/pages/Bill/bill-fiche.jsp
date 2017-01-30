@@ -14,10 +14,10 @@
 	builder.setData(data);
 	builder.addNotVisibleChamp(new String[]{"idbill","idprojet"});
 	builder.setLienForAttr("projet", "main.jsp?cible=projet/projet-fiche", "id", "idprojet");
-	ItemBill critItem = new ItemBill();
+	BillItem critItem = new BillItem();
 	critItem.setNomTable("billitem_libelle");
 	critItem.setPackSize(100);
-	List<ItemBill> items = DaoModele.getInstance().findPageGenerique(1, critItem," and idbill="+SessionUtil.getValForAttr(request, "id"));
+	List<BillItem> items = DaoModele.getInstance().findPageGenerique(1, critItem," and idbill="+SessionUtil.getValForAttr(request, "id"));
 %>
 <h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=data.getIdprojet() %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Bill details</h3>
 <%=HTMLBuilder.beginPanel("General informations", 5) %>
@@ -39,14 +39,14 @@
 	</thead>
 	<tbody>
 		<%
-		for(ItemBill item:items){
+		for(BillItem item:items){
 		%>
 			<tr>
 				<td><%=item.getCode() %></td>
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu() %></td>
 				<td><%=item.getEstimation() %></td>
-				<td></td>
+				<td><a class="btn btn-primary btn-xs" onclick="modifItemBill(<%=item.getPu() %>,<%=item.getEstimation() %>,'<%=item.getCode() %>',<%=item.getIdbillitem() %>,<%=item.getIditem() %>)" href="javascript:;"><i class="fa fa-pencil "></i></a></td>
 			</tr>
 		<%
 		}
@@ -56,6 +56,7 @@
 <%=HTMLBuilder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Add news Items", 7)%>
 <form method="post" action="bill-ajoutitem">
+<input type="hidden" value="<%=data.getIdbill()%>" name="id"/>
 <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
 	<thead>
 		<tr>
@@ -71,8 +72,40 @@
 <div class="col-lg-12" style="text-align:center;">
 <a href="javascript:;" id="additem" class="btn btn-primary btn-xs" style="width:150px;"><i class="fa fa-plus"></i></a>
 </div>
+<div class="col-lg-12" style="text-align:right;">
+	<input class="btn btn-primary" value="Valide" type="submit">
+</div>
 </form>
 <%=HTMLBuilder.endPanel()%>
+<div class="modal fade" id="modif" style="margin-top:100px;margin-left:100px;">
+	<div class="modal-dialog">
+	<form action="bill-modifitem" id="form-annulation" method="post">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" style="color: white;" aria-label="Close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <h4>Update item for bill</h4>
+            </div>
+            <div class="modal-body">
+            	<input type="hidden" name="idbillitem" id="idbillitem"/>
+            	<input type="hidden" name="iditem" id="iditem"/>
+            	<input type="hidden" name="idbill" value="<%=data.getIdbill()%>"/>
+            	<div id="codecontainer" class="form-group col-lg-12" style="margin-top:30px;"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="">Code item : </label></div><div class="col-sm-7"><input name="codeitem" id="codeitem" class="form-control" disabled="true" value="" type="text"></div></div>
+                <div id="codecontainer" class="form-group col-lg-12"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="pu">PU : </label></div><div class="col-sm-7"><input name="pu" id="pu" class="form-control" value="" type="text"></div></div>
+                <div id="codecontainer" class="form-group col-lg-12" ><div class="col-sm-4 col-sm-4 "><label class="control-label" for="estimation">Estimate : </label></div><div class="col-sm-7"><input name="estimation" id="estimation" class="form-control" value="" type="text"></div></div>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="col-lg-12">
+                <input type="submit" class="btn btn-primary btn-xs" name="confirme"  value="Valide"/>
+			<a class="btn btn-warning btn-xs closes"  href="javascript:;">Cancel</a>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
 <script>
 var indice=1;
 $(document).ready(function(){
@@ -80,13 +113,27 @@ $(document).ready(function(){
 		additem();
 	});
 	additem();
+	$(".closes").on("click",function(){
+		$(this).parents(".modal").prop("class","modal fade");
+	});
+	$(".close").on("click",function(){
+		$(this).parents(".modal").prop("class","modal fade");
+	});
 });
 function additem(){
-	var node = "<tr><td><div class=\"col-sm-12\"><input id=\"iditem"+indice+"_val\" name=\"iditem\" onChange=\"changeUnite(this);\" type=\"hidden\"><input id=\"iditem"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-item&amp;libtable=libelle&amp;inputname=iditem"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a></div></td>";
-	node+="<td style=\"width: 100px;\"><input type=\"pu\"/></td><td><input name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
+	var node = "<tr><td><div class=\"col-sm-12\"><input id=\"iditem"+indice+"_val\" name=\"iditem\" type=\"hidden\"><input id=\"iditem"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-item&amp;libtable=libelle&amp;inputname=iditem"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a></div></td>";
+	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"pu\"/></td><td><input name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#items").append(node);
 	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
 	indice++;
+}
+function modifItemBill(pu,estimate,codeitem,idbillitem,iditem){
+	$("#pu").prop("value",pu);
+	$("#estimation").prop("value",estimate);
+	$("#idbillitem").prop("value",idbillitem);
+	$("#codeitem").prop( "value",codeitem);
+	$("#iditem").prop( "value",iditem);
+	$("#modif").prop("class","modal show");
 }
 </script>
