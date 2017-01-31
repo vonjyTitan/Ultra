@@ -235,9 +235,10 @@ try{
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-              
+              <%Utilisateur user=((Utilisateur)request.getSession().getAttribute("utilisateur")); %>
               	   <!-- <p class="centered"><a href="profile.html"><img src="assets/img/lxc_logo.png" class="img-circle" width="60"></a></p>-->
-              	  <h5 class="centered"><%=((Utilisateur)request.getSession().getAttribute("utilisateur")).getNom()%></h5>
+              	  <h5 class="centered"><%=user.getNom()%></h5>
+              	  <h5 class="centered">(<%=user.getRole()%>)</h5>
                   <!-- <form action="" class="search-form">
                 <div class="form-group has-feedback">
             		<label for="search" class="sr-only">Search</label>
@@ -251,6 +252,9 @@ try{
                           <span>Dashboard</span>
                       </a>
                   </li>
+                  <%
+                  	if(LoginService.getInstance().isAllowed(user, "projet-gvbh")){
+                  %>
 				<li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-table"></i>
@@ -262,6 +266,7 @@ try{
                           <li><a  href="main.jsp?cible=projet/projet-ajout" id="projet-ajout"><i class="fa fa-plus"></i>Add New Project</a></li>
                       </ul>
                 </li>
+                <%} %>
                 <!-- <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
@@ -272,12 +277,18 @@ try{
                           <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Bill</a></li>
                       </ul>
                 </li>-->
+                 <%
+                 boolean clientM = LoginService.getInstance().isAllowed(user, "client-gvbh");
+                 boolean entrepriseM = LoginService.getInstance().isAllowed(user, "entreprise-gvbh");
+                  	if(clientM || entrepriseM){
+                  %>
 				<li class="sub-menu">
 					<a href="javascript:;" >
                           <i class="fa fa-cube"></i>
                           <span>Third Party</span>
                       </a>
                       <ul class="sub">
+                      <%if(clientM){ %>
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Customer</a>
                       	<ul class="sub">
@@ -285,7 +296,7 @@ try{
                       		<li><a href="main.jsp?cible=Tiers/client-ajout" id="client-ajout"><i class="fa fa-plus"></i>Add New Customer</a></li>
                			</ul>
                       </li>
-                      	
+                      	<%} if(entrepriseM){%>
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Company</a>
                       	<ul class="sub">
@@ -294,8 +305,12 @@ try{
                       		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="entreprise-ajout"></i>Add New Company</a></li>
                			</ul>
                       </li>
+                      <%} %>
                   </ul>
                   </li>
+                  <%} 
+                  	if(LoginService.getInstance().isAllowed(user, "ingenieur-gvbh")){
+                  %>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>
@@ -306,13 +321,18 @@ try{
                           <li><a  href="main.jsp?cible=configuration/ingenieur-ajout" id="ingenieur-ajout"><i class="fa fa-plus"></i>Add New Engineer</a></li>
                       </ul>
                 </li>
+                <%} 
+                  	boolean userM = LoginService.getInstance().isAllowed(user, "utilisateur-gvbh");
+                  	boolean roleM = LoginService.getInstance().isAllowed(user, "role-gvbh");
+                  	if(userM || roleM){
+                %>
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>
                           <span>Manage User</span>
                       </a>
                       <ul class="sub">
-                      
+                      <%if(userM){ %>
                       <li class="sub-menu">
 			                      <a href="javascript:;" >
 			                          <i class="fa fa-users"></i>
@@ -323,7 +343,7 @@ try{
                           			<li><a  href="main.jsp?cible=configuration/utilisateur-ajout" id="utilisateur-ajout"><i class="fa fa-plus"></i>Add New User</a></li>
 			                      </ul>
 	                      </li>
-	                      
+	                      <%}if(roleM){ %>
 	                       <li class="sub-menu">
 			                      <a href="javascript:;" >
 			                          <i class="fa fa-check-circle"></i>
@@ -334,15 +354,23 @@ try{
                           			<li><a  href="main.jsp?cible=configuration/role-ajout" id="role-ajout"><i class="fa fa-plus"></i>Add New User Type</a></li>
 			                      </ul>
 	                      </li>
+	                      <%} %>
 	                      
                       </ul>
                   </li>
+                  <%} 
+                	boolean itemM = LoginService.getInstance().isAllowed(user, "item-gvbh");
+                  	boolean materielM = LoginService.getInstance().isAllowed(user, "materiel-gvbh");
+                  	boolean unitM = LoginService.getInstance().isAllowed(user, "unite-gvbh");
+                  	if(itemM || materielM || unitM){
+                  %>
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cog"></i>
                           <span>Settings</span>
                       </a>
                       <ul class="sub">
+                      <%if(itemM){ %>
                        	<li class="sub-menu">
                        		<a  href="#" id="menu-ajout-table"><i class="fa fa-cubes"></i>Item</a>
 	                       	<ul class="sub">
@@ -350,6 +378,8 @@ try{
 	                      		<li><a  href="main.jsp?cible=configuration/item-ajout" id="item-ajout"><i class="fa fa-plus"></i>Add New Item</a></li>
 	               			</ul>
                        	</li>
+                       	<%}
+                      if(materielM){%>
                       	<li class="sub-menu">
                       		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Material</a>
 	                      	<ul class="sub">
@@ -358,6 +388,8 @@ try{
 	                      		<li><a  href="main.jsp?cible=configuration/materiel-ajout" id="materiel-ajout"><i class="fa fa-plus"></i>Add New Material</a></li>
 	               			</ul>
                       	</li>
+                      	<%}
+                      if(unitM){%>
                    	  	<li class="sub-menu">
                    	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Unit</a>
 	                   	  	<ul class="sub">
@@ -366,9 +398,10 @@ try{
 	                      		<li><a  href="main.jsp?cible=configuration/unite-ajout" id="unite-ajout"><i class="fa fa-plus"></i>Add New Unit</a></li>
 	               			</ul>
                    	  	</li>
+                   	  	<%} %>
                       </ul>
                   </li>
-                  
+                  <%} %>
               <!-- sidebar menu end-->
           </div>
       </aside>

@@ -42,6 +42,7 @@ public class LoginService {
 			connex=Connecteur.getConnection();
 			connex.setAutoCommit(false);
 			Utilisateur ob=new Utilisateur();
+			ob.setNomTable("utilisateur_libelle");
 			List<Utilisateur> rep=DaoModele.getInstance().findPageGenerique(1, ob,connex," and login='"+login.replace("'", "")+"' and passe='"+UtilCrypto.encrypt(passe)+"' and etat=1");
 			if(rep.size()>0)
 			{

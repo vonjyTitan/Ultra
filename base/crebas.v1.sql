@@ -51,8 +51,8 @@ create table BILLITEM
    IDBILLITEM           int not null auto_increment,
    IDBILL               int not null,
    IDITEM               int not null,
-   PU                   decimal,
-   ESTIMATION           decimal,
+   PU                   DOUBLE,
+   ESTIMATION           DOUBLE,
    primary key (IDBILLITEM)
 );
 
@@ -121,9 +121,9 @@ create table ITEMRAPPORT
    IDITEMRAPPORT        int not null auto_increment,
    IDMOISPROJET         int not null,
    IDBILLITEM           int not null,
-   CREDIT               decimal,
+   CREDIT               DOUBLE,
    ETAT                 int,
-   QUANTITEESTIME       decimal,
+   QUANTITEESTIME       DOUBLE,
    primary key (IDITEMRAPPORT)
 );
 
@@ -147,9 +147,9 @@ create table MATONSITE
    IDMATONSITE          int not null auto_increment,
    IDMATERIEL           int not null,
    IDPROJET             int not null,
-   PU                   decimal,
-   CREDIT               decimal,
-   DEBIT                decimal,
+   PU                   DOUBLE,
+   CREDIT               DOUBLE,
+   DEBIT                DOUBLE,
    primary key (IDMATONSITE)
 );
 
@@ -162,14 +162,14 @@ create table MOISPROJET
    IDPROJET             int not null,
    IDUTILISATEUR        int,
    MOIS                 date,
-   ESTIMATION           decimal,
-   TOTAL                decimal,
+   ESTIMATION           DOUBLE,
+   TOTAL                DOUBLE,
    DATEDECOMPTE         date,
    DATECERTIFICATION    date,
-   REMBOURSEMENT        decimal,
+   REMBOURSEMENT        DOUBLE,
    ETAT                 int,
-   MATONSITECREDIT      decimal,
-   MATONSITEDEBIT       decimal,
+   MATONSITECREDIT      DOUBLE,
+   MATONSITEDEBIT       DOUBLE,
    primary key (IDMOISPROJET)
 );
 
@@ -199,7 +199,7 @@ create table PROJET
    DATEDEBUT            date,
    DATEFIN              date,
    ETAT                 int,
-   AVANCE               decimal,
+   AVANCE               DOUBLE,
    primary key (IDPROJET)
 );
 
@@ -336,8 +336,23 @@ INSERT INTO `role` (`IDROLE`, `LIBELLE`, `DESCRIPTION`) VALUES
 
 INSERT INTO `rolefonctionnalite` (`IDFONCTIONNALITE`, `IDROLE`) VALUES
 (2, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
 (1, 2),
-(2, 2);
+(2, 2),
+(3, 2),
+(4, 2),
+(5, 2),
+(6, 2),
+(7, 2),
+(8, 2),
+(9, 2),
+(10, 2);
 
 --
 -- Dumping data for table `utilisateur`
