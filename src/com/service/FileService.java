@@ -80,8 +80,15 @@ public class FileService {
 		String filepath = ConfigUtil.getConfigBundle().getString("file.path")+"/"+table+"_"+idintable;
 		File folder = new File(filepath);
 		if(!folder.exists()){
-			folder.mkdirs();
+			try{
+				folder.mkdirs();
+			}
+			catch(Exception ex){
+				ex.printStackTrace();
+			}
 		}
+		if(!folder.exists())
+			return;
 		for (FileItem item : items) {
             if (!item.isFormField()) {
                 InputStream stream = item.getInputStream();
