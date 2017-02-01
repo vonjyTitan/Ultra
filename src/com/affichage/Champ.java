@@ -134,6 +134,29 @@ public class Champ {
 		option.setPackSize(100);
 		return DaoModele.getInstance().findPageGenerique(1, option);
 	}
+	public Object getForeignKeyLibValue(Object value)throws Exception{
+		if(value==null)
+			return "";
+		if(fk.toclasse()!=null){
+			DataEntity entity=(DataEntity)fk.toclasse().newInstance();
+			if(fk.totable()!=null && !fk.totable().isEmpty())
+				entity.setNomTable(fk.totable());
+			DataEntity rep=DaoModele.getInstance().findById(entity,(int)value);
+			if(rep!=null){
+				Object reponse = rep.getValueForField(rep.getFieldByName(fk.libtable()));
+				return reponse==null ? "" : reponse;
+			}
+			return "";
+		}
+		OptionObject option=new OptionObject();
+		option.setNomTable(fk.totable());
+		option.setReferenceForField("id", fk.pktable());
+		option.setReferenceForField("val", fk.libtable());
+		OptionObject obj = DaoModele.getInstance().findById(option, (int)value);
+		if(obj!=null)
+			return obj.getVal()==null ? "" : obj.getVal();
+		return "";
+	}
 	public boolean isTextarea() {
 		return isTextarea;
 	}
