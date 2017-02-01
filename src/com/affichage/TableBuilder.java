@@ -10,11 +10,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.Session;
+
 import com.mapping.DataEntity;
 import com.mapping.ListPaginner;
 import com.mapping.DataEntity;
 
 import dao.DaoModele;
+import utilitaire.SessionUtil;
 import utilitaire.UtileAffichage;
 
 public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
@@ -242,12 +245,12 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 	public String getSimpleLien() throws Exception{
 		if(lien!="" && lien!=null)
 			return lien;
-		return request.getRequestURI()+"?cible="+request.getParameter("cible")+getSimpleFilterString();
+		return request.getRequestURI()+"?cible="+request.getParameter("cible")+"&id="+SessionUtil.getValForAttr(request, "id")+getSimpleFilterString();
 	}
 	public String getCompletLien() throws Exception {
 		if(lien!="" && lien!=null)
 			return lien;
-		return request.getRequestURI()+"?cible="+request.getParameter("cible")+getCompletFilterString();
+		return request.getRequestURI()+"?cible="+request.getParameter("cible")+"&id="+SessionUtil.getValForAttr(request, "id")+getCompletFilterString();
 	}
 	public String getOrderForField(Field f){
 		String lastChampOrder=entity.findNomChampOrder();
