@@ -13,8 +13,10 @@
 	PageFiche builder=new PageFiche(crit,request);
 	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat"});
 	builder.removeChamp("identreprise");
+	builder.setLienForAttr("client", "main.jsp?cible=Tiers/client-fiche", "id", "idclient");
+	//builder.setLienForAttr("entreprise", "main.jsp?cible=Tiers/entreprise-fiche", "id", "identreprise");
 %>
-<h3><a href="main.jsp?cible=Tiers/client-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project details</h3>
+<h3><a href="main.jsp?cible=projet/projet-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project details</h3>
 <%=HTMLBuilder.beginPanel("General information",6) %>
 <%=builder.getBody()%>
 <div class="form-group col-lg-12" style="text-align: right;">
@@ -89,7 +91,7 @@
 							for(Bill bill:billResult){
 							%>
 								<tr>
-									<td><a href="main.jsp?cible=Bill/bill-modif&id=<%=bill.getIdbill()%>"><%=bill.getCode() %></a></td>
+									<td><a href="main.jsp?cible=Bill/bill-fiche&id=<%=bill.getIdbill()%>"><%=bill.getCode() %></a></td>
 									<td><%=bill.getLibelle() %></td>
 									
 								</tr>
