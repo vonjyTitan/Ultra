@@ -149,8 +149,9 @@
 
 </div>
   
-  <script>
+ <script>
   	$(document).ready(function(){
+  		window.setTimeout(function(){
   		$("#tabindex > a").trigger("click");
-  		});
+  		});},500);
   </script>
