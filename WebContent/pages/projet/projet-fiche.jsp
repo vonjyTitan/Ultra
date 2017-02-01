@@ -22,12 +22,33 @@
 </div>
 <%=HTMLBuilder.endPanel()%>
 <%=HTMLBuilder.beginPanel("Engineers",6) %>
-<% Utilisateur critIngenieur=new Utilisateur();
-	critIngenieur.setNomTable("ingenieur_libelle");
-	TableBuilder builderIngenieur=new TableBuilder(critIngenieur,request);
-	builderIngenieur.addNotVisibleChamp(new String[]{"idutilisateur","idrole","passe","etat","login","isingenieur","options"});
+<% 
+	Utilisateur critUtilisateur=new Utilisateur();
+	critUtilisateur.setNomTable("ingenieurprojet_libelle");
+	List<Utilisateur> UserResult=DaoModele.getInstance().findPageGenerique(1, critUtilisateur," and idprojet= " + SessionUtil.getValForAttr(request, "id"));
 	%>
-<%=builderIngenieur.getHTML()%>
+	<%=UserResult.size()%>
+	 <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
+                              <thead>
+                              <tr>
+                                  <th>Nom</th>
+                                  <th>Prenom</th>                                
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <%
+							for(Utilisateur util:UserResult){
+							%>
+								<tr>
+									<td><%=util.getNom() %></a></td>
+									<td><%=util.getPrenom()%></td>
+									
+								</tr>
+							<%
+							}
+							%>                    
+                              </tbody>
+                          </table>
 <%=HTMLBuilder.endPanel()%>
 <div class="col-lg-6 col-md-6 col-sm-6 mt">
 
