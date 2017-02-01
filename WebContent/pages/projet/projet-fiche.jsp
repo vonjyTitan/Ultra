@@ -187,7 +187,7 @@
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->
 		  	<div class="col-lg-12" style="text-align: right;">
-								<a class="btn btn-primary btn-xs" href="main.jsp?cible=Attachement/attachement-add&tb=projet&id=<%=SessionUtil.getValForAttr(request, "id")%>&cb=main.jsp?cible=projet/projet-fiche&id=<%=SessionUtil.getValForAttr(request, "id")%>"> Add file</a>
+								<a class="btn btn-primary btn-xs" href="main.jsp?cible=Attachement/attachement-add&tb=projet&id=<%=SessionUtil.getValForAttr(request, "id")%>&cb=projet/projet-fiche&id=<%=SessionUtil.getValForAttr(request, "id")%>"> Add file</a>
 							</div>
 		</div>
         <div class="tab-pane" id="4a">
