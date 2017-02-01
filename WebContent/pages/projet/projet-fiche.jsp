@@ -11,10 +11,9 @@
 	Projet crit=new Projet();
 	crit.setNomTable("projet_libelle");
 	PageFiche builder=new PageFiche(crit,request);
-	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat"});
-	builder.removeChamp("identreprise");
+	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","identreprise"});
 	builder.setLienForAttr("client", "main.jsp?cible=Tiers/client-fiche", "id", "idclient");
-	//builder.setLienForAttr("entreprise", "main.jsp?cible=Tiers/entreprise-fiche", "id", "identreprise");
+	builder.setLienForAttr("entreprise", "main.jsp?cible=Tiers/entreprise-fiche", "id", "identreprise");
 %>
 <h3><a href="main.jsp?cible=projet/projet-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project details</h3>
 <%=HTMLBuilder.beginPanel("General information",6) %>
