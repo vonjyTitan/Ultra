@@ -11,7 +11,7 @@
 <h3><a href="javascript:;" onclick="history.back();"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a>Add Attachments</h3>
 <form action="attachement-ajout" method="POST" class="form-horizontal style-form" enctype="multipart/form-data">
 <%=HTMLBuilder.beginPanel("News files", 6) %>
-<input type="hidden" name="table" value="<%=SessionUtil.getValForAttr(request, "tb")%>"/>
+<input type="hidden" name="tb" value="<%=SessionUtil.getValForAttr(request, "tb")%>"/>
 <input type="hidden" name="id" value="<%=SessionUtil.getValForAttr(request, "id")%>"/>
 <input type="hidden" name="cb" value="<%=SessionUtil.getValForAttr(request, "cb")%>"/>
 <div class="form-group col-lg-12" id="attachement">

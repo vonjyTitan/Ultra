@@ -22,19 +22,19 @@ public class AttachementAction extends Action{
 			String callback = "";
 			for (FileItem item : items) {
 	            if (item.isFormField()) {
-	            		if(item.getName()=="id"){
+	            		if(item.getFieldName().compareToIgnoreCase("id")==0){
 	            			id = Integer.valueOf("0"+item.getString());
 	            		}
-	            		else if(item.getName()=="tb"){
+	            		else if(item.getFieldName().compareToIgnoreCase("tb")==0){
 	            			table = item.getString();
 	            		}
-	            		else if(item.getName()=="cb"){
+	            		else if(item.getFieldName().compareToIgnoreCase("cb")==0){
 	            			callback = item.getString();
 	            		}
 	            	}
 	            }
 			FileService.getInstance().saveAndUploadFile(items, table, id);
-			goTo(request, response,"get", "main.jsp?cible="+callback);
+			goTo(request, response,"get", "main.jsp?cible="+callback+"&id="+id);
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
