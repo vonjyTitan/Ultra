@@ -2,13 +2,16 @@ package com.mapping;
 
 import com.annotations.Entity;
 import com.annotations.Parameter;
+import com.annotations.Required;
 
 @Entity(pkName="idbill",reference="bill")
 public class Bill extends DataEntity {
 	private int idbill;
+	@Required
 	private String code;
 	private int idprojet;
 	@Parameter(libelle="Label")
+	@Required
 	private String libelle;
 	private String description;
 	private String projet;
