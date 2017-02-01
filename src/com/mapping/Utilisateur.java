@@ -34,7 +34,14 @@ public class Utilisateur extends DataEntity {
 	private int idrole;
 	private String role;
 	private int isingenieur;
+	private int idingenieur;
 	
+	public int getIdingenieur() {
+		return idingenieur;
+	}
+	public void setIdingenieur(int idingenieur) {
+		this.idingenieur = idingenieur;
+	}
 	public int getIdutilisateur() {
 		return idutilisateur;
 	}

@@ -14,7 +14,7 @@
 	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat"});
 	builder.removeChamp("identreprise");
 %>
-<h3><a href="main.jsp?cible=Tiers/client-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Customer details</h3>
+<h3><a href="main.jsp?cible=Tiers/client-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project details</h3>
 <%=HTMLBuilder.beginPanel("General information",6) %>
 <%=builder.getBody()%>
 <div class="form-group col-lg-12" style="text-align: right;">
@@ -27,12 +27,12 @@
 	critUtilisateur.setNomTable("ingenieurprojet_libelle");
 	List<Utilisateur> UserResult=DaoModele.getInstance().findPageGenerique(1, critUtilisateur," and idprojet= " + SessionUtil.getValForAttr(request, "id"));
 	%>
-	<%=UserResult.size()%>
 	 <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
                               <thead>
                               <tr>
-                                  <th>Nom</th>
-                                  <th>Prenom</th>                                
+                           		<th>Id</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>                                
                               </tr>
                               </thead>
                               <tbody>
@@ -40,6 +40,7 @@
 							for(Utilisateur util:UserResult){
 							%>
 								<tr>
+									<td><a href="main.jsp?cible=configuration/ingenieur-fiche&id=<%=util.getIdingenieur()%>"><%=util.getIdingenieur() %></a></td>
 									<td><%=util.getNom() %></a></td>
 									<td><%=util.getPrenom()%></td>
 									
