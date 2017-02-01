@@ -237,7 +237,7 @@ try{
               <ul class="sidebar-menu" id="nav-accordion">
               <%Utilisateur user=((Utilisateur)request.getSession().getAttribute("utilisateur")); %>
               	   <!-- <p class="centered"><a href="profile.html"><img src="assets/img/lxc_logo.png" class="img-circle" width="60"></a></p>-->
-              	  <h5 class="centered"><%=user.getNom()%></h5>
+              	  <h5 class="centered"><%=user.getPrenom()%></h5>
               	  <h5 class="centered">(<%=user.getRole()%>)</h5>
                   <!-- <form action="" class="search-form">
                 <div class="form-group has-feedback">

@@ -1,3 +1,4 @@
+<%@page import="javax.xml.crypto.Data"%>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="dao.DaoModele"%>
 <%@page import="java.util.HashMap"%>
@@ -5,6 +6,8 @@
 <%@page import="com.affichage.InsertUpdateBuilder.ERROR_SHOW"%>
 <%@page import="com.affichage.*"%>
 <%@page import="com.mapping.*"%>
+<%@page import="com.service.*"%>
+<%@page import="utilitaire.ConfigUtil"%>
 <%@page import="java.util.Map"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
@@ -14,6 +17,10 @@
 	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","identreprise"});
 	builder.setLienForAttr("client", "main.jsp?cible=Tiers/client-fiche", "id", "idclient");
 	builder.setLienForAttr("entreprise", "main.jsp?cible=Tiers/entreprise-fiche", "id", "identreprise");
+	List<Attachement> atts = FileService.getInstance().getAttachement("projet",Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
+	String foldername = "projet_"+SessionUtil.getValForAttr(request, "id")+"/";
+	String fileurl = ConfigUtil.getConfigBundle().getString("file.url")+"/projet_"+SessionUtil.getValForAttr(request, "id");
+	
 %>
 <h3><a href="main.jsp?cible=projet/projet-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project details</h3>
 <%=HTMLBuilder.beginPanel("General information",6) %>
@@ -63,6 +70,8 @@
 			</li>
 			<li><a href="#3a" data-toggle="tab">Material on site</a>
 			</li>
+			<li><a href="#5a" data-toggle="tab">Attached file</a>
+			</li>
 			<li><a href="#4a" data-toggle="tab">Log</a>
 			</li>
 		</ul>
@@ -99,10 +108,14 @@
 							%>                    
                               </tbody>
                           </table>
+                          
                           </section>
                   </div><!-- /content-panel -->
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->
+		  	<div class="form-group col-lg-12" style="text-align: right;">
+								<a class="btn btn-primary btn-xs" href="main.jsp?cible=Bill/bill-ajout&id=<%=SessionUtil.getValForAttr(request, "id")%>"> Add bill</a>
+							</div>
 		</div>
 		<div class="tab-pane" id="2a">
           <div class="row mt">
@@ -141,6 +154,41 @@
 		</div>
         <div class="tab-pane" id="3a">
           <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
+		</div>
+		<div class="tab-pane" id="5a">
+           <div class="row mt">
+	  		<div class="col-lg-12 col-md-12 col-sm-12 table-responsive">
+                    <div class="content-panel">                  
+                        <section id="unseen">
+                          <table class="table table-striped table-advance table-hover table-bordered" >
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            for(Attachement att : atts){
+					%>
+						<tr>
+							<td><a href="<%=fileurl+"/"+att.getCible() %>" target="_blank"><%=att.getCible().replace(foldername, "") %></a></td>
+							<td></td>
+							
+						</tr>
+					<%
+					}
+					%>                    
+                        </tbody>
+                    </table>
+                    
+                    </section>
+                  </div><!-- /content-panel -->
+               </div><!-- /col-lg-4 -->			
+		  	</div><!-- /row -->
+		  	<div class="col-lg-12" style="text-align: right;">
+								<a class="btn btn-primary btn-xs" href="main.jsp?cible=Attachement/attachement-add&tb=projet&id=<%=SessionUtil.getValForAttr(request, "id")%>&cb=main.jsp?cible=projet/projet-fiche&id=<%=SessionUtil.getValForAttr(request, "id")%>"> Add file</a>
+							</div>
 		</div>
         <div class="tab-pane" id="4a">
           <h3>We use css to change the background color of the content to be equal to the tab</h3>

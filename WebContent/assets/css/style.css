@@ -2276,8 +2276,15 @@ label {
   border-radius: 4px 4px 0 0 ;
 }
 
+#exTab3 .active > a {
+  /*color : white;*/
+  background-color: #d2c9c9 !important;
+}
+
 #exTab3 .tab-content {
   /*color : white;*/
-  background-color: #428bca;
+  background-color: #d2c9c9;
+  height: 380px;
+  overflow-y: auto;
   padding : 5px 15px;
 }
