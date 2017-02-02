@@ -52,7 +52,7 @@
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn donut-chart">
                       			<div class="white-header">
-						  			<h5>ETAT DE STOCK</h5>
+						  			<h5>YOUR ADVANCEMENT(%)</h5>
                       			</div>
 								<div class="row">
 									<div class="col-sm-6 col-xs-6 goleft">
@@ -80,11 +80,11 @@
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn">
                       			<div class="white-header">
-						  			<h5>TOP MENU</h5>
+						  			<h5>YOUR TASK</h5>
                       			</div>
 								<div class="row">
 									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-heart"></i> 122</p>
+										<p><i class="white-header"></i> 6/21</p>
 									</div>
 									<div class="col-sm-6 col-xs-6"></div>
 	                      		</div>
@@ -98,14 +98,14 @@
 							<!-- WHITE PANEL - TOP USER -->
 							<div class="white-panel pn">
 								<div class="white-header">
-									<h5>TOP SERVEUR</h5>
+									<h5>YOUR PROJECT</h5>
 								</div>
 								<p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
 								<p><b>Vonjy RAHANJONIRINA</b></p>
 								<div class="row">
 									<div class="col-md-6">
-										<p class="small mt">NOMBRE DE COMANNDES</p>
-										<p>124</p>
+										<p class="small mt">Number of your project</p>
+										<p>4</p>
 									</div>
 								</div>
 							</div>
@@ -164,12 +164,12 @@
 							<!-- REVENUE PANEL -->
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
-									<h5>REVENUE</h5>
+									<h5>Summary account of all Project(per Month)</h5>
 								</div>
 								<div class="chart mt">
 									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
 								</div>
-								<p class="mt"><b>Ar 17,980</p>
+								<p class="mt">RS 150000 (Fevrier 2017)<b></p>
 							</div>
 						</div><!-- /col-md-4 -->
 						
