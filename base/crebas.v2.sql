@@ -31,4 +31,8 @@ from utilisateur as user join role
 on role.idrole=user.idrole where isingenieur=1;
 
 INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
-(11, 'decompte', 'Count manage')
+(11, 'decompte', 'Count manage');
+
+create or replace view matonsite_libelle as
+SELECT mos.*,mat.libelle FROM matonsite as mos 
+join materiel mat on mat.idmateriel=mos.idmateriel;
