@@ -7,9 +7,8 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Entreprise(),"crud-insert?classenom=com.mapping.Entreprise&cible=Tiers/entreprise-liste&referreur=main.jsp?cible=Tiers/entreprise-ajout",request);
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Estimation(),"crud-insert?classenom=com.mapping.Estimation&cible=decompte/decompte-liste&referreur=main.jsp?cible=Tiers/decompte-ajout",request);
 	builder.removeChamp("idmoisprojet");
-	builder.setChampTextarea("description");
 %>
-<h3>Add new Company</h3>
+<h3>Add new Estimation</h3>
 <%=builder.getHTML("General information", 12)%>
