@@ -15,6 +15,7 @@ import org.apache.struts2.dispatcher.multipart.MultiPartRequest;
 
 import com.affichage.HTMLBuilder;
 import com.mapping.Bill;
+import com.mapping.MatOnSite;
 import com.mapping.Projet;
 import com.rooteur.Action;
 import com.service.FileService;
@@ -92,5 +93,22 @@ public class ProjetAction extends Action {
 		projet.setEtat(depart.getEtat());
 		DaoModele.getInstance().update(projet);
 		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+projet.getIdprojet());
+	}
+	public void ajoutmatonsite(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		String[] idmats=request.getParameterValues("idmateriel");
+		String[] pus=request.getParameterValues("pu");
+		ProjetService.getInstance().addMatOnSite(idmats, pus,Integer.valueOf(SessionUtil.getValForAttr(request, "idprojet")));
+		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+SessionUtil.getValForAttr(request, "idprojet"));
+	}
+	public void modifmatonsite(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		int idmatonsite = Integer.valueOf(SessionUtil.getValForAttr(request, "idmatonsite"));
+		double pu = Double.valueOf(SessionUtil.getValForAttr(request, "pu"));
+		if(pu<=0){
+			throw new Exception("PU must be positif");
+		}
+		MatOnSite data = DaoModele.getInstance().findById(new MatOnSite(), idmatonsite);
+		data.setPu(pu);
+		DaoModele.getInstance().update(data);
+		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+data.getIdprojet());
 	}
 }

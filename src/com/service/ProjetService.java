@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapping.MatOnSite;
 import com.mapping.Mois;
 
 import dao.Connecteur;
@@ -75,6 +76,37 @@ public class ProjetService {
 			setEstimation(dates,estimation,idprojet,conn);
 		}
 		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+	}
+	public void addMatOnSite(String[] idmats,String[]pus,int idprojet)throws Exception{
+		if(idmats==null || idmats.length==0)
+			throw new Exception("No Material added");
+		int taille = idmats.length;
+		List<MatOnSite> moss = new ArrayList<MatOnSite>();
+		for(int i=0;i<taille;i++){
+			MatOnSite mos = new MatOnSite();
+			mos.setIdmateriel(Integer.valueOf(idmats[i]));
+			mos.setPu(Double.valueOf(pus[i]));
+			mos.setDebit(0);
+			mos.setCredit(0);
+			mos.setIdprojet(idprojet);
+			moss.add(mos);
+		}
+		Connection conn = null;
+		try{
+			conn =  Connecteur.getConnection();
+			conn.setAutoCommit(false);
+			DaoModele.getInstance().save(moss, conn);
+			conn.commit();
+		}
+		catch(Exception ex){
+			if(conn!=null)
+				conn.rollback();
 			throw ex;
 		}
 		finally{

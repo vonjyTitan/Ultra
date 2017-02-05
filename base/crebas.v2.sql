@@ -34,5 +34,5 @@ INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
 (11, 'decompte', 'Count manage');
 
 create or replace view matonsite_libelle as
-SELECT mos.*,mat.libelle FROM matonsite as mos 
+SELECT mos.*,mat.libelle,mat.code FROM matonsite as mos 
 join materiel mat on mat.idmateriel=mos.idmateriel;

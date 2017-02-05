@@ -23,6 +23,7 @@
 	MatOnSite critmos=new MatOnSite();
 	critmos.setNomTable("matonsite_libelle");
 	critmos.setPackSize(100);
+	critmos.setIdprojet(Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 	List<MatOnSite> matonsites = DaoModele.getInstance().findPageGenerique(1, critmos);
 	
 %>
@@ -157,8 +158,45 @@
 		  	</div><!-- /row -->
 		</div>
         <div class="tab-pane" id="3a">
-          <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
-		</div>
+          	<div class="row mt">
+	  		<div class="col-lg-12 col-md-12 col-sm-12 table-responsive">
+                    <div class="content-panel">                  
+                        <section id="unseen">
+                          <table class="table table-striped table-advance table-hover table-bordered" >
+                            <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>PU</th>  
+                                <th>Debit</th>
+                                <th>Credit</th>  
+                                <th></th>                         
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                            for(MatOnSite mos : matonsites){
+					%>
+						<tr>
+							<td><a href="main.jsp?cible=configuration/materiel-fiche&id=<%=mos.getIdmateriel()%>"><%=mos.getCode()%></a></td>
+							<td><%=mos.getPu() %></td>
+							<td><%=mos.getDebit() %></td>
+							<td><%=mos.getCredit() %></td>
+							<td><a class="btn btn-primary btn-xs" onclick="modifMos(<%=mos.getPu() %>,'<%=mos.getCode() %>',<%=mos.getIdmatonsite() %>)" href="javascript:;"><i class="fa fa-pencil "></i></a></td>
+						</tr>
+					<%
+					}
+					%>                    
+                        </tbody>
+                    </table>
+                    
+                    </section>
+                  </div><!-- /content-panel -->
+               </div><!-- /col-lg-4 -->			
+		  	</div><!-- /row -->
+		  	<div class="col-lg-12" style="text-align: right;">
+								<a class="btn btn-primary btn-xs" href="main.jsp?cible=projet/projet-ajoutmatonsite&id=<%=SessionUtil.getValForAttr(request, "id")%>"> Add Mat on site</a>
+			</div>
+          </div>
 		<div class="tab-pane" id="5a">
            <div class="row mt">
 	  		<div class="col-lg-12 col-md-12 col-sm-12 table-responsive">
@@ -195,16 +233,53 @@
 							</div>
 		</div>
         <div class="tab-pane" id="4a">
-          <h3>We use css to change the background color of the content to be equal to the tab</h3>
-		</div>
+          </div>
 	</div>
 </div>
 
 </div>
-  
+  <div class="modal fade" id="modif" style="margin-top:100px;margin-left:100px;">
+	<div class="modal-dialog">
+	<form action="projet-modifmatonsite" id="form-annulation" method="post">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" style="color: white;" aria-label="Close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <h4>Update Mat on site</h4>
+            </div>
+            <div class="modal-body">
+            	<input type="hidden" name="idmatonsite" id="idmatonsite"/>
+            	<div id="codecontainer" class="form-group col-lg-12" style="margin-top:30px;"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="">Code Material : </label></div><div class="col-sm-7"><input name="codemateriel" id="codemateriel" class="form-control" disabled="true" value="" type="text"></div></div>
+                <div id="codecontainer" class="form-group col-lg-12"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="pu">PU : </label></div><div class="col-sm-7"><input name="pu" id="pu" class="form-control" value="" type="text"></div></div>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="col-lg-12">
+                <input type="submit" class="btn btn-primary btn-xs" name="confirme"  value="Valide"/>
+			<a class="btn btn-warning btn-xs closes"  href="javascript:;">Cancel</a>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
  <script>
   	$(document).ready(function(){
   		window.setTimeout(function(){
   		$("#tabindex > a").trigger("click");
-  		});},500);
+  		},500);
+  		$(".closes").on("click",function(){
+  			$(this).parents(".modal").prop("class","modal fade");
+  		});
+  		$(".close").on("click",function(){
+  			$(this).parents(".modal").prop("class","modal fade");
+  		});
+  	});
+  	function modifMos(pu,codemateriel,idmatonsite){
+  		$("#pu").prop("value",pu);
+  		$("#idmatonsite").prop("value",idmatonsite);
+  		$("#codemateriel").prop( "value",codemateriel);
+  		$("#modif").prop("class","modal show");
+  	}
   </script>
