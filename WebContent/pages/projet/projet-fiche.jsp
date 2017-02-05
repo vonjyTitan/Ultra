@@ -135,7 +135,10 @@
                             <thead>
                             <tr>
                                 <th>Month</th>
-                                <th>Amount</th>                                
+                                <th>Amount</th>  
+                                <th>Status</th>
+                                <th>Date of count</th>
+                                <th></th>                              
                             </tr>
                             </thead>
                             <tbody>
@@ -145,7 +148,9 @@
 						<tr>
 							<td><%=estimation.getMois() %></td>
 							<td><%=estimation.getEstimation() %></td>
-							
+							<td></td>
+							<td>--</td>
+							<td><a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-fiche&id=<%=estimation.getIdmoisprojet() %>">Details</a></td>
 						</tr>
 					<%
 					}
