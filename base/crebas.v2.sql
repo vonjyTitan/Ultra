@@ -29,3 +29,6 @@ as
 select user.*, role.libelle as role
 from utilisateur as user join role 
 on role.idrole=user.idrole where isingenieur=1;
+
+INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
+(11, 'decompte', 'Count manage')
