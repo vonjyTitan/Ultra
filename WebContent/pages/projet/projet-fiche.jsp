@@ -19,7 +19,7 @@
 	builder.setLienForAttr("entreprise", "main.jsp?cible=Tiers/entreprise-fiche", "id", "identreprise");
 	List<Attachement> atts = FileService.getInstance().getAttachement("projet",Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 	String foldername = "projet_"+SessionUtil.getValForAttr(request, "id")+"/";
-	String fileurl = ConfigUtil.getConfigBundle().getString("file.url")+"/projet_"+SessionUtil.getValForAttr(request, "id");
+	String fileurl = ConfigUtil.getConfigBundle().getString("file.url");
 	
 %>
 <h3><a href="main.jsp?cible=projet/projet-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project details</h3>

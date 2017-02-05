@@ -15,6 +15,7 @@ import javax.servlet.http.Part;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import com.mapping.Attachement;
@@ -96,7 +97,7 @@ public class FileService {
                 	continue;
         		OutputStream output = null;
         		try{
-        			String filename = item.getName();
+        			String filename = FilenameUtils.getName(item.getName());
         			Attachement attache = new Attachement();
         			attache.setTable(table);
         			attache.setIdintable(idintable);
