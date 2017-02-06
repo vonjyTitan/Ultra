@@ -163,7 +163,7 @@
 							}
 							%></td>
 							<td><%=UtileAffichage.formatAfficherDate(estimation.getDatedecompte()) %></td>
-							<td><a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-EstimationDecompteFiche&id=<%=estimation.getIdmoisprojet() %>">Details</a></td>
+							<td><a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-fiche&id=<%=estimation.getIdmoisprojet() %>">Details</a></td>
 						</tr>
 					<%
 					}
