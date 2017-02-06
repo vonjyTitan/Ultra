@@ -1,3 +1,4 @@
+<%@page import="utilitaire.UtileAffichage"%>
 <%@page import="javax.xml.crypto.Data"%>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="dao.DaoModele"%>
@@ -146,11 +147,11 @@
 					for(Estimation estimation:EstimationResult){
 					%>
 						<tr>
-							<td><%=estimation.getMois() %></td>
+							<td><%=UtileAffichage.formatAfficherDate(estimation.getMois()) %></td>
 							<td><%=estimation.getEstimation() %></td>
 							<td></td>
 							<td>--</td>
-							<td><a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-fiche&id=<%=estimation.getIdmoisprojet() %>">Details</a></td>
+							<td><a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-EstimationDecompteFiche&id=<%=estimation.getIdmoisprojet() %>">Details</a></td>
 						</tr>
 					<%
 					}
@@ -162,7 +163,7 @@
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->
 		  	<div class="form-group col-lg-12" style="text-align: right;">
-								<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-EstimationDecompteFiche&id=<%=SessionUtil.getValForAttr(request, "id")%>">Manage Count</a>
+								<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-ajout&id=<%=SessionUtil.getValForAttr(request, "id")%>">Add estimate</a>
 							</div>
 		</div>
         <div class="tab-pane" id="3a">
