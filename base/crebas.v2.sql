@@ -36,3 +36,7 @@ INSERT INTO `fonctionnalite` (`IDFONCTIONNALITE`, `NOM`, `DESCRIPTION`) VALUES
 create or replace view matonsite_libelle as
 SELECT mos.*,mat.libelle,mat.code FROM matonsite as mos 
 join materiel mat on mat.idmateriel=mos.idmateriel;
+
+create or replace view decompte_libelle as 
+select moisprojet.* ,b.libelle,b.description,b.code from moisprojet 
+join bill as b on moisprojet.idprojet =  b.idprojet

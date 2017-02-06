@@ -161,6 +161,9 @@
                   </div><!-- /content-panel -->
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->
+		  	<div class="form-group col-lg-12" style="text-align: right;">
+								<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-EstimationDecompteFiche&id=<%=SessionUtil.getValForAttr(request, "id")%>">Manage Count</a>
+							</div>
 		</div>
         <div class="tab-pane" id="3a">
           	<div class="row mt">

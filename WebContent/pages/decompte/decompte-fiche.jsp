@@ -10,9 +10,10 @@
 	Estimation crit=new Estimation();
 	crit.setNomTable("moisprojet");
 	PageFiche builder=new PageFiche(crit,request);
-	//builder.removeChamp("idunite");
+	builder.setDefaultClassForCOntainer("col-lg-6");
+	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description"});
 %>
-<h3><a href="main.jsp?cible=Tiers/client-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Customer details</h3>
-<%=HTMLBuilder.beginPanel("General information",6) %>
+<h3>Estimation details</h3>
+<%=HTMLBuilder.beginPanel("General information",12) %>
 <%=builder.getBody()%>
 <%=HTMLBuilder.endPanel()%>

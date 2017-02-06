@@ -1,5 +1,7 @@
 package com.mapping;
 
+import java.util.Date;
+
 import com.annotations.Entity;
 import com.annotations.Parameter;
 import com.annotations.Required;
@@ -13,16 +15,40 @@ public class Estimation extends DataEntity {
 	private double total;
 	@Required
 	@Parameter(libelle="Month")
-	private String mois;
+	private Date mois;
 	@Parameter(libelle="Date of Discount")
-	private String datedecompte;
+	private Date datedecompte;
 	@Parameter(libelle="Date of certificate")
-	private String datecertification;
+	private Date datecertification;
 	@Parameter(libelle="Date of ")
 	private double remboursement;
 	private int etat;
 	private double matonsitecredit;
 	private double matonsitedebit;
+	private int code;
+	private String libelle;
+	private String description;
+	
+	
+	
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	public String getLibelle() {
+		return libelle;
+	}
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public int getIdmoisprojet() {
 		return idmoisprojet;
 	}
@@ -53,22 +79,22 @@ public class Estimation extends DataEntity {
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	public String getMois() {
+	public Date getMois() {
 		return mois;
 	}
-	public void setMois(String mois) {
+	public void setMois(Date mois) {
 		this.mois = mois;
 	}
-	public String getDatedecompte() {
+	public Date getDatedecompte() {
 		return datedecompte;
 	}
-	public void setDatedecompte(String datedecompte) {
+	public void setDatedecompte(Date datedecompte) {
 		this.datedecompte = datedecompte;
 	}
-	public String getDatecertification() {
+	public Date getDatecertification() {
 		return datecertification;
 	}
-	public void setDatecertification(String datecertification) {
+	public void setDatecertification(Date datecertification) {
 		this.datecertification = datecertification;
 	}
 	public double getRemboursement() {
