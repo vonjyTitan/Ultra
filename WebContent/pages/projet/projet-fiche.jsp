@@ -1,3 +1,4 @@
+<%@page import="utilitaire.ConstantEtat"%>
 <%@page import="utilitaire.UtileAffichage"%>
 <%@page import="javax.xml.crypto.Data"%>
 <%@page import="utilitaire.SessionUtil"%>
@@ -149,8 +150,19 @@
 						<tr>
 							<td><%=UtileAffichage.formatAfficherDate(estimation.getMois()) %></td>
 							<td><%=estimation.getEstimation() %></td>
-							<td></td>
-							<td>--</td>
+							<td><%if(estimation.getEtat()==ConstantEtat.MOIS_CREATED){%><span class="label label-warning label-mini">Created</span><%}
+							else if(estimation.getEtat()==ConstantEtat.MOIS_DECOMPTE){
+								%>
+								<span class="label label-primary label-mini">Counted</span>
+								<%
+							}
+							else{
+								%>
+								<span class="label label-success label-mini">Certified</span>
+								<%
+							}
+							%></td>
+							<td><%=UtileAffichage.formatAfficherDate(estimation.getDatedecompte()) %></td>
 							<td><a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-EstimationDecompteFiche&id=<%=estimation.getIdmoisprojet() %>">Details</a></td>
 						</tr>
 					<%
