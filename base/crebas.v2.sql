@@ -6,7 +6,6 @@ select projet.*, client.nom as client , entreprise.nom as entreprise from projet
 join client on client.idclient=projet.idclient
 join entreprise on entreprise.identreprise =projet.identreprise;
 
-
 create or replace view ingenieurprojet_libelle as
 select p.*,ingenieurprojet.idutilisateur as idingenieur, ingenieur_libelle.nom , ingenieur_libelle.prenom from projet_libelle p 
 join ingenieurprojet on p.idprojet=ingenieurprojet.idprojet
@@ -34,3 +33,6 @@ create or replace view matonsite_libelle as
 SELECT mos.*,mat.libelle,mat.code FROM matonsite as mos 
 join materiel mat on mat.idmateriel=mos.idmateriel;
 
+create or replace view decompte_libelle as 
+select moisprojet.* ,b.libelle,b.description,b.code from moisprojet 
+join bill as b on moisprojet.idprojet =  b.idprojet;
