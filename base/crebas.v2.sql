@@ -36,3 +36,9 @@ join materiel mat on mat.idmateriel=mos.idmateriel;
 create or replace view decompte_libelle as 
 select moisprojet.* ,b.libelle,b.description,b.code from moisprojet 
 join bill as b on moisprojet.idprojet =  b.idprojet;
+
+create or replace view itemrapport__libelle as
+select itemr.* ,i.code,i.libelle,bill.idbill,b.pu,b.estimation from itemrapport as itemr
+join billitem b on itemr.idbillitem = b.idbillitem
+join item as i on i.iditem = b.iditem
+join bill on bill.idbill= b.idbill

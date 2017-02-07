@@ -37,9 +37,9 @@
 		</ul>
 		<div class="tab-content clearfix">
 		<%for(int i=0;i<billResult.size();i++){ 
-			BillItem critBillItem=new BillItem();
-			critBill.setNomTable("billitem_libelle");
-			List<BillItem> billItemResult=DaoModele.getInstance().findPageGenerique(1, critBillItem," and idbill= " + billResult.get(i).getIdbill());%>
+			ItemRapport critItem=new ItemRapport();
+			critItem.setNomTable("itemrapport_libelle");
+			List<ItemRapport> ItemResult=DaoModele.getInstance().findPageGenerique(1, critItem," and idbill= " + billResult.get(i).getIdbill());%>
 			  <div class="tab-pane active" id=<%=i+"a" %>>
 		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
 	<thead>
@@ -48,19 +48,20 @@
 			<th>Label</th>
 			<th>PU</th>
 			<th>Estimate</th>
+			<th>Quantity</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		<%
-		for(BillItem item:billItemResult){
+		for(ItemRapport item:ItemResult){
 		%>
 			<tr>
 				<td><%=item.getCode() %></td>
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu() %></td>
-				<td><%=item.getEstimation() %></td>
-				<td><a class="btn btn-primary btn-xs" onclick="modifItemBill(<%=item.getPu() %>,<%=item.getEstimation() %>,'<%=item.getCode() %>',<%=item.getIdbillitem() %>,<%=item.getIditem() %>)" href="javascript:;"><i class="fa fa-pencil "></i></a></td>
+				<td><%=item.getQuantiteestime() %></td>
+				<td><input type="text"></td>
 			</tr>
 		<%
 		}

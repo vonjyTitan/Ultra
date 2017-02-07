@@ -10,6 +10,43 @@ public class ItemRapport extends DataEntity {
 	private Double credit;
 	private int etat;
 	private Double quantiteestime;
+	private String code;
+	private String libelle;
+	private int idbill;
+	private Double pu;
+	private Double estimation;
+	
+	
+	public Double getPu() {
+		return pu;
+	}
+	public void setPu(Double pu) {
+		this.pu = pu;
+	}
+	public Double getEstimation() {
+		return estimation;
+	}
+	public void setEstimation(Double estimation) {
+		this.estimation = estimation;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getLibelle() {
+		return libelle;
+	}
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+	public int getIdbill() {
+		return idbill;
+	}
+	public void setIdbill(int idbill) {
+		this.idbill = idbill;
+	}
 	public int getIditemrapport() {
 		return iditemrapport;
 	}
