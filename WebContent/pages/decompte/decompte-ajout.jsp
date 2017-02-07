@@ -7,8 +7,12 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Estimation(),"crud-insert?classenom=com.mapping.Estimation&cible=decompte/decompte-liste&referreur=main.jsp?cible=Tiers/decompte-ajout",request);
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Estimation(),"decompte-ajout",request);
 	builder.removeChamp("idmoisprojet");
+	builder.addNotVisibleChamp(new String[]{"idprojet","idutilisateur","total","datedecompte","datecertification","matonsitecredit","matonsitedebit","etat"});
+	Projet p = DaoModele.getInstance().findById(new Projet(), Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
+	((Estimation)builder.getEntity()).setIdprojet(p.getIdprojet());
+	
 %>
-<h3>Add new Estimation</h3>
-<%=builder.getHTML("General information", 12)%>
+<h3>Add new Estimation and Count for project <%=p.getLibelle() %></h3>
+<%=builder.getHTML("General information", 6)%>
