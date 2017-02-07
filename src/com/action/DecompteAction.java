@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.affichage.HTMLBuilder;
 import com.mapping.Estimation;
+import com.mapping.Utilisateur;
 import com.rooteur.Action;
 import com.service.DecompteService;
 
@@ -29,9 +30,11 @@ public class DecompteAction extends Action {
 		}
 		Connection conn=null;
 		try{
+			Utilisateur user = ((Utilisateur)request.getSession().getAttribute("utilisateur"));
 			conn = Connecteur.getConnection();
 			conn.setAutoCommit(false);
 			estimation.setEtat(ConstantEtat.MOIS_CREATED);
+			estimation.setIdutilisateur(user.getIdutilisateur());
 			DaoModele.getInstance().save(estimation, conn);
 			DecompteService.getInstance().setDefaultItemRapportForMoisProjet(estimation.getIdmoisprojet(), conn);
 			conn.commit();

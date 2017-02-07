@@ -6,7 +6,7 @@ import com.annotations.Entity;
 import com.annotations.Parameter;
 import com.annotations.Required;
 
-@Entity(pkName="idmoisprojet", reference="moisprojet")
+@Entity(pkName="idmoisprojet", reference="moisprojet",actionName="decompte")
 public class Estimation extends DataEntity {
 	private int idmoisprojet;
 	private int idprojet;
@@ -25,16 +25,16 @@ public class Estimation extends DataEntity {
 	private int etat;
 	private double matonsitecredit;
 	private double matonsitedebit;
-	private int code;
+	private String code;
 	private String libelle;
 	private String description;
 	
 	
 	
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 	public String getLibelle() {
