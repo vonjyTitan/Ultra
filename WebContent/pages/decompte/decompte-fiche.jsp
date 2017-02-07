@@ -39,7 +39,7 @@
 		<%for(int i=0;i<billResult.size();i++){ 
 			ItemRapport critItem=new ItemRapport();
 			critItem.setNomTable("itemrapport_libelle");
-			List<ItemRapport> ItemResult=DaoModele.getInstance().findPageGenerique(1, critItem," and idbill= " + billResult.get(i).getIdbill());%>
+			List<ItemRapport> ItemResult=DaoModele.getInstance().findPageGenerique(1, critItem," and idbill= " + billResult.get(i).getIdbill() +" and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));%>
 			  <div class="tab-pane active" id=<%=i+"a" %>>
 		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
 	<thead>
