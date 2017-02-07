@@ -2,7 +2,7 @@ package com.mapping;
 
 import com.annotations.Entity;
 
-@Entity(reference="ietmraporrt",pkName="iditemrapport")
+@Entity(reference="itemrapport",pkName="iditemrapport")
 public class ItemRapport extends DataEntity {
 	private int iditemrapport;
 	private int idmoisprojet;
