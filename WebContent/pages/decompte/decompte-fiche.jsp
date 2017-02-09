@@ -9,22 +9,23 @@
 <%
 	Estimation crit=new Estimation();
 	crit.setNomTable("decompte_libelle");
-	PageFiche builder=new PageFiche(crit,request);
-	builder.setDefaultClassForCOntainer("col-lg-6");
+	Estimation estimationCrit = new Estimation();
+	estimationCrit.setNomTable("decompte_libelle");
+	List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
+	InsertUpdateBuilder builder = new InsertUpdateBuilder(listEstimation.get(0),"decompte-decompte",request);
+	builder.setDefaultClassForContainer("col-lg-6");
 	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","mois","code"});
 %>
 <h3>Estimation details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
-<%=builder.getBody()%>
+<%=builder.getHTMLBody()%>
 <%=HTMLBuilder.endPanel()%>
 
-
+<%=builder.beginHTMLForm() %>
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
 	<% 
-		Estimation estimationCrit = new Estimation();
-		estimationCrit.setNomTable("decompte_libelle");
-		List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
+	
 		Bill critBill=new Bill();
 		critBill.setNomTable("bill_libelle");
 		List<Bill> billResult=DaoModele.getInstance().findPageGenerique(1, critBill," and idprojet= " + listEstimation.get(0).getIdprojet());
@@ -61,15 +62,20 @@
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu() %></td>
 				<td><%=item.getQuantiteestime() %></td>
-				<td><input type="text"></td>
+				<td><input type="text" name="quantite" ></td>
+				<td><input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" ></td>
+				<td><input type="hidden" name="idbillitem" value="<%=item.getIdbillitem() %>" ></td>
 			</tr>
 		<%
 		}
 		%>
 	</tbody>
-</table>        
+	
+</table> 
+<%=builder.getHTMLButton() %>       
 			</div>
 			<%
 			} %>
 
 </div>
+<%=builder.endHTMLForm()%>
