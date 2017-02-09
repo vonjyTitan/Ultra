@@ -37,8 +37,16 @@ create or replace view decompte_libelle as
 select moisprojet.* ,b.libelle,b.description,b.code from moisprojet 
 join bill as b on moisprojet.idprojet =  b.idprojet;
 
-create or replace view itemrapport__libelle as
+create or replace view itemrapport_libelle as
 select itemr.* ,i.code,i.libelle,bill.idbill,b.pu,b.estimation from itemrapport as itemr
 join billitem b on itemr.idbillitem = b.idbillitem
 join item as i on i.iditem = b.iditem
-join bill on bill.idbill= b.idbill
+join bill on bill.idbill= b.idbill;
+
+select bill.idbill, bill.libelle,ir.idmoisprojet,sum(case when ir.credit=0 then credit else estimation end) as curr,sum(billitem.estimation) as estimative,526 as previous,
+(526-sum(case when ir.credit=0 then credit else estimation end)) as cumulative
+from bill join billitem
+on bill.idbill=billitem.idbill
+join itemrapport ir
+on ir.idbillitem=billitem.idbillitem
+group by bill.idbill,bill.libelle,ir.idmoisprojet

@@ -28,6 +28,7 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import utilitaire.ConstantEtat;
+import utilitaire.SessionUtil;
 
 public class DecompteAction extends Action {
 	public void ajout(HttpServletRequest request,HttpServletResponse response)throws Exception{
@@ -100,10 +101,14 @@ public class DecompteAction extends Action {
 		    OutputStream out = null;
 		    try
 		    {
+		    	int idmoisprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "id"));
+		    	
 			     response.setContentType("application/vnd.ms-excel");
 			     response.setHeader("Content-Disposition", 
-			    "attachment; filename=sampleName.xls");
-			 
+			    "attachment; filename=PAYMENT_CERTIFICATE_"+idmoisprojet+".xls");
+			     
+			     List<Bill> bills = DaoModele.getInstance().findPageGenerique(1, new Bill());
+			     
 			     WritableWorkbook w = Workbook.createWorkbook(response.getOutputStream());
 			     WritableSheet s = w.createSheet("PAYMENT CERTIFICATE", 0);
 			 
