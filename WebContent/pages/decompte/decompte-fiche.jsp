@@ -12,16 +12,14 @@
 	Estimation estimationCrit = new Estimation();
 	estimationCrit.setNomTable("decompte_libelle");
 	List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
-	InsertUpdateBuilder builder = new InsertUpdateBuilder(listEstimation.get(0),"decompte-decompte",request);
-	builder.setDefaultClassForContainer("col-lg-6");
-	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","mois","code"});
+	PageFiche builder=new PageFiche(crit,request);
+	builder.setDefaultClassForCOntainer("col-lg-6");
+	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code"});
 %>
 <h3>Estimation details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
-<%=builder.getHTMLBody()%>
 <%=HTMLBuilder.endPanel()%>
-
-<%=builder.beginHTMLForm() %>
+<form action="decompte-decompte">
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
 	<% 
@@ -71,11 +69,12 @@
 		%>
 	</tbody>
 	
-</table> 
-<%=builder.getHTMLButton() %>       
+</table>
+<input type ="submit" class="btn btn-primary" value="update">      
 			</div>
-			<%
-			} %>
-
+<%
+}
+		%>
 </div>
-<%=builder.endHTMLForm()%>
+
+</form>

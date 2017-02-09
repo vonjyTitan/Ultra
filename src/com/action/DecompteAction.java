@@ -60,8 +60,6 @@ public class DecompteAction extends Action {
 		}
 	}
 	public void decompte(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		Estimation estimation = new HTMLBuilder<Estimation>(new Estimation(), request).getEntity();
-		
 		Connection conn = null;
 		 try{
 			 conn = Connecteur.getConnection();
@@ -69,10 +67,11 @@ public class DecompteAction extends Action {
 
 			 if(request.getParameterValues("quantite")!= null && request.getParameterValues("idbillitem")!=null && request.getParameterValues("idmoisprojet")!= null)
 			 {
-				 DecompteService.getInstance().setEstimationEtat(estimation.getIdmoisprojet(),conn);
+				 
 				 String[] quantite=request.getParameterValues("quantite");
 				 String idbillitem=request.getParameter("idbillitem");
 				 String idmoisprojet=request.getParameter("idmoisprojet");
+				 DecompteService.getInstance().setEstimationEtat(Integer.parseInt(idmoisprojet),conn);
 				 for(int i= 0;i< quantite.length;i++)
 				 {
 					 DecompteService.getInstance().setQuantityItemProject(Double.parseDouble(quantite[i]), Integer.parseInt(idmoisprojet) , Integer.parseInt(idbillitem),conn);
@@ -92,7 +91,7 @@ public class DecompteAction extends Action {
 				 conn.close();
 		 }
 		
-		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+estimation.getIdmoisprojet()+"&erreur=ugyh");
+		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet")+"&erreur=ugyh");
 	}
 	
 	
