@@ -9,22 +9,21 @@
 <%
 	Estimation crit=new Estimation();
 	crit.setNomTable("decompte_libelle");
+	Estimation estimationCrit = new Estimation();
+	estimationCrit.setNomTable("decompte_libelle");
+	List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
 	PageFiche builder=new PageFiche(crit,request);
 	builder.setDefaultClassForCOntainer("col-lg-6");
-	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","mois","code"});
+	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code"});
 %>
 <h3>Estimation details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
-<%=builder.getBody()%>
 <%=HTMLBuilder.endPanel()%>
-
-
+<form action="decompte-decompte">
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
 	<% 
-		Estimation estimationCrit = new Estimation();
-		estimationCrit.setNomTable("decompte_libelle");
-		List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
+	
 		Bill critBill=new Bill();
 		critBill.setNomTable("bill_libelle");
 		List<Bill> billResult=DaoModele.getInstance().findPageGenerique(1, critBill," and idprojet= " + listEstimation.get(0).getIdprojet());
@@ -61,15 +60,21 @@
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu() %></td>
 				<td><%=item.getQuantiteestime() %></td>
-				<td><input type="text"></td>
+				<td><input type="text" name="quantite" ></td>
+				<td><input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" ></td>
+				<td><input type="hidden" name="idbillitem" value="<%=item.getIdbillitem() %>" ></td>
 			</tr>
 		<%
 		}
 		%>
 	</tbody>
-</table>        
+	
+</table>
+<input type ="submit" class="btn btn-primary" value="update">      
 			</div>
-			<%
-			} %>
-
+<%
+}
+		%>
 </div>
+
+</form>

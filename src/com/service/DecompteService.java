@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import com.mapping.Estimation;
 
+import dao.Connecteur;
 import dao.DaoModele;
 import utilitaire.ConstantEtat;
 
@@ -30,5 +31,44 @@ public class DecompteService {
 		//TODO mettre a jour l'etat du mois projet en COnstantEtat.MOIS_COUNTED en mettant aussie la data actuel comme date de decompte
 		
 		//TODO faire update tous les itemrapport
+	}
+	public void setQuantityItemProject(double quantity , int idmoisprojet , int idbillitem)throws Exception{
+		Connection conn = null;
+		try{
+			conn = Connecteur.getConnection();
+			setQuantityItemProject(quantity,idmoisprojet,idbillitem,conn);
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+	}
+	
+	public void setQuantityItemProject(double quantity , int idmoisprojet , int idbillitem, Connection conn)throws Exception{
+		DaoModele.getInstance().executeUpdate("update itemrapport set credit= "+quantity+ " where idmoisprojet= "+idmoisprojet+" and idbillitem= "+idbillitem, conn);
+
+	}
+	
+	public void setEstimationEtat(int idmoisprojet)throws Exception{
+		Connection conn = null;
+		try{
+			conn = Connecteur.getConnection();
+			setEstimationEtat(idmoisprojet,conn);
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+	}
+	
+	public void setEstimationEtat(int idmoisprojet, Connection conn)throws Exception{
+		DaoModele.getInstance().executeUpdate("update moisprojet set etat= "+ConstantEtat.MOIS_DECOMPTE + " where idmoisprojet ="+idmoisprojet, conn);
+
 	}
 }

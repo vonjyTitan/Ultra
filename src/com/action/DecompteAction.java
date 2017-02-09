@@ -2,6 +2,7 @@ package com.action;
 
 import java.io.OutputStream;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.affichage.HTMLBuilder;
 import com.mapping.Bill;
 import com.mapping.Estimation;
+import com.mapping.Projet;
+import com.mapping.Role;
 import com.mapping.Utilisateur;
 import com.rooteur.Action;
 import com.service.DecompteService;
+import com.service.FileService;
+import com.service.ProjetService;
+import com.service.RoleService;
 
 import dao.Connecteur;
 import dao.DaoModele;
@@ -54,6 +60,41 @@ public class DecompteAction extends Action {
 				conn.close();
 		}
 	}
+	public void decompte(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Connection conn = null;
+		 try{
+			 conn = Connecteur.getConnection();
+			 conn.setAutoCommit(false);
+
+			 if(request.getParameterValues("quantite")!= null && request.getParameterValues("idbillitem")!=null && request.getParameterValues("idmoisprojet")!= null)
+			 {
+				 
+				 String[] quantite=request.getParameterValues("quantite");
+				 String idbillitem=request.getParameter("idbillitem");
+				 String idmoisprojet=request.getParameter("idmoisprojet");
+				 DecompteService.getInstance().setEstimationEtat(Integer.parseInt(idmoisprojet),conn);
+				 for(int i= 0;i< quantite.length;i++)
+				 {
+					 DecompteService.getInstance().setQuantityItemProject(Double.parseDouble(quantite[i]), Integer.parseInt(idmoisprojet) , Integer.parseInt(idbillitem),conn);
+				 }
+			 }
+			 conn.commit();
+			 
+		 }
+		 catch(Exception ex){
+			 if(conn!=null)
+				 conn.rollback();
+			 ex.printStackTrace();
+			 throw new Exception("Internal server error");
+		 }
+		 finally{
+			 if(conn!=null)
+				 conn.close();
+		 }
+		
+		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet")+"&erreur=ugyh");
+	}
+	
 	
 	public void extract(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		{
