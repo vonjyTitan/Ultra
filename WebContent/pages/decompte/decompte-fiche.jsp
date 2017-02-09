@@ -1,3 +1,4 @@
+<%@page import="utilitaire.ConstantEtat"%>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="dao.DaoModele"%>
 <%@page import="java.util.HashMap"%>
@@ -14,10 +15,25 @@
 	List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
 	PageFiche builder=new PageFiche(crit,request);
 	builder.setDefaultClassForCOntainer("col-lg-6");
-	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code"});
+	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
+
 %>
 <h3>Estimation details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
+<div class="form-group col-lg-6">
+	<p class="col-lg-6">Etat : </p>
+	<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CREATED){%>
+	<p class="col-lg-6">Created</p>
+	<%} 
+	 if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_DECOMPTE){%>
+	<p class="col-lg-6">Discount</p>
+	<%} 
+	 else {%>
+	 <p class="col-lg-6">Certified</p>
+	 <%} %>
+	
+</div>
+<%=builder.getBody()%>
 <%=HTMLBuilder.endPanel()%>
 <form action="decompte-decompte">
 <div id="exTab3" class="">	
@@ -48,7 +64,7 @@
 			<th>PU</th>
 			<th>Estimate</th>
 			<th>Quantity</th>
-			<th></th>
+
 		</tr>
 	</thead>
 	<tbody>
@@ -60,7 +76,12 @@
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu() %></td>
 				<td><%=item.getQuantiteestime() %></td>
-				<td><input type="text" name="quantite" ></td>
+				<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CREATED){%>
+					<td><input type="text" name="quantite" ></td>
+				<%} 
+				else {%><td><%=item.getCredit() %></td><% }%>
+			
+
 				<td><input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" ></td>
 				<td><input type="hidden" name="idbillitem" value="<%=item.getIdbillitem() %>" ></td>
 			</tr>
@@ -70,8 +91,11 @@
 	</tbody>
 	
 </table>
-<input type ="submit" class="btn btn-primary" value="update">      
-			</div>
+	<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CREATED){%>
+		<input type ="submit" class="btn btn-primary" value="update">
+	      
+	<%} %>
+	</div>
 <%
 }
 		%>

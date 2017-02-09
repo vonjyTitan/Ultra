@@ -71,4 +71,8 @@ public class DecompteService {
 		DaoModele.getInstance().executeUpdate("update moisprojet set etat= "+ConstantEtat.MOIS_DECOMPTE + " where idmoisprojet ="+idmoisprojet, conn);
 
 	}
+	public double getTotalEstimationAccount(){
+		
+		return 1;
+	}
 }
