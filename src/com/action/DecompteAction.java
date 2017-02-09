@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -112,10 +114,18 @@ public class DecompteAction extends Action {
 			     WritableWorkbook w = Workbook.createWorkbook(response.getOutputStream());
 			     WritableSheet s = w.createSheet("PAYMENT CERTIFICATE", 0);
 			     List<Map<String,Object>> val = DaoModele.getInstance().excecuteQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet,"boq");
+			     Set<Entry<String,Object>> set=null;
+			     int il=0;
 			     for(Map<String,Object> map:val){
-			    	 
+			    	 set=map.entrySet();
+			    	 int icol=0;
+			    	 for(Entry<String,Object> kv: set){
+			    		 s.addCell(new Label(icol, il, kv.getValue().toString()));
+			    		 icol++;
+			    	 }
+			    	 il++;
 			     }
-			     s.addCell(new Label(0, 0, "Hello World"));
+			     
 			     
 			     
 			     w.write();
