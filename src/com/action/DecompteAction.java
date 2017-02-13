@@ -2,6 +2,8 @@ package com.action;
 
 import java.io.OutputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -100,44 +102,86 @@ public class DecompteAction extends Action {
 	
 	public void extract(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		{
-		    OutputStream out = null;
+			WritableWorkbook w=null;
+		    Connection conn=null;
 		    try
 		    {
+		    	conn = Connecteur.getConnection();
 		    	int idmoisprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "id"));
 		    	
 			     response.setContentType("application/vnd.ms-excel");
 			     response.setHeader("Content-Disposition", 
 			    "attachment; filename=PAYMENT_CERTIFICATE_"+idmoisprojet+".xls");
 			     
-			     List<Bill> bills = DaoModele.getInstance().findPageGenerique(1, new Bill());
+			     Estimation est= DaoModele.getInstance().findById(new Estimation(),idmoisprojet,conn);
 			     
-			     WritableWorkbook w = Workbook.createWorkbook(response.getOutputStream());
+			     w = Workbook.createWorkbook(response.getOutputStream());
 			     WritableSheet s = w.createSheet("PAYMENT CERTIFICATE", 0);
-			     List<Map<String,Object>> val = DaoModele.getInstance().excecuteQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet,"boq");
-			     Set<Entry<String,Object>> set=null;
+			     ResultSet rsBill = conn.createStatement().executeQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet);
+
 			     int il=0;
-			     for(Map<String,Object> map:val){
-			    	 set=map.entrySet();
+			     s.addCell(new Label(0, il, "BILL"));
+			     s.addCell(new Label(1, il, "DESCRIPTION"));
+			     s.addCell(new Label(2, il, "TENDER (MUR)"));
+			     s.addCell(new Label(3, il, "PREVIOUS (MUR)"));
+			     s.addCell(new Label(4, il, "CURRENT (MUR)"));
+			     s.addCell(new Label(5, il, "CUMULATIVE (MUR)"));
+			     
+			     PreparedStatement ps = conn.prepareStatement("select billitem.idbill,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as previous "+
+					" from billitem "+
+					"join itemrapport ir "+
+					"on ir.idbillitem=billitem.idbillitem "+
+					"join moisprojet mp "+
+					"on mp.idmoisprojet=ir.idmoisprojet "+
+					"where mp.mois<? and billitem.idbill=? "+
+					"group by billitem.idbill");
+			     ResultSet rs=null;
+			     
+			     Double curr=0.0;//current value
+			     Double cum=0.0;// cummulle
+			     Double prev=0.0;
+			     int idbill =0;
+			     il++;
+			     while(rsBill.next()){
 			    	 int icol=0;
-			    	 for(Entry<String,Object> kv: set){
-			    		 s.addCell(new Label(icol, il, kv.getValue().toString()));
-			    		 icol++;
+			    	 idbill = rsBill.getInt("idbill");
+			    	 s.addCell(new Label(icol, il, idbill+""));
+			    	 icol++;
+			    	 s.addCell(new Label(icol, il, rsBill.getString("libelle")));
+			    	 icol++;
+	    			 s.addCell(new Label(icol, il, String.valueOf(rsBill.getDouble("estimative"))));
+	    			 icol++;
+	    			 
+	    			 curr = Double.valueOf(rsBill.getDouble("curr"));
+	    			 
+	    			 ps.setObject(1, est.getMois());
+			    	 ps.setObject(2, idbill);
+			    	 rs=ps.executeQuery();
+			    	 while(rs.next()){
+			    		 prev = rs.getDouble("previous");
+			    		 cum=prev+curr;
+			    		 s.addCell(new Label(icol, il, prev.toString()));
 			    	 }
+	    			 icol++;
+	    			 s.addCell(new Label(icol, il, curr.toString()));
+			    	icol++;
+			    	 s.addCell(new Label(icol, il, cum.toString()));
 			    	 il++;
 			     }
 			     
 			     
 			     
 			     w.write();
-			     w.close();
 		 
 		    } catch (Exception e)
 		    {
 		     throw new ServletException("Exctraction error", e);
 		    } finally
 		    {
-		     if (out != null)
-		      out.close();
+		     if (w != null)
+		      w.close();
+		     if(conn!=null)
+		    	 conn.close();
 		    }
 		}
 	}
