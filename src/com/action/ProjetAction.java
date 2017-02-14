@@ -14,9 +14,11 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequest;
 
 import com.affichage.HTMLBuilder;
+import com.annotations.Required;
 import com.mapping.Bill;
 import com.mapping.MatOnSite;
 import com.mapping.Projet;
+import com.mapping.Utilisateur;
 import com.rooteur.Action;
 import com.service.FileService;
 import com.service.ProjetService;
@@ -44,6 +46,8 @@ public class ProjetAction extends Action {
 		
 		Connection conn = null;
 		 try{
+			 Utilisateur user=(Utilisateur) request.getSession().getAttribute("utilisateur");
+			 
 			 conn = Connecteur.getConnection();
 			 conn.setAutoCommit(false);
 			 projet.setEtat(ConstantEtat.PROJET_CREADTED);
@@ -66,7 +70,7 @@ public class ProjetAction extends Action {
 				 DaoModele.getInstance().save(bills, conn);
 			 }
 			 
-			 ProjetService.getInstance().setEstimation(mois, estim, projet.getIdprojet(), conn);
+			 ProjetService.getInstance().setEstimation(mois, estim, projet.getIdprojet(),user.getIdutilisateur(), conn);
 			 ProjetService.getInstance().setIngenieur(idingenieurs, projet.getIdprojet(), conn);
 			 FileService.getInstance().saveAndUploadFile(projet,conn);
 			 conn.commit();

@@ -43,10 +43,12 @@ join billitem b on itemr.idbillitem = b.idbillitem
 join item as i on i.iditem = b.iditem
 join bill on bill.idbill= b.idbill;
 
-select bill.idbill, bill.libelle,ir.idmoisprojet,sum(case when ir.credit=0 then credit else estimation end) as curr,sum(billitem.estimation) as estimative,526 as previous,
-(526-sum(case when ir.credit=0 then credit else estimation end)) as cumulative
+create or replace view decompte_refactor_val as
+select bill.idbill, bill.libelle,ir.idmoisprojet,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as curr,sum(billitem.estimation) as estimative
 from bill join billitem
 on bill.idbill=billitem.idbill
 join itemrapport ir
 on ir.idbillitem=billitem.idbillitem
-group by bill.idbill,bill.libelle,ir.idmoisprojet
+join moisprojet mp
+on mp.idmoisprojet=ir.idmoisprojet
+group by bill.idbill,bill.libelle,ir.idmoisprojet;

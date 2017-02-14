@@ -5,8 +5,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapping.Estimation;
 import com.mapping.MatOnSite;
-import com.mapping.Mois;
 
 import dao.Connecteur;
 import dao.DaoModele;
@@ -50,15 +50,16 @@ public class ProjetService {
 		}
 	}
 	
-	public void setEstimation(String[] dates,String[]estimation, int idprojet, Connection conn)throws Exception{
+	public void setEstimation(String[] dates,String[]estimation, int idprojet,int idutilisateur, Connection conn)throws Exception{
 		if(dates==null)
 			return;
 		int length = dates.length;
-		List<Mois> mois = new ArrayList<Mois>();
+		List<Estimation> mois = new ArrayList<Estimation>();
 		for(int i=0;i<length;i++){
 			if(dates[i]!=null && !dates[i].isEmpty()){
-				Mois inter = new Mois();
+				Estimation inter = new Estimation();
 				inter.setIdprojet(idprojet);
+				inter.setIdutilisateur(idutilisateur);
 				inter.setEtat(ConstantEtat.MOIS_CREATED);
 				inter.setEstimation(Double.valueOf(estimation[i]));
 				inter.setMois((Date) UtileAffichage.parseFromRequest(dates[i], Date.class));
@@ -69,11 +70,11 @@ public class ProjetService {
 			DaoModele.getInstance().save(mois, conn);
 		}
 	}
-	public void setEstimation(String[] dates,String[]estimation, int idprojet)throws Exception{
+	public void setEstimation(String[] dates,String[]estimation, int idprojet,int idutilisateur)throws Exception{
 		Connection conn = null;
 		try{
 			conn = Connecteur.getConnection();
-			setEstimation(dates,estimation,idprojet,conn);
+			setEstimation(dates,estimation,idprojet,idutilisateur,conn);
 		}
 		catch(Exception ex){
 			throw ex;
