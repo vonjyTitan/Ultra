@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.affichage.HTMLBuilder;
 import com.mapping.Bill;
 import com.mapping.Estimation;
+import com.mapping.ItemRapport;
 import com.mapping.Projet;
 import com.mapping.Role;
 import com.mapping.Utilisateur;
@@ -67,15 +68,20 @@ public class DecompteAction extends Action {
 
 			 if(request.getParameterValues("quantite")!= null && request.getParameterValues("idbillitem")!=null && request.getParameterValues("idmoisprojet")!= null)
 			 {
-				 
+				 String[] iditemrapports=request.getParameterValues("iditemrapport");
 				 String[] quantite=request.getParameterValues("quantite");
 				 String idbillitem=request.getParameter("idbillitem");
 				 String idmoisprojet=request.getParameter("idmoisprojet");
-				 DecompteService.getInstance().setEstimationEtat(Integer.parseInt(idmoisprojet),conn);
+				 double somme =0;
 				 for(int i= 0;i< quantite.length;i++)
 				 {
-					 DecompteService.getInstance().setQuantityItemProject(Double.parseDouble(quantite[i]), Integer.parseInt(idmoisprojet) , Integer.parseInt(idbillitem),conn);
+					 ItemRapport RapportCrit = new ItemRapport();
+					 RapportCrit.setNomTable("itemrapport_libelle");
+					 ItemRapport itemrapport = DaoModele.getInstance().findById(RapportCrit,Integer.parseInt(iditemrapports[i]));
+					 somme =  somme + itemrapport.getPu() * Double.parseDouble(quantite[i]);
+					 DecompteService.getInstance().setQuantityItemProject(Double.parseDouble(quantite[i]), Integer.parseInt(iditemrapports[i]) ,conn);
 				 }
+				 DecompteService.getInstance().setEstimationTotal(Integer.parseInt(idmoisprojet),somme,conn);
 			 }
 			 conn.commit();
 			 
@@ -91,9 +97,34 @@ public class DecompteAction extends Action {
 				 conn.close();
 		 }
 		
-		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet")+"&erreur=ugyh");
+		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
 	
+	public void certified(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Connection conn = null;
+		 try{
+			 conn = Connecteur.getConnection();
+			 conn.setAutoCommit(false);
+			 int id = Integer.parseInt(SessionUtil.getValForAttr(request, "id"));
+			 DecompteService.getInstance().setEstimationEtat(id, ConstantEtat.MOIS_CERTIFIED, conn);
+			 
+			 conn.commit();
+			 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
+			 
+		 }
+		 catch(Exception ex){
+			 if(conn!=null)
+				 conn.rollback();
+			 ex.printStackTrace();
+			 throw new Exception("Internal server error");
+		 }
+		 finally{
+			 if(conn!=null)
+				 conn.close();
+		 }
+		
+		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
+	}
 	
 	public void extract(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		{

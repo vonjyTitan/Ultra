@@ -1,3 +1,4 @@
+<%@page import="com.service.DecompteService"%>
 <%@page import="utilitaire.ConstantEtat"%>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="dao.DaoModele"%>
@@ -16,7 +17,7 @@
 	PageFiche builder=new PageFiche(crit,request);
 	builder.setDefaultClassForCOntainer("col-lg-6");
 	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
-
+	double somme = DecompteService.getInstance().getQuantityxUnitPrice(Integer.parseInt(SessionUtil.getValForAttr(request, "id")));
 %>
 <h3>Estimation details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
@@ -25,28 +26,41 @@
 	<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CREATED){%>
 	<p class="col-lg-6">Created</p>
 	<%} 
-	 if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_DECOMPTE){%>
+	else if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_DECOMPTE){%>
 	<p class="col-lg-6">Discount</p>
 	<%} 
 	 else {%>
 	 <p class="col-lg-6">Certified</p>
 	 <%} %>
+	 
 	
 </div>
+
 <%=builder.getBody()%>
+<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED){%>
+<div class="form-group col-lg-12" style="text-align: left;">
+	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-certified&id=<%=SessionUtil.getValForAttr(request, "id")%>">Certified</a>
+</div>
+<%} %>
+<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CERTIFIED){%>
+<div class="form-group col-lg-12" style="text-align: left;">
+	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-print&id=<%=SessionUtil.getValForAttr(request, "id")%>">Export to Excel</a>
+</div>
+<%} %>
+
 <%=HTMLBuilder.endPanel()%>
-<form action="decompte-decompte">
+
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
 	<% 
-	
+		
 		Bill critBill=new Bill();
 		critBill.setNomTable("bill_libelle");
 		List<Bill> billResult=DaoModele.getInstance().findPageGenerique(1, critBill," and idprojet= " + listEstimation.get(0).getIdprojet());
 	%>
 <%for(int i=0;i<billResult.size();i++){ %>
 			<li class="active" id="tabindex">
-        		<a  href=<%="#"+i+"a" %> data-toggle="tab">Bill <%=i %></a>
+        		<a  href=<%="#"+i+"a" %> data-toggle="tab"><%=billResult.get(i).getLibelle() %></a>
 			</li>
 			<%} %>
 		</ul>
@@ -56,6 +70,7 @@
 			critItem.setNomTable("itemrapport_libelle");
 			List<ItemRapport> ItemResult=DaoModele.getInstance().findPageGenerique(1, critItem," and idbill= " + billResult.get(i).getIdbill() +" and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));%>
 			  <div class="tab-pane active" id=<%=i+"a" %>>
+		     <form action="decompte-decompte">
 		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
 	<thead>
 		<tr>
@@ -71,34 +86,38 @@
 		<%
 		for(ItemRapport item:ItemResult){
 		%>
+		
 			<tr>
 				<td><%=item.getCode() %></td>
 				<td><%=item.getLibelle() %></td>
-				<td><%=item.getPu() %></td>
+				<td><%=item.getPu()%></td>
 				<td><%=item.getQuantiteestime() %></td>
-				<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CREATED){%>
+				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()>0){%>
 					<td><input type="text" name="quantite" ></td>
 				<%} 
 				else {%><td><%=item.getCredit() %></td><% }%>
 			
-
+				<td><input type="hidden" name=iditemrapport value="<%=item.getIditemrapport() %>" ></td>
 				<td><input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" ></td>
 				<td><input type="hidden" name="idbillitem" value="<%=item.getIdbillitem() %>" ></td>
 			</tr>
+		
 		<%
+		
 		}
 		%>
 	</tbody>
 	
 </table>
-	<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CREATED){%>
+	
+	<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()>0){%>
 		<input type ="submit" class="btn btn-primary" value="update">
 	      
 	<%} %>
 	</div>
+	</form>
 <%
 }
 		%>
 </div>
 
-</form>

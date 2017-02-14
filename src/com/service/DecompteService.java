@@ -1,8 +1,10 @@
 package com.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.mapping.Estimation;
+import com.mapping.ItemRapport;
 
 import dao.Connecteur;
 import dao.DaoModele;
@@ -32,11 +34,11 @@ public class DecompteService {
 		
 		//TODO faire update tous les itemrapport
 	}
-	public void setQuantityItemProject(double quantity , int idmoisprojet , int idbillitem)throws Exception{
+	public void setQuantityItemProject(double quantity , int idmoisprojet)throws Exception{
 		Connection conn = null;
 		try{
 			conn = Connecteur.getConnection();
-			setQuantityItemProject(quantity,idmoisprojet,idbillitem,conn);
+			setQuantityItemProject(quantity,idmoisprojet,conn);
 		}
 		catch(Exception ex){
 			throw ex;
@@ -47,16 +49,16 @@ public class DecompteService {
 		}
 	}
 	
-	public void setQuantityItemProject(double quantity , int idmoisprojet , int idbillitem, Connection conn)throws Exception{
-		DaoModele.getInstance().executeUpdate("update itemrapport set credit= "+quantity+ " where idmoisprojet= "+idmoisprojet+" and idbillitem= "+idbillitem, conn);
+	public void setQuantityItemProject(double quantity , int iditemrapport, Connection conn)throws Exception{
+		DaoModele.getInstance().executeUpdate("update itemrapport set credit= "+quantity+ " where iditemrapport= "+iditemrapport, conn);
 
 	}
 	
-	public void setEstimationEtat(int idmoisprojet)throws Exception{
+	public void setEstimationEtat(int idmoisprojet,int etat)throws Exception{
 		Connection conn = null;
 		try{
 			conn = Connecteur.getConnection();
-			setEstimationEtat(idmoisprojet,conn);
+			setEstimationEtat(idmoisprojet,etat,conn);
 		}
 		catch(Exception ex){
 			throw ex;
@@ -67,12 +69,30 @@ public class DecompteService {
 		}
 	}
 	
-	public void setEstimationEtat(int idmoisprojet, Connection conn)throws Exception{
-		DaoModele.getInstance().executeUpdate("update moisprojet set etat= "+ConstantEtat.MOIS_DECOMPTE + " where idmoisprojet ="+idmoisprojet, conn);
+	public void setEstimationEtat(int idmoisprojet, int etat,Connection conn)throws Exception{
+		DaoModele.getInstance().executeUpdate("update moisprojet set etat= "+etat + " where idmoisprojet ="+idmoisprojet, conn);
 
 	}
-	public double getTotalEstimationAccount(){
+	public void setEstimationTotal(int idmoisprojet, double total, Connection conn)throws Exception{
+		System.out.println(total+"total");
+		DaoModele.getInstance().executeUpdate("update moisprojet set total= "+ total + " where idmoisprojet ="+idmoisprojet, conn);
+
+	}
+	public double getTotalEstimationAccount(int idmoisprojet , int idbillitem){
 		
 		return 1;
 	}
+	public double getQuantityxUnitPrice(int idmoisprojet) throws Exception{
+		ItemRapport critItem=new ItemRapport();
+		critItem.setNomTable("itemrapport_libelle");
+		List <ItemRapport> listItemRaport = DaoModele.getInstance().findPageGenerique(1, critItem," and idmoisprojet= " + idmoisprojet);
+		double somme =0; 
+		for(ItemRapport itemRapport : listItemRaport)
+		{
+			somme =  somme + itemRapport.getPu() * itemRapport.getCredit();
+		}
+		return somme;
+	}
+	
+	
 }
