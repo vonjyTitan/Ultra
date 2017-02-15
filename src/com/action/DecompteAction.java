@@ -70,23 +70,38 @@ public class DecompteAction extends Action {
 		 try{
 			 conn = Connecteur.getConnection();
 			 conn.setAutoCommit(false);
-
-			 if(request.getParameterValues("quantite")!= null && request.getParameterValues("idbillitem")!=null && request.getParameterValues("idmoisprojet")!= null)
+			 int idmoisprojet = 0;
+			 
+			 int etat = ConstantEtat.MOIS_DECOMPTE;
+			 if(request.getParameterValues("idmoisprojet")!=null){
+				 idmoisprojet = Integer.parseInt(request.getParameter("idmoisprojet"));
+			 }
+			 if(request.getParameterValues("etat")!= null){
+				 etat = Integer.parseInt(request.getParameter("etat"));
+			 }
+			 if(etat == ConstantEtat.MOIS_CERTIFIED){
+				 DecompteService.getInstance().setEstimationEtat(idmoisprojet, ConstantEtat.MOIS_CERTIFIED, conn);
+			 }
+			 else
 			 {
-				 String[] iditemrapports=request.getParameterValues("iditemrapport");
-				 String[] quantite=request.getParameterValues("quantite");
-				 String idbillitem=request.getParameter("idbillitem");
-				 String idmoisprojet=request.getParameter("idmoisprojet");
-				 double somme =0;
-				 for(int i= 0;i< quantite.length;i++)
+				 if(request.getParameterValues("quantite")!= null && request.getParameterValues("idbillitem")!=null)
 				 {
-					 ItemRapport RapportCrit = new ItemRapport();
-					 RapportCrit.setNomTable("itemrapport_libelle");
-					 ItemRapport itemrapport = DaoModele.getInstance().findById(RapportCrit,Integer.parseInt(iditemrapports[i]));
-					 somme =  somme + itemrapport.getPu() * Double.parseDouble(quantite[i]);
-					 DecompteService.getInstance().setQuantityItemProject(Double.parseDouble(quantite[i]), Integer.parseInt(iditemrapports[i]) ,conn);
-				 }
-				 DecompteService.getInstance().setEstimationTotal(Integer.parseInt(idmoisprojet),somme,conn);
+					 String[] iditemrapports=request.getParameterValues("iditemrapport");
+					 String[] quantite=request.getParameterValues("quantite");
+					 String idbillitem=request.getParameter("idbillitem");
+					 double somme =0;
+					 
+					 for(int i= 0;i< quantite.length;i++)
+					 {
+						 ItemRapport RapportCrit = new ItemRapport();
+						 RapportCrit.setNomTable("itemrapport_libelle");
+						 ItemRapport itemrapport = DaoModele.getInstance().findById(RapportCrit,Integer.parseInt(iditemrapports[i]));
+						 somme =  somme + itemrapport.getPu() * Double.parseDouble(quantite[i]);
+						 DecompteService.getInstance().setQuantityItemProject(Double.parseDouble(quantite[i]), Integer.parseInt(iditemrapports[i]) ,conn);
+					 }
+					 DecompteService.getInstance().setEstimationEtat(idmoisprojet, etat, conn);
+					 DecompteService.getInstance().setEstimationTotal(idmoisprojet,somme,conn);
+				 }					 
 			 }
 			 conn.commit();
 			 
@@ -111,6 +126,7 @@ public class DecompteAction extends Action {
 			 conn = Connecteur.getConnection();
 			 conn.setAutoCommit(false);
 			 int id = Integer.parseInt(SessionUtil.getValForAttr(request, "id"));
+
 			 DecompteService.getInstance().setEstimationEtat(id, ConstantEtat.MOIS_CERTIFIED, conn);
 			 
 			 conn.commit();

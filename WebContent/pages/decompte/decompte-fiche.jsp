@@ -32,19 +32,21 @@
 	 else {%>
 	 <p class="col-lg-6">Certified</p>
 	 <%} %>
-	 
-	
 </div>
 
 <%=builder.getBody()%>
+
 <% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED){%>
-<div class="form-group col-lg-12" style="text-align: left;">
-	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-certified&id=<%=SessionUtil.getValForAttr(request, "id")%>">Certified</a>
-</div>
+<form action="decompte-decompte">
+	<input type="hidden" name="etat" value="<%=ConstantEtat.MOIS_CERTIFIED %>" >
+	<input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet() %>" >
+	<input type ="submit" class="btn btn-primary" value="Certified">
+</form>
 <%} %>
 <% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CERTIFIED){%>
-<div class="form-group col-lg-12" style="text-align: left;">
-	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-print&id=<%=SessionUtil.getValForAttr(request, "id")%>">Export to Excel</a>
+<div class="form-group col-lg-12" style="margin-left: 50px;">
+	<a class="btn btn-primary btn-xs" href="#">Export to Excel</a>
+	
 </div>
 <%} %>
 
@@ -93,7 +95,7 @@
 				<td><%=item.getPu()%></td>
 				<td><%=item.getQuantiteestime() %></td>
 				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()>0){%>
-					<td><input type="text" name="quantite" ></td>
+					<td><input type="text" name="quantite" placeholder="<%=item.getCredit() %>" ></td>
 				<%} 
 				else {%><td><%=item.getCredit() %></td><% }%>
 			

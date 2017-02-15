@@ -74,7 +74,7 @@ public class DecompteService {
 
 	}
 	public void setEstimationTotal(int idmoisprojet, double total, Connection conn)throws Exception{
-		System.out.println(total+"total");
+		//System.out.println("update moisprojet set total= "+ total + " where idmoisprojet ="+idmoisprojet);
 		DaoModele.getInstance().executeUpdate("update moisprojet set total= "+ total + " where idmoisprojet ="+idmoisprojet, conn);
 
 	}
