@@ -84,7 +84,7 @@ public class ProjetService {
 				conn.close();
 		}
 	}
-	public void addMatOnSite(String[] idmats,String[]pus,int idprojet)throws Exception{
+	public void addMatOnSite(String[] idmats,String[]pus,int idprojet,int idutilisateur)throws Exception{
 		if(idmats==null || idmats.length==0)
 			throw new Exception("No Material added");
 		int taille = idmats.length;
@@ -103,6 +103,7 @@ public class ProjetService {
 			conn =  Connecteur.getConnection();
 			conn.setAutoCommit(false);
 			DaoModele.getInstance().save(moss, conn);
+			LogService.getInstance().log("Add new Mat on site", idutilisateur, idprojet, "projet", conn);
 			conn.commit();
 		}
 		catch(Exception ex){

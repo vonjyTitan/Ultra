@@ -21,6 +21,7 @@ import com.mapping.Projet;
 import com.mapping.Utilisateur;
 import com.rooteur.Action;
 import com.service.FileService;
+import com.service.LogService;
 import com.service.ProjetService;
 
 import dao.Connecteur;
@@ -52,7 +53,7 @@ public class ProjetAction extends Action {
 			 conn.setAutoCommit(false);
 			 projet.setEtat(ConstantEtat.PROJET_CREADTED);
 			 DaoModele.getInstance().save(projet,conn);
-			 
+			LogService.getInstance().log("Create project", user.getIdutilisateur(), projet.getIdprojet(), "projet", conn);
 			 if(codebills!=null && codebills.length!=0){
 				 List<Bill> bills = new ArrayList<Bill>();
 				 Bill bill = null ;
@@ -95,13 +96,31 @@ public class ProjetAction extends Action {
 		}
 		Projet depart = DaoModele.getInstance().findById(projet);
 		projet.setEtat(depart.getEtat());
-		DaoModele.getInstance().update(projet);
+		Connection conn =null;
+		try{
+			conn = Connecteur.getConnection();
+			conn.setAutoCommit(false);
+			DaoModele.getInstance().update(projet);
+			Utilisateur user=(Utilisateur) request.getSession().getAttribute("utilisateur");
+			LogService.getInstance().log("Modify project information", user.getIdutilisateur(), projet.getIdprojet(), "projet", conn);
+			conn.commit();
+		}
+		catch(Exception ex){
+			if(conn!=null)
+				conn.rollback();
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
 		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+projet.getIdprojet());
 	}
 	public void ajoutmatonsite(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String[] idmats=request.getParameterValues("idmateriel");
 		String[] pus=request.getParameterValues("pu");
-		ProjetService.getInstance().addMatOnSite(idmats, pus,Integer.valueOf(SessionUtil.getValForAttr(request, "idprojet")));
+		Utilisateur user=(Utilisateur) request.getSession().getAttribute("utilisateur");
+		ProjetService.getInstance().addMatOnSite(idmats, pus,Integer.valueOf(SessionUtil.getValForAttr(request, "idprojet")),user.getIdutilisateur());
 		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+SessionUtil.getValForAttr(request, "idprojet"));
 	}
 	public void modifmatonsite(HttpServletRequest request, HttpServletResponse response)throws Exception{
@@ -112,7 +131,24 @@ public class ProjetAction extends Action {
 		}
 		MatOnSite data = DaoModele.getInstance().findById(new MatOnSite(), idmatonsite);
 		data.setPu(pu);
-		DaoModele.getInstance().update(data);
+		Connection conn =null;
+		try{
+			conn = Connecteur.getConnection();
+			conn.setAutoCommit(false);
+			DaoModele.getInstance().update(data,conn);
+			Utilisateur user=(Utilisateur) request.getSession().getAttribute("utilisateur");
+			LogService.getInstance().log("Modify mat on site", user.getIdutilisateur(), data.getIdprojet(), "projet", conn);
+			conn.commit();
+		}
+		catch(Exception ex){
+			if(conn!=null)
+				conn.rollback();
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
 		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+data.getIdprojet());
 	}
 }

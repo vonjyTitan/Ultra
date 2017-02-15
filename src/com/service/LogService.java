@@ -1,9 +1,11 @@
 package com.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.mapping.ListPaginner;
-import com.mapping.Log;
+import com.mapping.DataEntity;
+import com.mapping.Historique;
 
 import dao.DaoModele;
 import utilitaire.UtileAffichage;
@@ -21,12 +23,25 @@ public class LogService {
 		return instance;
 	}
 	
-	public void log(Log log,Connection conn) throws Exception{
+	public void log(Historique log,Connection conn) throws Exception{
 		log.setDatelog(new java.sql.Date(UtileAffichage.getDateNow().getTime()));
-		DaoModele.getInstance().save(log, conn);
+		//DaoModele.getInstance().save(log, conn);
 	}
-	public ListPaginner<Log> getLoByProjet(int page,int idprojet){
-		return null;
+	public void log(String action,int idutilisateur,int idintable,String table,Connection conn)throws Exception{
+		Historique histo=new Historique();
+		histo.setIdintable(idintable);
+		histo.setTable(table);
+		histo.setAction(action);
+		histo.setIdutilisateur(idutilisateur);
+		log(histo,conn);
+		
+	}
+	public List<Historique> getLoByProjet(int page,String table) throws Exception{
+		Historique crit=new Historique();
+		crit.setOrdering(DataEntity.DESC);
+		crit.setNomTable("historique_libelle");
+		crit.setNomChampOrder("idhistorique");
+		return DaoModele.getInstance().findPageGenerique(page, crit);
 	}
 	
 }

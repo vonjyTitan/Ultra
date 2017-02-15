@@ -24,9 +24,11 @@ public class SessionUtil {
 	}
 	public static String getValForAttr(HttpServletRequest request,String attr){
 		String reponse=request.getParameter(attr);
-		if(reponse==null)
+		if(reponse==null || reponse.compareToIgnoreCase("null")==0 || reponse.length()==0)
 		{
-			return (String) request.getAttribute(attr);
+			reponse = (String) request.getAttribute(attr);
+			if(reponse==null || reponse.compareToIgnoreCase("null")==0 || reponse.length()==0)
+				reponse="";
 		}
 		return reponse;
 	}

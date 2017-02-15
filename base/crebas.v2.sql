@@ -52,3 +52,13 @@ on ir.idbillitem=billitem.idbillitem
 join moisprojet mp
 on mp.idmoisprojet=ir.idmoisprojet
 group by bill.idbill,bill.libelle,ir.idmoisprojet;
+
+ALTER TABLE `historique` ADD `table` VARCHAR( 50 ) NOT NULL AFTER `ACTION` ,
+ADD `idintable` INT NOT NULL AFTER `table` ,
+ADD INDEX ( `table` , `idintable` ) ;
+
+ALTER TABLE `historique` ADD `datelog` DATE NOT NULL AFTER `idintable` ;
+
+create or replace view historique_libelle as
+select utilisateur.prenom, histo.* from historique histo
+join utilisateur on histo.idutilisateur = utilisateur.idutilisateur;

@@ -23,12 +23,12 @@ public class BillService {
 		return instance;
 	}
 	
-	public void addItems(String[]iditems, String[]pus,String[]estimations,int idbill) throws Exception{
+	public void addItems(String[]iditems, String[]pus,String[]estimations,int idbill,int idutilisateur) throws Exception{
 		Connection conn=null;
 		try{
 			conn = Connecteur.getConnection();
 			conn.setAutoCommit(false);
-			addItems(iditems, pus, estimations,idbill,conn);
+			addItems(iditems, pus, estimations,idutilisateur,idbill,conn);
 			conn.commit();
 		}
 		catch(Exception ex){
@@ -42,7 +42,7 @@ public class BillService {
 		}
 	}
 	
-	public void addItems(String[]iditems, String[]pus,String[]estimations,int idbill,Connection conn) throws Exception{
+	public void addItems(String[]iditems, String[]pus,String[]estimations,int idbill,int idutilisateur,Connection conn) throws Exception{
 		if(iditems==null || iditems.length==0){
 			return;
 		}
@@ -65,7 +65,7 @@ public class BillService {
 			bi.setPu(pu);
 			bi.setEstimation(estimation);
 			list.add(bi);
-			
+			LogService.getInstance().log("Add new item for bill "+bill.getCode(), idutilisateur, bill.getIdprojet(), "projet", conn);
 		}
 		DaoModele.getInstance().save(list, conn);
 		
