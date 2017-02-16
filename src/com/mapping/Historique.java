@@ -10,8 +10,9 @@ public class Historique extends DataEntity {
 	private int idutilisateur;
 	private String action;
 	private int idintable;
-	private String table;
+	private String tablenom;
 	private Date datelog;
+	private String prenom;
 	public String getAction() {
 		return action;
 	}
@@ -23,12 +24,6 @@ public class Historique extends DataEntity {
 	}
 	public void setIdintable(int idintable) {
 		this.idintable = idintable;
-	}
-	public String getTable() {
-		return table;
-	}
-	public void setTable(String table) {
-		this.table = table;
 	}
 	public int getIdutilisateur() {
 		return idutilisateur;
@@ -47,6 +42,18 @@ public class Historique extends DataEntity {
 	}
 	public void setIdhistorique(int idhistorique) {
 		this.idhistorique = idhistorique;
+	}
+	public String getTablenom() {
+		return tablenom;
+	}
+	public void setTablenom(String tablenom) {
+		this.tablenom = tablenom;
+	}
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 	
 }

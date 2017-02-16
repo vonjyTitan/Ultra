@@ -53,9 +53,9 @@ join moisprojet mp
 on mp.idmoisprojet=ir.idmoisprojet
 group by bill.idbill,bill.libelle,ir.idmoisprojet;
 
-ALTER TABLE `historique` ADD `table` VARCHAR( 50 ) NOT NULL AFTER `ACTION` ,
+ALTER TABLE `historique` ADD `tablenom` VARCHAR( 50 ) NOT NULL AFTER `ACTION` ,
 ADD `idintable` INT NOT NULL AFTER `table` ,
-ADD INDEX ( `table` , `idintable` ) ;
+ADD INDEX ( `tablenom` , `idintable` ) ;
 
 ALTER TABLE `historique` ADD `datelog` DATE NOT NULL AFTER `idintable` ;
 

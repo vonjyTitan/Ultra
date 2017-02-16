@@ -42,7 +42,7 @@ public class BillAction extends Action {
 			conn.setAutoCommit(false);
 			DaoModele.getInstance().update(bi,conn);
 			Utilisateur user=(Utilisateur) request.getSession().getAttribute("utilisateur");
-			LogService.getInstance().log("Modify item fo bill "+bill.getCode(), user.getIdutilisateur(), bill.getIdprojet(), "projet", conn);
+			LogService.getInstance().log("Modify item fors bill "+bill.getCode(), user.getIdutilisateur(), bill.getIdprojet(), "projet", conn);
 			goTo(request, response, "get","main.jsp?cible=Bill/bill-fiche&id="+bi.getIdbill());
 			conn.commit();
 		}

@@ -255,6 +255,39 @@
 							</div>
 		</div>
         <div class="tab-pane" id="4a">
+        <%
+        	ListPaginner<Historique> histo = (ListPaginner<Historique>)LogService.getInstance().getLog(1,((Projet)builder.getEntity()).getIdprojet(), "projet");
+        %>
+        	<div class="row mt">
+	  		<div class="col-lg-12 col-md-12 col-sm-12 table-responsive">
+                    <div class="content-panel">                  
+                        <section id="unseen">
+                          <table class="table table-striped table-advance table-hover table-bordered" >
+                            <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Action</th> 
+                                <th>Date of action</th>                               
+                            </tr>
+                            </thead>
+                            <tbody> 
+                            <%for(Historique hist:histo){ %>
+                            	<tr>
+                            		<td><%=hist.getPrenom() %></td>
+                            		<td><%=hist.getAction() %></td>
+                            		<td><%=UtileAffichage.formatAfficherDate(hist.getDatelog()) %></td>
+                            	</tr>
+                            <%} %>                 
+                        	</tbody>
+                    </table>
+                    
+                    </section>
+                  </div><!-- /content-panel -->
+               </div><!-- /col-lg-4 -->			
+		  	</div><!-- /row -->
+		  	<div class="col-lg-12" style="text-align: right;">
+								<a class="btn btn-primary btn-xs" href="javascript:;"> Other</a>
+							</div>
           </div>
 	</div>
 </div>
