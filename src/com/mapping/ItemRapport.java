@@ -1,5 +1,7 @@
 package com.mapping;
 
+import java.sql.Date;
+
 import com.annotations.Entity;
 
 @Entity(reference="itemrapport",pkName="iditemrapport")
@@ -15,6 +17,7 @@ public class ItemRapport extends DataEntity {
 	private int idbill;
 	private Double pu;
 	private Double estimation;
+	private Date datedecompte;
 	
 	
 	public Double getPu() {
@@ -82,5 +85,11 @@ public class ItemRapport extends DataEntity {
 	}
 	public void setQuantiteestime(Double quantiteestime) {
 		this.quantiteestime = quantiteestime;
+	}
+	public Date getDatedecompte() {
+		return datedecompte;
+	}
+	public void setDatedecompte(Date datedecompte) {
+		this.datedecompte = datedecompte;
 	}
 }

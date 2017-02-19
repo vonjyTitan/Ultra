@@ -62,3 +62,9 @@ ALTER TABLE `historique` ADD `datelog` DATE NOT NULL AFTER `idintable` ;
 create or replace view historique_libelle as
 select utilisateur.prenom, histo.* from historique histo
 join utilisateur on histo.idutilisateur = utilisateur.idutilisateur;
+
+create or replace view item_histo as
+select itemitl.*, mp.datedecompte
+from itemrapport_libelle itemitl
+join moisprojet mp
+on itemitl.idmoisprojet = mp.idmoisprojet;
