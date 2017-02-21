@@ -68,3 +68,5 @@ select itemitl.*, mp.datedecompte
 from itemrapport_libelle itemitl
 join moisprojet mp
 on itemitl.idmoisprojet = mp.idmoisprojet;
+
+ALTER TABLE `itemrapport` ADD `montant` DOUBLE;

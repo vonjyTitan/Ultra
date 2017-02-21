@@ -35,7 +35,6 @@
 </div>
 
 <%=builder.getBody()%>
-
 <% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED){%>
 <form action="decompte-decompte">
 	<input type="hidden" name="etat" value="<%=ConstantEtat.MOIS_CERTIFIED %>" >
@@ -93,11 +92,16 @@
 				<td><%=item.getCode() %></td>
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu()%></td>
-				<td><%=item.getQuantiteestime() %></td>
+				
 				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()>0){%>
-					<td><input type="text" name="quantite" placeholder="<%=item.getCredit() %>" ></td>
+					<td><input type="text" name="estimate" value="<%=item.getQuantiteestime() %>" ></td>
+					<td><input type="text" name="quantite" value="<%=item.getCredit() %>" ></td>
+					
 				<%} 
-				else {%><td><%=item.getCredit() %></td><% }%>
+				else {%>
+					<td><%=item.getQuantiteestime() %></td>
+					<td><%=item.getCredit() %></td>
+				<% }%>
 			
 				<td><input type="hidden" name=iditemrapport value="<%=item.getIditemrapport() %>" ></td>
 				<td><input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" ></td>

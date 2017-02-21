@@ -53,6 +53,14 @@ public class DecompteService {
 		DaoModele.getInstance().executeUpdate("update itemrapport set credit= "+quantity+ " where iditemrapport= "+iditemrapport, conn);
 
 	}
+	public void setEstimateItemProject(double estimate , int iditemrapport, Connection conn)throws Exception{
+		DaoModele.getInstance().executeUpdate("update itemrapport set quantiteestime= "+estimate+ " where iditemrapport= "+iditemrapport, conn);
+
+	}
+	public void setMontantItemProject(double montant , int iditemrapport, Connection conn)throws Exception{
+		DaoModele.getInstance().executeUpdate("update itemrapport set montant= "+montant+ " where iditemrapport= "+iditemrapport, conn);
+
+	}
 	
 	public void setEstimationEtat(int idmoisprojet,int etat)throws Exception{
 		Connection conn = null;

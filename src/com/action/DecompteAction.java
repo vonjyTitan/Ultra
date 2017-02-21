@@ -88,6 +88,8 @@ public class DecompteAction extends Action {
 				 {
 					 String[] iditemrapports=request.getParameterValues("iditemrapport");
 					 String[] quantite=request.getParameterValues("quantite");
+					 String[] estimate=request.getParameterValues("estimate");
+					 
 					 String idbillitem=request.getParameter("idbillitem");
 					 double somme =0;
 					 
@@ -95,9 +97,23 @@ public class DecompteAction extends Action {
 					 {
 						 ItemRapport RapportCrit = new ItemRapport();
 						 RapportCrit.setNomTable("itemrapport_libelle");
+						 double quantiteItem = Double.parseDouble(quantite[i]);
+						 double estmateItem = Double.parseDouble(estimate[i]);
+						 double montant = 0;
 						 ItemRapport itemrapport = DaoModele.getInstance().findById(RapportCrit,Integer.parseInt(iditemrapports[i]));
-						 somme =  somme + itemrapport.getPu() * Double.parseDouble(quantite[i]);
-						 DecompteService.getInstance().setQuantityItemProject(Double.parseDouble(quantite[i]), Integer.parseInt(iditemrapports[i]) ,conn);
+						 if(quantiteItem> 0){
+							 montant = itemrapport.getPu() * quantiteItem;
+							 somme =  somme + montant;
+							 DecompteService.getInstance().setQuantityItemProject(quantiteItem, Integer.parseInt(iditemrapports[i]) ,conn);
+							 DecompteService.getInstance().setEstimateItemProject(0, Integer.parseInt(iditemrapports[i]) ,conn);
+						 }
+						 else{
+							 montant = itemrapport.getPu() * Double.parseDouble(estimate[i]);
+							 somme =  somme + montant;
+							 DecompteService.getInstance().setEstimateItemProject(estmateItem, Integer.parseInt(iditemrapports[i]) ,conn);	
+							 DecompteService.getInstance().setQuantityItemProject(0, Integer.parseInt(iditemrapports[i]) ,conn);
+						 }
+						 DecompteService.getInstance().setMontantItemProject(montant, Integer.parseInt(iditemrapports[i]) ,conn);
 					 }
 					 DecompteService.getInstance().setEstimationEtat(idmoisprojet, etat, conn);
 					 DecompteService.getInstance().setEstimationTotal(idmoisprojet,somme,conn);
