@@ -79,7 +79,7 @@
 			</li>
 			<li><a href="#5a" data-toggle="tab">Attached file</a>
 			</li>
-			<li><a href="#4a" data-toggle="tab">Log</a>
+			<li id="tablog"><a href="#4a" data-toggle="tab">Log</a>
 			</li>
 		</ul>
 
@@ -256,7 +256,10 @@
 		</div>
         <div class="tab-pane" id="4a">
         <%
-        	ListPaginner<Historique> histo = (ListPaginner<Historique>)LogService.getInstance().getLog(1,((Projet)builder.getEntity()).getIdprojet(), "projet");
+        int pageActTrack = Integer.valueOf("0"+SessionUtil.getValForAttr(request, "PageTrack"));
+        int lastPageTrack = pageActTrack;
+        pageActTrack = pageActTrack==0 ? 1: pageActTrack;
+        	ListPaginner<Historique> histo = (ListPaginner<Historique>)LogService.getInstance().getLog(pageActTrack,((Projet)builder.getEntity()).getIdprojet(), "projet");
         %>
         	<div class="row mt">
 	  		<div class="col-lg-12 col-md-12 col-sm-12 table-responsive">
@@ -280,14 +283,28 @@
                             <%} %>                 
                         	</tbody>
                     </table>
-                    
+                    <div class="col-lg-3 pull-right">
+                                <ul class="pagination">
+                                    <li>
+                                    <%
+                                    
+                                    	for(int i=1;i<=histo.nbPage;i++){
+                                    		if(i==pageActTrack){
+                                    %>
+                                                    <a href="javascript:;" style="background: #0086de; color: white;"><%=i %></a>
+                                                <%} else{%>
+                                                <a href="main.jsp?cible=projet/projet-fiche&id=<%=critmos %>&PageTrack=<%=i%>"><%=i %></a>
+									<%
+                                                }
+									} %>
+                                    </li>
+                                </ul>
+                            </div>
                     </section>
                   </div><!-- /content-panel -->
                </div><!-- /col-lg-4 -->			
-		  	</div><!-- /row -->
-		  	<div class="col-lg-12" style="text-align: right;">
-								<a class="btn btn-primary btn-xs" href="javascript:;"> Other</a>
-							</div>
+		  	</div><!-- /row -->							
+							
           </div>
 	</div>
 </div>
@@ -322,7 +339,14 @@
  <script>
   	$(document).ready(function(){
   		window.setTimeout(function(){
-  		$("#tabindex > a").trigger("click");
+  			<%if(lastPageTrack==0){%>
+  				$("#tabindex > a").trigger("click");
+  		<%}
+  		else{
+  			%>
+  			$("#tablog > a").trigger("click");
+  			<%
+  		}%>
   		},500);
   		$(".closes").on("click",function(){
   			$(this).parents(".modal").prop("class","modal fade");

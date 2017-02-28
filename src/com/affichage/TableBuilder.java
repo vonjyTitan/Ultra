@@ -127,8 +127,8 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 	public String getPaginnation() throws Exception
 	{
 		testData();
-		String reponse="<div class=\"col-lg-3 pull-right\">";
-		reponse+=  "<ul class=\"pagination\">";
+		String reponse="<div class=\"col-lg-12\">";
+		reponse+=  "<ul class=\"pagination  pull-right\">";
 		int page=((ListPaginner<T>)data).nbPage;
 		if(actualPage>1)
 			reponse+="<li><a href=\""+getCompletLien()+"&page="+(actualPage-1)+"\">&laquo;</a></li>";
