@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.mapping.Estimation;
 import com.mapping.MatOnSite;
+import com.mapping.ProjetStat;
 
 import dao.Connecteur;
 import dao.DaoModele;
@@ -115,5 +116,24 @@ public class ProjetService {
 			if(conn!=null)
 				conn.close();
 		}
+	}
+	
+	public List<ProjetStat> getStatProjetEnCour(){
+		List<ProjetStat> reponse = new ArrayList<>();
+		
+		ProjetStat rep1=new ProjetStat();
+		rep1.setActuel(5602112.2);
+		rep1.setEstimation(5314165.0);
+		rep1.setLibelle("Flic en Flac 1");
+		
+		ProjetStat rep2=new ProjetStat();
+		rep2.setActuel(854621.2);
+		rep2.setEstimation(68551634.0);
+		rep2.setLibelle("Flic en Flac 2");
+		
+		reponse.add(rep1);
+		reponse.add(rep2);
+		
+		return reponse;
 	}
 }
