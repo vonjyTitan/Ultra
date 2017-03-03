@@ -9,6 +9,7 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
+	
 	Estimation crit=new Estimation();
 	crit.setNomTable("decompte_libelle");
 	Estimation estimationCrit = new Estimation();
@@ -19,7 +20,7 @@
 	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
 	double somme = DecompteService.getInstance().getQuantityxUnitPrice(Integer.parseInt(SessionUtil.getValForAttr(request, "id")));
 %>
-<h3>Estimation details</h3>
+<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=listEstimation.get(0).getIdprojet() %>"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Estimation details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
 <div class="form-group col-lg-6">
 	<p class="col-lg-6">Etat : </p>
@@ -60,7 +61,7 @@
 		List<Bill> billResult=DaoModele.getInstance().findPageGenerique(1, critBill," and idprojet= " + listEstimation.get(0).getIdprojet());
 	%>
 <%for(int i=0;i<billResult.size();i++){ %>
-			<li class="active" id="tabindex">
+			<li <% if(i == 0){%>class="active" id="tabindex"<%} %> >
         		<a  href=<%="#"+i+"a" %> data-toggle="tab"><%=billResult.get(i).getLibelle() %></a>
 			</li>
 			<%} %>
@@ -84,8 +85,11 @@
 		</tr>
 	</thead>
 	<tbody>
+	
 		<%
-		for(ItemRapport item:ItemResult){
+	
+		for(ItemRapport item:ItemResult)
+		{
 		%>
 		
 			<tr>
@@ -103,21 +107,29 @@
 					<td><%=item.getCredit() %></td>
 				<% }%>
 			
-				<td><input type="hidden" name=iditemrapport value="<%=item.getIditemrapport() %>" ></td>
-				<td><input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" ></td>
-				<td><input type="hidden" name="idbillitem" value="<%=item.getIdbillitem() %>" ></td>
+				<input type="hidden" name=iditemrapport value="<%=item.getIditemrapport() %>" >
+				<input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" >
+				<input type="hidden" name="idbillitem" value="<%=item.getIdbillitem() %>" >
 			</tr>
 		
 		<%
-		
 		}
+		
+		
 		%>
 	</tbody>
 	
 </table>
-	
+	<% if(ItemResult.size() < 0 || ItemResult.size() == 0)
+	{%>
+		<p>No data to updated</p>	
+	<%}%>
 	<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()>0){%>
 		<input type ="submit" class="btn btn-primary" value="update">
+	      
+	<%} %>
+	<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()<0 || ItemResult.size() == 0){%>
+		<input type ="submit" class="btn btn-primary" value="updated" onclick="return false;">
 	      
 	<%} %>
 	</div>
@@ -126,4 +138,12 @@
 }
 		%>
 </div>
+<script>
+
+$(document).ready(function(){
+	window.setTimeout(function(){
+		$("#tabindex > a").trigger("click");},500);
+	});
+	
+</script>
 
