@@ -12,4 +12,7 @@ public class Utilitaire {
 		}
 		return response;
 	}
+	public static Boolean isNullOrEmptyString(String str){
+		return str==null || str.isEmpty();
+	}
 }

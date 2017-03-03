@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import dao.DaoModele;
 import utilitaire.SessionUtil;
+import utilitaire.Utilitaire;
 
 import com.mapping.DataEntity;
 
@@ -34,7 +35,7 @@ public class InsertUpdateBuilder<T extends DataEntity> extends FormBuilder<T> {
 	
 	public String beginHTMLForm(boolean withFile)throws Exception{
 		try{
-			if(SessionUtil.getValForAttr(request, "erreur")!=null){
+			if(!Utilitaire.isNullOrEmptyString(SessionUtil.getValForAttr(request, "erreur"))){
 				entity.isValide();
 			}
 		}
