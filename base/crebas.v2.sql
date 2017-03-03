@@ -70,3 +70,10 @@ join moisprojet mp
 on itemitl.idmoisprojet = mp.idmoisprojet;
 
 ALTER TABLE `itemrapport` ADD `montant` DOUBLE;
+
+ALTER TABLE `ingenieurprojet` ADD `etat_ingenieur` INT NOT NULL DEFAULT '0';
+
+create or replace view ingenieurprojet_libelle as
+select p.*,ingenieurprojet.idutilisateur as idingenieur, ingenieur_libelle.nom , ingenieur_libelle.prenom,ingenieurprojet.etat_ingenieur from projet_libelle p 
+join ingenieurprojet on p.idprojet=ingenieurprojet.idprojet
+join ingenieur_libelle on ingenieur_libelle.idutilisateur=ingenieurprojet.idutilisateur;

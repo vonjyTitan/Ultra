@@ -47,7 +47,9 @@
                               <tr>
                            		<th>Id</th>
                                 <th>Last Name</th>
-                                <th>First Name</th>                                
+                                <th>First Name</th>
+                                <th>Status</th>  
+                                <th></th>                              
                               </tr>
                               </thead>
                               <tbody>
@@ -58,13 +60,45 @@
 									<td><a href="main.jsp?cible=configuration/ingenieur-fiche&id=<%=util.getIdingenieur()%>"><%=util.getIdingenieur() %></a></td>
 									<td><%=util.getNom() %></a></td>
 									<td><%=util.getPrenom()%></td>
-									
+									<td>
+									<%if(util.getEtat_ingenieur()==ConstantEtat.INGENIEUR_PROJET_ACTIVE){
+										%>
+										<span class="label label-primary label-mini">ACTIVE</span>
+										<%
+										} else{
+										%>
+											<span class="label label-success label-mini">NOT ACTIVE</span>
+										<%
+										}
+										%>
+									</td>
+									<td style="text-align:left;"> 
+										<%if(util.getEtat_ingenieur()==ConstantEtat.INGENIEUR_PROJET_ACTIVE){
+										%>
+										 <a class="btn btn-danger btn-xs" href="projet-deleteingenieur?idingenieur=<%=util.getIdingenieur()%>&idprojet=<%=SessionUtil.getValForAttr(request, "id") %>"><i class="fa fa-trash-o "></i></a>
+										<%
+										}else{
+											%>
+											<a class="btn btn-success btn-xs" href="projet-reactiveingenieur?idingenieur=<%=util.getIdingenieur()%>&idprojet=<%=SessionUtil.getValForAttr(request, "id") %>"><i class="fa fa-check"></i></a>
+											<%
+										}
+										%>
+									</td>
 								</tr>
 							<%
 							}
 							%>                    
                               </tbody>
                           </table>
+                          <div class="form-group col-lg-12" style="text-align: right;">
+                          <input id="idingenieur1_val" name="idingenieur" onchange="addInganieur();" type="hidden">
+								<a class="btn btn-primary btn-xs" onclick="window.open('popup.jsp?cible=Pop-up/popup-ingenieur&amp;libtable=prenom&amp;inputname=idingenieur1', 'popupWindow','width=1200,height=800,scrollbars=yes');" style="margin-left: 4px;margin-top: 1px;" href="javascript:;"> Add Engineer</a>
+								<script type="text/javascript">
+									function addInganieur(){
+										 document.location.href = "projet-ajoutingenieur?idprojet=<%=SessionUtil.getValForAttr(request, "id") %>&idingenieur="+$("#idingenieur1_val").val();
+									}
+								</script>
+							</div>
 <%=HTMLBuilder.endPanel()%>
 <div class="col-lg-6 col-md-6 col-sm-6 mt">
 

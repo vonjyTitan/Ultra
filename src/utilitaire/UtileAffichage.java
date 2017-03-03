@@ -85,6 +85,21 @@ public class UtileAffichage {
 		DateFormat myDateFormat=new SimpleDateFormat("dd/MM/yyyy");
 		return myDateFormat.format(date);
 	}
+	public static String getMonthLibeleByDate(java.sql.Date date){
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int month = cal.get(Calendar.MONTH);
+		
+		String[] moisName ={"January","February","March","April","May","June","July","August","September","October","November","December"};
+		
+		return moisName[month];
+	}
+	public static int getYearByDate(java.sql.Date date){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal.get(Calendar.YEAR);
+	}
 	public static Date getDateNow(){
 		return new java.util.Date();
 	}

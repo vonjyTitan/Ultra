@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapping.DecompteStat;
 import com.mapping.Estimation;
 import com.mapping.MatOnSite;
 import com.mapping.ProjetStat;
@@ -130,6 +131,27 @@ public class ProjetService {
 		rep2.setActuel(854621.2);
 		rep2.setEstimation(68551634.0);
 		rep2.setLibelle("Flic en Flac 2");
+		
+		reponse.add(rep1);
+		reponse.add(rep2);
+		
+		return reponse;
+	}
+	
+	public List<DecompteStat> getStatProjet(int idprojet){
+		
+		List<DecompteStat> reponse = new ArrayList<>();
+		
+		DecompteStat rep1=new DecompteStat();
+		rep1.setActuel(5602112.2);
+		rep1.setEstimation(5314165.0);
+		rep1.setMois(java.sql.Date.valueOf("2015-04-12"));
+		
+		DecompteStat rep2=new DecompteStat();
+		rep2.setEstimation(854621.2);
+		rep2.setActuel(854621.2);
+		rep2.setMois(java.sql.Date.valueOf("2015-05-12"));
+		
 		
 		reponse.add(rep1);
 		reponse.add(rep2);

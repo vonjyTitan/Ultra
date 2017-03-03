@@ -770,6 +770,7 @@ public class DaoModele {
 	public void executeUpdate(String query)throws Exception{
 		Connection conn=null;
 		try{
+			conn = Connecteur.getConnection();
 			executeUpdate(query,conn);
 		}
 		catch(NullPointerException ex){

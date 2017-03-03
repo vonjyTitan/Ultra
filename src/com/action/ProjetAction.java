@@ -151,4 +151,40 @@ public class ProjetAction extends Action {
 		}
 		goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+data.getIdprojet());
 	}
+	public void deleteingenieur(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		int idprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "idprojet"));
+		int idingenieur = Integer.valueOf(SessionUtil.getValForAttr(request, "idingenieur"));
+		
+		try{
+			DaoModele.getInstance().executeUpdate("update ingenieurprojet set etat_ingenieur="+ConstantEtat.INGENIEUR_PROJET_NOT_ACTIVE+" where idprojet="+idprojet+" and idutilisateur="+idingenieur);
+			goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+idprojet);
+		}
+		catch(Exception ex){
+			throw new Exception("Server interne error");
+		}
+	}
+	public void reactiveingenieur(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		int idprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "idprojet"));
+		int idingenieur = Integer.valueOf(SessionUtil.getValForAttr(request, "idingenieur"));
+		
+		try{
+			DaoModele.getInstance().executeUpdate("update ingenieurprojet set etat_ingenieur="+ConstantEtat.INGENIEUR_PROJET_ACTIVE+" where idprojet="+idprojet+" and idutilisateur="+idingenieur);
+			goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+idprojet);
+		}
+		catch(Exception ex){
+			throw new Exception("Server interne error");
+		}
+	}
+	public void ajoutingenieur(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		int idprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "idprojet"));
+		int idingenieur = Integer.valueOf(SessionUtil.getValForAttr(request, "idingenieur"));
+		
+		try{
+			DaoModele.getInstance().executeUpdate("insert into ingenieurprojet(idprojet,idutilisateur) value("+idprojet+","+idingenieur+")");
+			goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+idprojet);
+		}
+		catch(Exception ex){
+			throw new Exception("Server interne error");
+		}
+	}
 }
