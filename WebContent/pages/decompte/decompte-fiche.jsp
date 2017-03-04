@@ -19,6 +19,10 @@
 	builder.setDefaultClassForCOntainer("col-lg-6");
 	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
 	double somme = DecompteService.getInstance().getQuantityxUnitPrice(Integer.parseInt(SessionUtil.getValForAttr(request, "id")));
+	MatOnSite critmts = new MatOnSite();
+	critmts.setPackSize(50);
+	critmts.setNomTable("matonsite_projet_libelle");
+	List<MatOnSite> matonsites = DaoModele.getInstance().findPageGenerique(1, critmts," and idmoisprojet="+listEstimation.get(0).getIdmoisprojet());
 %>
 <h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=listEstimation.get(0).getIdprojet() %>"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Estimation details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
@@ -28,7 +32,7 @@
 	<p class="col-lg-6">Created</p>
 	<%} 
 	else if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_DECOMPTE){%>
-	<p class="col-lg-6">Discount</p>
+	<p class="col-lg-6">Discount in progress</p>
 	<%} 
 	 else {%>
 	 <p class="col-lg-6">Certified</p>
@@ -51,7 +55,7 @@
 <%} %>
 
 <%=HTMLBuilder.endPanel()%>
-
+<div class="col-lg-7">
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
 	<% 
@@ -62,7 +66,7 @@
 	%>
 <%for(int i=0;i<billResult.size();i++){ %>
 			<li <% if(i == 0){%>class="active" id="tabindex"<%} %> >
-        		<a  href=<%="#"+i+"a" %> data-toggle="tab"><%=billResult.get(i).getLibelle() %></a>
+        		<a  href=<%="#"+i+"a" %> data-toggle="tab"><%=billResult.get(i).getCode() %></a>
 			</li>
 			<%} %>
 		</ul>
@@ -97,7 +101,7 @@
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu()%></td>
 				
-				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()>0){%>
+				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
 					<td><input type="text" name="estimate" value="<%=item.getQuantiteestime() %>" ></td>
 					<td><input type="text" name="quantite" value="<%=item.getCredit() %>" ></td>
 					
@@ -128,8 +132,8 @@
 		<input type ="submit" class="btn btn-primary" value="update">
 	      
 	<%} %>
-	<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()<0 || ItemResult.size() == 0){%>
-		<input type ="submit" class="btn btn-primary" value="updated" onclick="return false;">
+	<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED &&  ItemResult.size() == 0){%>
+		<input type ="submit" class="btn btn-primary" disabled="disabled" value="updated" onclick="return false;">
 	      
 	<%} %>
 	</div>
@@ -137,6 +141,41 @@
 <%
 }
 		%>
+</div>
+</div>
+</div>
+<div class="col-lg-5" >
+	<h3>Material on site (debit and credit on the month only)</h3>
+	<form action="decompte-matonsiteupdate?idmoisprojet=<%=listEstimation.get(0).getIdmoisprojet()%>">
+		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" style="background-color: #d2c9c9;">
+	<thead>
+	<tr>
+		<th>Code</th>
+		<th>Label</th>
+		<th>PU</th>
+		<th>Credit</th>
+		<th>Debit</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%for(MatOnSite matonsite:matonsites){
+			%>
+				<td><%=matonsite.getCode() %></td>
+				<td><%=matonsite.getLibelle() %></td>
+				<td><%=matonsite.getPu() %></td>
+				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
+				<td><%=matonsite.getCredit() %></td>
+				<td><%=matonsite.getDebit() %></td>
+				<%} else{%>
+				<td><input type="text" name="credit" value="<%=matonsite.getCredit()%>">
+				<input type="hidden" name="idmatonsite" value="<%=matonsite.getIdmatonsite()%>"></td>
+				<td><input type="text" name="debit" value="<%=matonsite.getDebit()%>"></td>
+				<%} %>
+		<%}%>
+	</tbody>
+	</table>
+	<input type ="submit" class="btn btn-primary" <%=(matonsites.size()==0 ? "disabled=\"disabled\"" : "") %> value="update">
+	</form>
 </div>
 <script>
 

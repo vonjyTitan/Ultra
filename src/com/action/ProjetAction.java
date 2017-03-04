@@ -187,4 +187,5 @@ public class ProjetAction extends Action {
 			throw new Exception("Server interne error");
 		}
 	}
+	
 }

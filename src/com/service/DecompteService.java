@@ -1,6 +1,9 @@
 package com.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.mapping.Estimation;
@@ -27,6 +30,9 @@ public class DecompteService {
 				" select "+idmoisprojet+",bi.idbillitem,0,"+ConstantEtat.ITEM_RAPPORT_CREATED+",0"+
 				" from billitem bi join bill on bi.idbill=bill.idbill where bill.idprojet="+est.getIdprojet();
 			DaoModele.getInstance().executeUpdate(query, conn);
+		query = "INSERT INTO matonsite_moisprojet(idmatonsite, idmoisprojet, credit, debit) "
+				+ "select idmatonsite,"+idmoisprojet+",0,0 from matonsite where idprojet="+est.getIdprojet();
+		DaoModele.getInstance().executeUpdate(query, conn);
 	}
 	public void doDecompte(int idmoisprojet,String[]iditemrapport,String[]credit,String[]estime,Connection conn){
 		//TODO verifie si le mois projet est deja certifier
@@ -102,5 +108,47 @@ public class DecompteService {
 		return somme;
 	}
 	
+	public void decompteMatOnSite(int idmoisprojet,String[]credits,String[]debits, String[] idmatonsite) throws Exception{
+		Connection conn =null;
+		 PreparedStatement prCheck =null;
+		 PreparedStatement prUpd = null;
+		 try{
+			 conn = Connecteur.getConnection();
+			 conn.setAutoCommit(false);
+			 
+			 String checkStr = "select count(1) as nb from matonsite_moisprojet where idmatonsite=? and idmoisprojet=?";
+			 String updateExiste = "update matonsite_moisprojet set credit =?, debit=? where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
+			 
+			 prCheck = conn.prepareStatement(checkStr);
+			 int taille = credits.length;
+			 
+			 ResultSet res = null;
+			 
+			 for(int i=0;i<taille;i++){
+				 prCheck.setObject(1, idmoisprojet);
+				 prCheck.setObject(2, idmatonsite[i]);
+				 
+				 res = prCheck.executeQuery();
+				 if(!res.next()){
+					 DaoModele.getInstance().executeUpdate("INSERT INTO matonsite_moisprojet(idmatonsite, idmoisprojet, credit, debit) "
+							 + "values ("+idmatonsite[i]+","+idmoisprojet+","+Double.valueOf(credits[i])+","+Double.valueOf(debits[i])+")");
+				 }
+				 else{
+					 
+				 }
+			 }
+			 
+			 conn.commit();
+		 }
+		 catch(Exception ex){
+			 if(conn!=null)
+				 conn.rollback();
+			 throw ex;
+		 }
+		 finally{
+			 if(conn!=null)
+				 conn.close();
+		 }
+	}
 	
 }

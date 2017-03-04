@@ -77,3 +77,19 @@ create or replace view ingenieurprojet_libelle as
 select p.*,ingenieurprojet.idutilisateur as idingenieur, ingenieur_libelle.nom , ingenieur_libelle.prenom,ingenieurprojet.etat_ingenieur from projet_libelle p 
 join ingenieurprojet on p.idprojet=ingenieurprojet.idprojet
 join ingenieur_libelle on ingenieur_libelle.idutilisateur=ingenieurprojet.idutilisateur;
+
+create index mp_mtos on matonsite_moisprojet(idmatonsite,idmoisprojet);
+
+CREATE TABLE IF NOT EXISTS `matonsite_moisprojet` (
+  `idmatonsite` int(11) NOT NULL,
+  `idmoisprojet` int(11) NOT NULL,
+  `credit` double NOT NULL,
+  `debit` double NOT NULL,
+  KEY `mp_mtos` (`idmatonsite`,`idmoisprojet`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create or replace view matonsite_projet_libelle as 
+select ml.code,ml.libelle,ml.pu,msp.credit,msp.debit,msp.idmoisprojet
+from matonsite_libelle ml
+join matonsite_moisprojet msp
+on msp.idmatonsite=ml.idmatonsite;

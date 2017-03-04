@@ -33,6 +33,7 @@
 <%=HTMLBuilder.beginPanel("General information",6) %>
 <%=builder.getBody()%>
 <div class="form-group col-lg-12" style="text-align: right;">
+		<a class="btn btn-success btn-xs" href="main.jsp?cible=projet/projet-stat&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"> Statistical and summary </a>
 		<a class="btn btn-primary btn-xs" href="main.jsp?cible=projet/projet-modif&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"><i class="fa fa-pencil "></i> Update</a>
 </div>
 <%=HTMLBuilder.endPanel()%>
@@ -187,7 +188,7 @@
 							<td><%if(estimation.getEtat()==ConstantEtat.MOIS_CREATED){%><span class="label label-warning label-mini">Created</span><%}
 							else if(estimation.getEtat()==ConstantEtat.MOIS_DECOMPTE){
 								%>
-								<span class="label label-primary label-mini">Counted</span>
+								<span class="label label-primary label-mini">Discount in progress</span>
 								<%
 							}
 							else{

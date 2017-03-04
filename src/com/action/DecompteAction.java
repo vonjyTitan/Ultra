@@ -162,7 +162,14 @@ public class DecompteAction extends Action {
 		
 		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
-	
+	public void matonsiteupdate(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		 String[] credits=request.getParameterValues("credit");
+		 String[] debits=request.getParameterValues("debit");
+		 String[] idmatonsite=request.getParameterValues("idmatonsite");
+		 int idmoisprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "idmoisprojet"));
+		 DecompteService.getInstance().decompteMatOnSite(idmoisprojet, credits, debits,idmatonsite);
+		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
+	}
 	public void extract(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		{
 			WritableWorkbook w=null;
