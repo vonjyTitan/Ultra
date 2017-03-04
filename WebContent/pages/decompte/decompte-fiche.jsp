@@ -55,7 +55,7 @@
 <%} %>
 
 <%=HTMLBuilder.endPanel()%>
-<div class="col-lg-7">
+<div class="col-lg-6">
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
 	<% 
@@ -144,9 +144,10 @@
 </div>
 </div>
 </div>
-<div class="col-lg-5" >
+<div class="col-lg-6" >
 	<h3>Material on site (debit and credit on the month only)</h3>
-	<form action="decompte-matonsiteupdate?idmoisprojet=<%=listEstimation.get(0).getIdmoisprojet()%>">
+	<form action="decompte-matonsiteupdate">
+		         <input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet()%>">
 		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" style="background-color: #d2c9c9;">
 	<thead>
 	<tr>
@@ -164,12 +165,12 @@
 				<td><%=matonsite.getLibelle() %></td>
 				<td><%=matonsite.getPu() %></td>
 				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
-				<td><%=matonsite.getCredit() %></td>
-				<td><%=matonsite.getDebit() %></td>
-				<%} else{%>
 				<td><input type="text" name="credit" value="<%=matonsite.getCredit()%>">
 				<input type="hidden" name="idmatonsite" value="<%=matonsite.getIdmatonsite()%>"></td>
 				<td><input type="text" name="debit" value="<%=matonsite.getDebit()%>"></td>
+				<%} else{%>
+				<td><%=matonsite.getCredit() %></td>
+				<td><%=matonsite.getDebit() %></td>
 				<%} %>
 		<%}%>
 	</tbody>

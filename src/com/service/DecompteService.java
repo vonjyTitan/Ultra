@@ -12,6 +12,7 @@ import com.mapping.ItemRapport;
 import dao.Connecteur;
 import dao.DaoModele;
 import utilitaire.ConstantEtat;
+import utilitaire.Utilitaire;
 
 public class DecompteService {
 	private static DecompteService instance;
@@ -109,33 +110,40 @@ public class DecompteService {
 	}
 	
 	public void decompteMatOnSite(int idmoisprojet,String[]credits,String[]debits, String[] idmatonsite) throws Exception{
+		
 		Connection conn =null;
-		 PreparedStatement prCheck =null;
 		 PreparedStatement prUpd = null;
+		 PreparedStatement prMtos = null;
 		 try{
 			 conn = Connecteur.getConnection();
 			 conn.setAutoCommit(false);
 			 
-			 String checkStr = "select count(1) as nb from matonsite_moisprojet where idmatonsite=? and idmoisprojet=?";
+			 Estimation est =DaoModele.getInstance().findById(new Estimation(), idmoisprojet, conn);
+			 
 			 String updateExiste = "update matonsite_moisprojet set credit =?, debit=? where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
+			 String updateGeneral = "update matonsite set debit=(select sum(debit) from matonsite_moisprojet where idmatonsite=?) , credit=(select sum(credit) from matonsite_moisprojet where idmatonsite=?) where idmatonsite=?";
 			 
-			 prCheck = conn.prepareStatement(checkStr);
 			 int taille = credits.length;
+			 prUpd = conn.prepareStatement(updateExiste);
+			 prMtos = conn.prepareStatement(updateGeneral);
 			 
-			 ResultSet res = null;
-			 
+			 String credit="";
+			 String debit = "";
 			 for(int i=0;i<taille;i++){
-				 prCheck.setObject(1, idmoisprojet);
-				 prCheck.setObject(2, idmatonsite[i]);
+				 credit= (credits[i]==null || credits[i].length()==0) ? "0" : credits[i];
+				 debit= (debits[i]==null || debits[i].length()==0) ? "0" : debits[i];
 				 
-				 res = prCheck.executeQuery();
-				 if(!res.next()){
-					 DaoModele.getInstance().executeUpdate("INSERT INTO matonsite_moisprojet(idmatonsite, idmoisprojet, credit, debit) "
-							 + "values ("+idmatonsite[i]+","+idmoisprojet+","+Double.valueOf(credits[i])+","+Double.valueOf(debits[i])+")");
-				 }
-				 else{
-					 
-				 }
+				 prUpd.setObject(1, credit);
+				 prUpd.setObject(2, debit);
+				 prUpd.setObject(3, Integer.valueOf(idmatonsite[i]));
+				 
+				 prUpd.executeUpdate();
+				 
+				 prMtos.setObject(1, Integer.valueOf(idmatonsite[i]));
+				 prMtos.setObject(2, Integer.valueOf(idmatonsite[i]));
+				 prMtos.setObject(3, Integer.valueOf(idmatonsite[i]));
+				 
+				 prMtos.executeUpdate();
 			 }
 			 
 			 conn.commit();

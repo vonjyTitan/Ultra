@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `matonsite_moisprojet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 create or replace view matonsite_projet_libelle as 
-select ml.code,ml.libelle,ml.pu,msp.credit,msp.debit,msp.idmoisprojet
+select ml.code,ml.libelle,ml.pu,msp.credit,msp.debit,msp.idmoisprojet,ml.idmatonsite
 from matonsite_libelle ml
 join matonsite_moisprojet msp
 on msp.idmatonsite=ml.idmatonsite;

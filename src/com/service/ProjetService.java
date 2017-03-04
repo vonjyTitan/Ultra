@@ -2,6 +2,7 @@ package com.service;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +92,7 @@ public class ProjetService {
 			throw new Exception("No Material added");
 		int taille = idmats.length;
 		List<MatOnSite> moss = new ArrayList<MatOnSite>();
+		PreparedStatement pr = null;
 		for(int i=0;i<taille;i++){
 			MatOnSite mos = new MatOnSite();
 			mos.setIdmateriel(Integer.valueOf(idmats[i]));
@@ -104,8 +106,16 @@ public class ProjetService {
 		try{
 			conn =  Connecteur.getConnection();
 			conn.setAutoCommit(false);
+			pr = conn.prepareStatement("INSERT INTO matonsite_moisprojet(idmatonsite, idmoisprojet, credit, debit) select ?,idmoisprojet, 0,0 from moisprojet where idprojet="+idprojet);
 			DaoModele.getInstance().save(moss, conn);
+			
+			for(MatOnSite mos:moss){
+				pr.setObject(1, mos.getIdmatonsite());
+				pr.executeUpdate();
+			}
+			
 			LogService.getInstance().log("Add new Mat on site", idutilisateur, idprojet, "projet", conn);
+			
 			conn.commit();
 		}
 		catch(Exception ex){
