@@ -91,14 +91,15 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 					continue;
 				Object value=null;
 				value=f.getMethodForChamp().invoke(ob, null);
-				if(f.getField().getType().equals(Date.class) || f.getField().getType().equals(java.sql.Date.class)){
+				Class type = f.getField().getType();
+				if(type.equals(Date.class) ||type.equals(java.sql.Date.class)){
 					value=UtileAffichage.formatAfficherDate((java.sql.Date) value);
 				}
-				else if(value!=null && (value.getClass().equals(Double.class) || value.getClass().equals(double.class) || value.getClass().equals(Float.class) || value.getClass().equals(float.class))){
-					value=UtileAffichage.formatMoney((double) value);
+				else if((type.equals(Double.class) || type.equals(double.class) || type.equals(Float.class) || type.equals(float.class))){
+					value=UtileAffichage.formatMoney(value);
 				}
-				else if(f.getField().getType().equals(String.class)){
-					value=UtileAffichage.getNonNullValue(value, f.getField().getType());
+				else if(type.equals(String.class)){
+					value=UtileAffichage.getNonNullValue(value, type);
 				}
 				if(value !=null && DataEntity.isNumberType(value.getClass()))
 					reponse+="<td>"+getLienForField(f, value,ob)+"</td>";

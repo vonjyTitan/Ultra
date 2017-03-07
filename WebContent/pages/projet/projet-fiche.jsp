@@ -14,8 +14,10 @@
 <jsp:include page='../verificateur.jsp'/>
 <%
 	Projet crit=new Projet();
-	crit.setNomTable("projet_libelle");
+	crit.setNomTable("projet_fiche");
+	crit = DaoModele.getInstance().findById(crit, Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 	PageFiche builder=new PageFiche(crit,request);
+	builder.setData(crit);
 	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","identreprise"});
 	builder.setLienForAttr("client", "main.jsp?cible=Tiers/client-fiche", "id", "idclient");
 	builder.setLienForAttr("entreprise", "main.jsp?cible=Tiers/entreprise-fiche", "id", "identreprise");
@@ -29,20 +31,24 @@
 	List<MatOnSite> matonsites = DaoModele.getInstance().findPageGenerique(1, critmos);
 	
 %>
-<h3><a href="main.jsp?cible=projet/projet-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project details</h3>
-<%=HTMLBuilder.beginPanel("General information",6) %>
+<h3><a href="main.jsp?cible=projet/projet-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Project <%=crit.getLibelle() %> details</h3>
+<%=HTMLBuilder.beginPanel("General information",5) %>
+<div class="col-lg-12 " style="max-height:600px;overflow-y:auto;">
+<div class="form-group col-lg-12"><p class="col-lg-6">Progression : </p><p class="col-lg-6"><%=(int)(100*crit.getTotal()/(crit.getTotalestimation()==null || crit.getTotalestimation()==0 ? 1 : crit.getTotalestimation())) %> %</p></div>
 <%=builder.getBody()%>
+</div>
 <div class="form-group col-lg-12" style="text-align: right;">
 		<a class="btn btn-success btn-xs" href="main.jsp?cible=projet/projet-stat&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"> Statistical and summary </a>
 		<a class="btn btn-primary btn-xs" href="main.jsp?cible=projet/projet-modif&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"><i class="fa fa-pencil "></i> Update</a>
 </div>
 <%=HTMLBuilder.endPanel()%>
-<%=HTMLBuilder.beginPanel("Engineers",6) %>
+<%=HTMLBuilder.beginPanel("Engineers",7) %>
 <% 
 	Utilisateur critUtilisateur=new Utilisateur();
 	critUtilisateur.setNomTable("ingenieurprojet_libelle");
 	List<Utilisateur> UserResult=DaoModele.getInstance().findPageGenerique(1, critUtilisateur," and idprojet= " + SessionUtil.getValForAttr(request, "id"));
 	%>
+	<div class="col-lg-12" style="max-height:200px;overflow-y:auto;">
 	 <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
                               <thead>
                               <tr>
@@ -91,6 +97,7 @@
 							%>                    
                               </tbody>
                           </table>
+                          </div>
                           <div class="form-group col-lg-12" style="text-align: right;">
                           <input id="idingenieur1_val" name="idingenieur" onchange="addInganieur();" type="hidden">
 								<a class="btn btn-primary btn-xs" onclick="window.open('popup.jsp?cible=Pop-up/popup-ingenieur&amp;libtable=prenom&amp;inputname=idingenieur1', 'popupWindow','width=1200,height=800,scrollbars=yes');" style="margin-left: 4px;margin-top: 1px;" href="javascript:;"> Add Engineer</a>
@@ -100,8 +107,9 @@
 									}
 								</script>
 							</div>
+							
 <%=HTMLBuilder.endPanel()%>
-<div class="col-lg-6 col-md-6 col-sm-6 mt">
+<div class="col-lg-7 col-md-7 col-sm-7 mt">
 
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">

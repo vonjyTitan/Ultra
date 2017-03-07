@@ -1,3 +1,4 @@
+<%@page import="utilitaire.UtileAffichage"%>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="dao.DaoModele"%>
 <%@page import="java.util.HashMap"%>
@@ -34,6 +35,7 @@
 			<th>Label</th>
 			<th>PU</th>
 			<th>Estimate</th>
+			<th>Total</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -46,6 +48,7 @@
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu() %></td>
 				<td><%=item.getEstimation() %></td>
+				<td><%=UtileAffichage.formatMoney(item.getActuel()) %></td>
 				<td><a class="btn btn-primary btn-xs" onclick="modifItemBill(<%=item.getPu() %>,<%=item.getEstimation() %>,'<%=item.getCode() %>',<%=item.getIdbillitem() %>,<%=item.getIditem() %>)" href="javascript:;"><i class="fa fa-pencil "></i></a></td>
 			</tr>
 		<%

@@ -2,7 +2,7 @@ package com.mapping;
 
 import com.annotations.Entity;
 
-@Entity(reference="")
+@Entity(reference="projet_general_stat")
 public class ProjetStat extends DataEntity {
 	private int idprojet;
 	private String code;

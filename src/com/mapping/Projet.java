@@ -33,7 +33,20 @@ public class Projet extends DataEntity {
 	private String client;
 	@Parameter(libelle="Company")
 	private String entreprise;
+	@Parameter(libelle="Start Advance")
+	private Double avance;
+	@Parameter(libelle="Advance rest")
+	private Double avanceactuel;
+	private Double total;
+	@Parameter(libelle="Estimated")
+	private Double totalestimation;
 	
+	public Double getAvanceactuel() {
+		return avanceactuel;
+	}
+	public void setAvanceactuel(Double avanceactuel) {
+		this.avanceactuel = avanceactuel;
+	}
 	public String getClient() {
 		return client;
 	}
@@ -105,6 +118,24 @@ public class Projet extends DataEntity {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public Double getAvance() {
+		return avance;
+	}
+	public void setAvance(Double avance) {
+		this.avance = avance;
+	}
+	public Double getTotal() {
+		return total;
+	}
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+	public Double getTotalestimation() {
+		return totalestimation;
+	}
+	public void setTotalestimation(Double totalestimation) {
+		this.totalestimation = totalestimation;
 	}
 	
 	

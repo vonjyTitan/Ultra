@@ -20,6 +20,7 @@ public class BillItem extends DataEntity {
 	private String unite;
 	@Parameter(libelle="label")
 	private String libelle;
+	private Double actuel;
 	public String getCode() {
 		return code;
 	}
@@ -71,6 +72,12 @@ public class BillItem extends DataEntity {
 	}
 	public void setEstimation(Double estimation) {
 		this.estimation = estimation;
+	}
+	public Double getActuel() {
+		return actuel;
+	}
+	public void setActuel(Double actuel) {
+		this.actuel = actuel;
 	}
 	
 }

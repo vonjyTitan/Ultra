@@ -23,6 +23,9 @@ public class UtileAffichage {
 			}
 			return formatAfficherDate((java.util.Date) value);
 		}
+		 if((f.equals(Double.class) || f.equals(double.class) || f.equals(Float.class) || f.equals(float.class))){
+				return UtileAffichage.formatMoney(value);
+			}
 		return value;
 	}
 	public static Object numberVal(Double ob,Class type)
@@ -53,7 +56,9 @@ public class UtileAffichage {
 		}
 		else return value;
 	}
-	public static String formatMoney(double nombre){
+	public static String formatMoney(Object nombre){
+		if(nombre==null || (Double)nombre==0)
+			return "000,000.000";
 		DecimalFormat myNumberFormat = new DecimalFormat("###,###.###");
 		return myNumberFormat.format(nombre);
 	}

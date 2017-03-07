@@ -53,8 +53,8 @@ join moisprojet mp
 on mp.idmoisprojet=ir.idmoisprojet
 group by bill.idbill,bill.libelle,ir.idmoisprojet;
 
-ALTER TABLE `historique` ADD `tablenom` VARCHAR( 50 ) NOT NULL AFTER `ACTION` ,
-ADD `idintable` INT NOT NULL AFTER `table` ,
+ALTER TABLE `historique` ADD `tablenom` VARCHAR( 50 ) NOT NULL AFTER `ACTION`;
+ALTER TABLE `historique` ADD `idintable` INT NOT NULL ,
 ADD INDEX ( `tablenom` , `idintable` ) ;
 
 ALTER TABLE `historique` ADD `datelog` DATE NOT NULL AFTER `idintable` ;
@@ -78,7 +78,6 @@ select p.*,ingenieurprojet.idutilisateur as idingenieur, ingenieur_libelle.nom ,
 join ingenieurprojet on p.idprojet=ingenieurprojet.idprojet
 join ingenieur_libelle on ingenieur_libelle.idutilisateur=ingenieurprojet.idutilisateur;
 
-create index mp_mtos on matonsite_moisprojet(idmatonsite,idmoisprojet);
 
 CREATE TABLE IF NOT EXISTS `matonsite_moisprojet` (
   `idmatonsite` int(11) NOT NULL,
@@ -87,6 +86,8 @@ CREATE TABLE IF NOT EXISTS `matonsite_moisprojet` (
   `debit` double NOT NULL,
   KEY `mp_mtos` (`idmatonsite`,`idmoisprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create index mp_mtos on matonsite_moisprojet(idmatonsite,idmoisprojet);
 
 create or replace view matonsite_projet_libelle as 
 select ml.code,ml.libelle,ml.pu,msp.credit,msp.debit,msp.idmoisprojet,ml.idmatonsite

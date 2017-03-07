@@ -11,7 +11,7 @@
 	TableBuilder builder = new TableBuilder(new Projet(),request);
 	builder.getEntity().setNomTable("projet_libelle");
 	Map<String,String> active=new HashMap<String,String>();
-	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","description"});
+	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","description","avanceactuel","total","Totalestimation"});
 	builder.setOrdre(new String[]{"code","libelle","lieu","datedebut","datefin","client","entreprise"});
 	builder.setLienForChamp("code","main.jsp?cible=projet/projet-fiche","idprojet");
 	builder.getFilterBuilder().removeChamp(new String[]{"idprojet","datefin"});

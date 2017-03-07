@@ -5,10 +5,10 @@
 <%@page import="com.affichage.InsertUpdateBuilder.ERROR_SHOW"%>
 <%@page import="com.affichage.*"%>
 <%@page import="com.mapping.*"%>
-<%@page import="com.service.ProjetService"%>
+<%@page import="com.service.StatService"%>
 <jsp:include page='verificateur.jsp'/>
  <%
- 	List<ProjetStat> generalStat = ProjetService.getInstance().getStatProjetEnCour();
+ 	List<ProjetStat> generalStat = StatService.getInstance().getStatProjetEnCour();
  %>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script type="text/javascript">
@@ -136,8 +136,10 @@ function drawRapport() {
    
    var dataAv = google.visualization.arrayToDataTable([
         ['Project', '%']
-        <%for(ProjetStat ps:generalStat){%>
-  	  ,['<%=ps.getLibelle()%>',  <%=(100*ps.getActuel()/ps.getEstimation())%>]
+        <%for(ProjetStat ps:generalStat){
+        double pourc = ps.getEstimation()==0 ? 0.0 : (100*ps.getActuel()/ps.getEstimation());
+        %>
+  	  ,['<%=ps.getLibelle()%>',  <%=pourc%>]
   	  <%}%>
         ]);
    

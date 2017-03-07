@@ -17,7 +17,7 @@
 	List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
 	PageFiche builder=new PageFiche(crit,request);
 	builder.setDefaultClassForCOntainer("col-lg-6");
-	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","remboursement","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
+	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
 	double somme = DecompteService.getInstance().getQuantityxUnitPrice(Integer.parseInt(SessionUtil.getValForAttr(request, "id")));
 	MatOnSite critmts = new MatOnSite();
 	critmts.setPackSize(50);
@@ -40,19 +40,16 @@
 </div>
 
 <%=builder.getBody()%>
-<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED){%>
-<form action="decompte-decompte">
+<div class="form-group col-lg-12" style="margin-left: 50px;">
+	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-modif&id=<%=SessionUtil.getValForAttr(request, "id")%>">Update</a>
+	<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" href="#" >Export to Excel</a>
+		<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" onclick="<%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "$('#decompte_form').submit()" : "") %>" href="javascript:;">Certified</a>
+<form action="decompte-decompte" id="decompte_form">
 	<input type="hidden" name="etat" value="<%=ConstantEtat.MOIS_CERTIFIED %>" >
 	<input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet() %>" >
-	<input type ="submit" class="btn btn-primary" value="Certified">
+
 </form>
-<%} %>
-<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CERTIFIED){%>
-<div class="form-group col-lg-12" style="margin-left: 50px;">
-	<a class="btn btn-primary btn-xs" href="#">Export to Excel</a>
-	
 </div>
-<%} %>
 
 <%=HTMLBuilder.endPanel()%>
 <div class="col-lg-6">

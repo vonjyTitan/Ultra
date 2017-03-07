@@ -6,11 +6,11 @@
 <%@page import="com.affichage.InsertUpdateBuilder.ERROR_SHOW"%>
 <%@page import="com.affichage.*"%>
 <%@page import="com.mapping.*"%>
-<%@page import="com.service.ProjetService"%>
+<%@page import="com.service.StatService"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
 	int idprojet = Integer.valueOf("0"+SessionUtil.getValForAttr(request, "id"));
-	List<DecompteStat> stat = ProjetService.getInstance().getStatProjet(idprojet);
+	List<Estimation> stat = StatService.getInstance().getStatProjet(idprojet);
 	
 %>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -42,14 +42,15 @@
 			<div class="tab-pane active" id="1a">
 			</div>
 			</div>
+			</div>
    <%=HTMLBuilder.endPanel() %>
 <script language="JavaScript">
 function drawChart() {
    // Define the chart to be drawn.
    var data = google.visualization.arrayToDataTable([
       ['Month', 'Estimate','Real']
-      <%for(DecompteStat st:stat){%>
-	  ,['<%=UtileAffichage.getMonthLibeleByDate(st.getMois())%> <%=UtileAffichage.getYearByDate(st.getMois())%>',  <%=st.getEstimation()%>,<%=st.getActuel()%>]
+      <%for(Estimation st:stat){%>
+	  ,['<%=UtileAffichage.getMonthLibeleByDate(st.getMois())%> <%=UtileAffichage.getYearByDate(st.getMois())%>',  <%=st.getEstimation()%>,<%=st.getTotal()%>]
 	  <%}%>
       ]);
 
