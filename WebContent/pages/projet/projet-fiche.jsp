@@ -18,7 +18,7 @@
 	crit = DaoModele.getInstance().findById(crit, Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 	PageFiche builder=new PageFiche(crit,request);
 	builder.setData(crit);
-	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","identreprise"});
+	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","identreprise","retenue"});
 	builder.setLienForAttr("client", "main.jsp?cible=Tiers/client-fiche", "id", "idclient");
 	builder.setLienForAttr("entreprise", "main.jsp?cible=Tiers/entreprise-fiche", "id", "identreprise");
 	List<Attachement> atts = FileService.getInstance().getAttachement("projet",Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
@@ -36,6 +36,7 @@
 <div class="col-lg-12 " style="max-height:600px;overflow-y:auto;">
 <div class="form-group col-lg-12"><p class="col-lg-6">Progression : </p><p class="col-lg-6"><%=(int)(100*crit.getTotal()/(crit.getTotalestimation()==null || crit.getTotalestimation()==0 ? 1 : crit.getTotalestimation())) %> %</p></div>
 <%=builder.getBody()%>
+<div class="form-group col-lg-12"><p class="col-lg-6">Less Retention : </p><p class="col-lg-6"><%=(crit.getRetenue()!=null ? crit.getRetenue().intValue() : 0) %> %</p></div>
 </div>
 <div class="form-group col-lg-12" style="text-align: right;">
 		<a class="btn btn-success btn-xs" href="main.jsp?cible=projet/projet-stat&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"> Statistical and summary </a>

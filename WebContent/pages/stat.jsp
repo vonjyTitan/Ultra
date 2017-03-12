@@ -26,7 +26,9 @@
                   	<div id="avancement" class="row"></div>
                     </div><!-- /row -->
                     
-                    				
+                    <div class="col-lg-12">
+                  	<div id="avance" class="row"></div>
+                    </div>
 					<div class="row">
 						<!-- TWITTER PANEL -->
 					<!-- <div class="col-md-4 mb">
@@ -143,13 +145,27 @@ function drawRapport() {
   	  <%}%>
         ]);
    
+   var dataAvance = google.visualization.arrayToDataTable([
+        ['Project', 'Advance start','Advance payed']
+        <%for(ProjetStat ps:generalStat){
+        %>
+  	  ,['<%=ps.getLibelle()%>',  <%=ps.getAvance()%>,<%=(ps.getAvance()-ps.getAvanceactuel())%>]
+  	  <%}%>
+        ]);
+   
    
    var optionsR = {
-      title: 'General progress report'      
+      title: 'General progress report'   ,
+      legend: { position: 'top', maxLines: 2 }  
    };  
    
    var optionsAv = {
-		      title: 'Progress by project (%)'      
+		      title: 'Progress by project (%)',
+		      legend: { position: 'top', maxLines: 2 }      
+		   };
+   var optionsAvance = {
+		      title: 'Avance payed by project',
+		      legend: { position: 'top', maxLines: 2 }       
 		   };
 
    // Instantiate and draw the chart.
@@ -157,8 +173,11 @@ function drawRapport() {
    
    var chartAv = new google.visualization.BarChart(document.getElementById('avancement'));//avancement
    
+   var chartAvance = new google.visualization.BarChart(document.getElementById('avance'));//avance
+   
    chartRap.draw(datar, optionsR);
    chartAv.draw(dataAv, optionsAv);
+   chartAvance.draw(dataAvance, optionsAvance);
 }
 
 </script>

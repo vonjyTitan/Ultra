@@ -40,6 +40,8 @@ public class Projet extends DataEntity {
 	private Double total;
 	@Parameter(libelle="Estimated")
 	private Double totalestimation;
+	@Parameter(libelle="Less Retention Money")
+	private Double retenue;
 	
 	public Double getAvanceactuel() {
 		return avanceactuel;
@@ -136,6 +138,12 @@ public class Projet extends DataEntity {
 	}
 	public void setTotalestimation(Double totalestimation) {
 		this.totalestimation = totalestimation;
+	}
+	public Double getRetenue() {
+		return retenue;
+	}
+	public void setRetenue(Double retenue) {
+		this.retenue = retenue;
 	}
 	
 	

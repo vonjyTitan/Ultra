@@ -9,6 +9,20 @@ public class ProjetStat extends DataEntity {
 	private String libelle;
 	private Double estimation;
 	private Double actuel;
+	private Double avanceactuel;
+	private Double avance;
+	public Double getAvanceactuel() {
+		return avanceactuel;
+	}
+	public void setAvanceactuel(Double avanceactuel) {
+		this.avanceactuel = avanceactuel;
+	}
+	public Double getAvance() {
+		return avance;
+	}
+	public void setAvance(Double avance) {
+		this.avance = avance;
+	}
 	public int getIdprojet() {
 		return idprojet;
 	}

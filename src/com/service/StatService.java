@@ -35,8 +35,8 @@ public class StatService {
 	public List<Estimation> getStatProjet(int idprojet) throws Exception{
 		
 		Estimation crit=new Estimation();
-		crit.setNomChampOrder("idmoisprojet");
-		crit.setOrdering(DataEntity.DESC);
+		crit.setNomChampOrder("mois");
+		crit.setOrdering(DataEntity.ASC);
 		crit.setPackSize(100);
 		List<Estimation> EstimationResult=DaoModele.getInstance().findPageGenerique(1, crit," and idprojet= " + idprojet);
 		return EstimationResult;

@@ -22,44 +22,25 @@
    <div class="col-lg-12">
    		<div id="stat" class="raw"></div>
    </div>
-   <%=HTMLBuilder.beginPanel("", 12)%>
-   <div id="exTab3" class="">	
-<ul  class="nav nav-pills">
-			<li class="active" id="tabindex">
-        <a  href="#1a" data-toggle="tab">Bills</a>
-			</li>
-			<li><a href="#2a" data-toggle="tab">Estimate and Count</a>
-			</li>
-			<li><a href="#3a" data-toggle="tab">Material on site</a>
-			</li>
-			<li><a href="#5a" data-toggle="tab">Attached file</a>
-			</li>
-			<li id="tablog"><a href="#4a" data-toggle="tab">Log</a>
-			</li>
-		</ul>
-
-			<div class="tab-content clearfix">
-			<div class="tab-pane active" id="1a">
-			</div>
-			</div>
-			</div>
-   <%=HTMLBuilder.endPanel() %>
 <script language="JavaScript">
 function drawChart() {
    // Define the chart to be drawn.
    var data = google.visualization.arrayToDataTable([
-      ['Month', 'Estimate','Real']
+      ['Month', 'Estimate','Real','Line Estimate','Line real']
       <%for(Estimation st:stat){%>
-	  ,['<%=UtileAffichage.getMonthLibeleByDate(st.getMois())%> <%=UtileAffichage.getYearByDate(st.getMois())%>',  <%=st.getEstimation()%>,<%=st.getTotal()%>]
+	  ,['<%=UtileAffichage.getMonthLibeleByDate(st.getMois())%> <%=UtileAffichage.getYearByDate(st.getMois())%>',  <%=st.getEstimation()%>,<%=st.getTotal()%>,  <%=st.getEstimation()%>,<%=st.getTotal()%>]
 	  <%}%>
       ]);
 
    var options = {
-      title: ''	  
+      title: ''	  ,
+      seriesType: 'bars',
+      series: {3: {type: 'line'},2: {type: 'line'}},
+      legend: { position: 'top', maxLines: 2 } 
    }; 
 
    // Instantiate and draw the chart.
-   var chart = new google.visualization.BarChart(document.getElementById('stat'));
+   var chart = new google.visualization.ComboChart(document.getElementById('stat'));
    chart.draw(data, options);
 }
 google.charts.setOnLoadCallback(drawChart);

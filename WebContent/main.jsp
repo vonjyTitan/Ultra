@@ -77,10 +77,10 @@ try{
             
             <!--logo end-->
            
-            <div class="nav notify-row" id="top_menu">
+            <!--  <div class="nav notify-row" id="top_menu">
             <ul class="nav top-menu">
                     <!-- settings start -->
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                             <i class="fa fa-tasks"></i>
                             <span class="badge bg-theme">4</span>
@@ -216,7 +216,7 @@ try{
                 </ul>
                 <!--  notification end -->
           
-            </div>
+            <!-- </div>-->
             
             <div class="top-menu">
             
@@ -526,7 +526,7 @@ try{
         $(document).ready(function () {
         	$(".active").removeClass("active");
         	<%if(currmenu!=null && currmenu.compareToIgnoreCase("null")!=0){%>
-        	active($("#<%=currmenu.split("/")[1]%>"));
+        	active($("#<%=(currmenu.split("/").length>1 ? currmenu.split("/")[1] : "sd")%>"));
         	<%}%>
         });
         function active(dom)
