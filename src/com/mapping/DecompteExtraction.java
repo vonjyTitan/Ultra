@@ -5,24 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecompteExtraction {
-	private List<BillExtraction> bills;
+	private List<RowExtraction> bills;
 	private int idcertificat;
 	private Date certificatdate;
 	private String contractor;
-	private Double precedantretention;
-	private Double cummulretention;
+	private String societe;
+	private RowExtraction retention;
+	private RowExtraction subtotal1;
+	private RowExtraction subtotal2;
+	private RowExtraction avance;
+	private RowExtraction resteavance;
+	private RowExtraction matonsite;
 	
 	public DecompteExtraction(){
-		setBills(new ArrayList<BillExtraction>());
+		setBills(new ArrayList<RowExtraction>());
 	}
 
 
-	public List<BillExtraction> getBills() {
+	public List<RowExtraction> getBills() {
 		return bills;
 	}
 
 
-	public void setBills(List<BillExtraction> bills) {
+	public void setBills(List<RowExtraction> bills) {
 		this.bills = bills;
 	}
 
@@ -56,6 +61,76 @@ public class DecompteExtraction {
 
 	public void setContractor(String contractor) {
 		this.contractor = contractor;
+	}
+
+
+	public String getSociete() {
+		return societe;
+	}
+
+
+	public void setSociete(String societe) {
+		this.societe = societe;
+	}
+
+
+	public RowExtraction getRetention() {
+		return retention;
+	}
+
+
+	public void setRetention(RowExtraction retention) {
+		this.retention = retention;
+	}
+
+
+	public RowExtraction getSubtotal1() {
+		return subtotal1;
+	}
+
+
+	public void setSubtotal1(RowExtraction subtotal1) {
+		this.subtotal1 = subtotal1;
+	}
+
+
+	public RowExtraction getSubtotal2() {
+		return subtotal2;
+	}
+
+
+	public void setSubtotal2(RowExtraction subtotal2) {
+		this.subtotal2 = subtotal2;
+	}
+
+
+	public RowExtraction getAvance() {
+		return avance;
+	}
+
+
+	public void setAvance(RowExtraction avance) {
+		this.avance = avance;
+	}
+
+
+	public RowExtraction getResteavance() {
+		return resteavance;
+	}
+
+
+	public void setResteavance(RowExtraction resteavance) {
+		this.resteavance = resteavance;
+	}
+
+
+	public RowExtraction getMatonsite() {
+		return matonsite;
+	}
+
+
+	public void setMatonsite(RowExtraction matonsite) {
+		this.matonsite = matonsite;
 	}
 	
 }

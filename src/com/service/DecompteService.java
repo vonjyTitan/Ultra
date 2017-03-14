@@ -9,10 +9,11 @@ import java.util.List;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
 
-import com.mapping.BillExtraction;
+import com.mapping.RowExtraction;
 import com.mapping.DecompteExtraction;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
+import com.mapping.Projet;
 
 import dao.Connecteur;
 import dao.DaoModele;
@@ -172,30 +173,36 @@ public class DecompteService {
 			conn = Connecteur.getConnection();
 			
 			Estimation est= DaoModele.getInstance().findById(new Estimation(),idmoisprojet,conn);
+			Projet critProjet = new Projet();
+			critProjet.setNomTable("projet_libelle");
+			Projet projet = DaoModele.getInstance().findById(critProjet, est.getIdprojet(), conn);
+			
+			reponse.setContractor(projet.getEntreprise());
+			reponse.setSociete(projet.getClient());
 			reponse.setIdcertificat(est.getIdmoisprojet());
+			reponse.setCertificatdate(new java.sql.Date(new java.util.Date().getTime()));
 			
 			ResultSet rsBill = conn.createStatement().executeQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet);
 			
 			ps = conn.prepareStatement("select billitem.idbill,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as previous "+
 					" from billitem "+
-					"join itemrapport ir "+
+					"left join itemrapport ir "+
 					"on ir.idbillitem=billitem.idbillitem "+
-					"join moisprojet mp "+
+					"left join moisprojet mp "+
 					"on mp.idmoisprojet=ir.idmoisprojet "+
 					"where mp.mois<? and billitem.idbill=? "+
 					"group by billitem.idbill");
 			
 			     ResultSet rs=null;
 			     while(rsBill.next()){
-			    	 BillExtraction bill = new BillExtraction(); 
+			    	 RowExtraction bill = new RowExtraction(); 
 			    	 
-			    	 bill.setIdbill(rsBill.getInt("idbill"));
 			    	 bill.setLibelle(rsBill.getString("libelle"));
 			    	 bill.setEstimative(rsBill.getDouble("estimative"));
 	    			 bill.setCurrent(rsBill.getDouble("curr"));
 	    			 
 	    			 ps.setObject(1, est.getMois());
-			    	 ps.setObject(2, bill.getIdbill());
+			    	 ps.setObject(2, rsBill.getInt("idbill"));
 			    	 
 			    	 rs=ps.executeQuery();
 			    	 while(rs.next()){

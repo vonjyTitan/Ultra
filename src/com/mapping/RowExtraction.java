@@ -1,13 +1,12 @@
 package com.mapping;
 
-public class BillExtraction{
+public class RowExtraction{
 	private String libelle;
-	private int idbill;
 	private Double estimative;
 	private Double current;
 	private Double cummulative;
 	private Double precedant;
-	public BillExtraction(){
+	public RowExtraction(){
 		
 	}
 	public Double getEstimative() {
@@ -39,11 +38,5 @@ public class BillExtraction{
 	}
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
-	}
-	public int getIdbill() {
-		return idbill;
-	}
-	public void setIdbill(int idbill) {
-		this.idbill = idbill;
 	}
 }
