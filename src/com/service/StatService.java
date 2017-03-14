@@ -24,11 +24,11 @@ public class StatService {
 		return instance;
 	}
 	
-	public List<ProjetStat> getStatProjetEnCour() throws Exception{
+	public List<ProjetStat> getStatProjetEnCour(int page) throws Exception{
 		Parametre param = ParametreService.getInstance().getParameter(ParametreService.TOP_PROJET_LIMITE);
 		ProjetStat crit = new ProjetStat();
 		crit.setPackSize(Integer.valueOf(param.getValeur1()));
-		List<ProjetStat> reponse = DaoModele.getInstance().findPageGenerique(1, crit);
+		List<ProjetStat> reponse = DaoModele.getInstance().findPageGenerique(page, crit);
 		return reponse;
 	}
 

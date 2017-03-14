@@ -1,3 +1,4 @@
+<%@page import="utilitaire.UtileAffichage"%>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="dao.DaoModele"%>
 <%@page import="java.util.HashMap"%>
@@ -8,7 +9,18 @@
 <%@page import="com.service.StatService"%>
 <jsp:include page='verificateur.jsp'/>
  <%
- 	List<ProjetStat> generalStat = StatService.getInstance().getStatProjetEnCour();
+	 int pageGeneral = Integer.valueOf("0"+SessionUtil.getValForAttr(request, "PageProj"));
+ 	pageGeneral = pageGeneral==0 ? 1: pageGeneral;
+ 	ListPaginner<ProjetStat> generalStat = (ListPaginner)StatService.getInstance().getStatProjetEnCour(pageGeneral);
+ 	System.out.print("page general number : "+generalStat.nbPage);
+ 	Historique critH = new Historique();
+ 	critH.setNomChampOrder("datelog");
+ 	critH.setOrdering(DataEntity.DESC);
+ 	critH.setPackSize(20);
+ 	int pageActTrack = Integer.valueOf("0"+SessionUtil.getValForAttr(request, "PageTrack"));
+    pageActTrack = pageActTrack==0 ? 1: pageActTrack;
+ 	critH.setNomTable("projet_historique_libelle");
+ 	ListPaginner<Historique> listHisto = (ListPaginner)DaoModele.getInstance().findPageGenerique(pageActTrack, critH);
  %>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script type="text/javascript">
@@ -18,7 +30,11 @@
  <div class="row">
  
                   <div class="col-lg-9 main-chart">
-                  
+                  <div class="col-lg-3 pull-right">
+						<ul class="pagination">
+							<li><%if(pageGeneral>1){%><a href="main.jsp?cible=stat&PageProj=<%=pageGeneral-1 %>&PageTrack=<%=pageActTrack %>" style="background: #0086de; color: white;"><< Preview</a><%} if(pageGeneral<generalStat.nbPage){%><a href="main.jsp?cible=stat&PageProj=<%=pageGeneral+1 %>&PageTrack=<%=pageActTrack %>" style="background: #0086de; color: white;">Next >></a><%} %></li>
+						</ul>
+					</div>
                   <div class="col-lg-12">
                   	<div id="rapport" class="row"></div>
                   </div>
@@ -75,7 +91,11 @@
 						</div><!-- /col-md-4 -->
 						
 					</div><!-- /row -->
-					
+					<div class="col-lg-3 pull-right">
+						<ul class="pagination">
+							<li><%if(pageGeneral>1){%><a href="main.jsp?cible=stat&PageProj=<%=pageGeneral-1 %>&PageTrack=<%=pageActTrack %>" style="background: #0086de; color: white;"><< Preview</a><%} if(pageGeneral<generalStat.nbPage){%><a href="main.jsp?cible=stat&PageProj=<%=pageGeneral+1 %>&PageTrack=<%=pageActTrack %>" style="background: #0086de; color: white;">Next >></a><%} %></li>
+						</ul>
+					</div>
 					
 					
                   </div><!-- /col-lg-9 END SECTION MIDDLE -->
@@ -84,47 +104,54 @@
       <!-- **********************************************************************************************************************************************************
       RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->                  
-                  
-                  <div class="col-lg-3 ds">
+                
+                  <div class="col-lg-3 ds" style="max-height:700px;overflow-y:auto;">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
-						<h3>NOTIFICATIONS</h3>
-                                        
+						<h3>History</h3>
+                              <%for(Historique histo:listHisto){ %>         
                       <!-- First Action -->
                       <div class="desc">
                       	<div class="thumb">
                       		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
                       	</div>
                       	<div class="details">
-                      		<p><muted>2 Minutes Ago</muted><br/>
-                      		   <a href="#">You</a> have added new item.<br/>
+                      		<p><muted><%=UtileAffichage.formatAfficherDate(histo.getDatelog()) %></muted><br/>
+                      		   <a href="main.jsp?cible=configuration/utilisateur-fiche&id=<%=histo.getIdutilisateur()%>"><%=histo.getPrenom() %></a>, <%=histo.getAction() %>, on project <a href="main.jsp?cible=projet/projet-fiche&id=<%=histo.getIdintable()%>"><%=histo.getLibelle() %></a><br/>
                       		</p>
                       	</div>
                       </div>
-                      <!-- Second Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>3 Hours Ago</muted><br/>
-                      		   <a href="#">You </a> have edit Bill 1 on project FLIC EN FLAC.<br/>
-                      		</p>
-                      	</div>
+                      <%} %>
                       </div>
-                      <!-- Third Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>7 Hours Ago</muted><br/>
-                      		   <a href="#">You </a> have added new item on Bill 1.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      
-                 
-                  </div><!-- /col-lg-3 -->
+                 <div class="col-lg-3 pull-right">
+                                <ul class="pagination">
+                                    <li>
+                                    <%
+                                    int compteurHaut = 0,compteurBas=pageActTrack;
+                                    if(pageActTrack>3){
+                                    	%><a href="javascript:;">...</a><%
+                                    }
+                                    	for(int i=1;i<=listHisto.nbPage;i++){
+                                    		compteurBas--;
+                                    		if(compteurBas>3)
+                                    			continue;
+                                    		if(i==pageActTrack){
+                                    %>
+                                                    <a href="javascript:;" style="background: #0086de; color: white;"><%=i %></a>
+                                                <%} else{%>
+                                                <a href="main.jsp?cible=stat&PageTrack=<%=i%>&PageProj=<%=pageGeneral%>"><%=i %></a>
+									<%
+                                                }
+                                    		if(compteurHaut==2)
+                                    		{
+                                    			%><a href="javascript:;">...</a><%
+                                    			break;
+                                    		}
+                                    		if(i>pageActTrack)
+                                    			compteurHaut++;
+									} %>
+                                    </li>
+                                </ul>
+                            </div>
               </div><! --/row -->
               <script language="JavaScript">
 function drawRapport() {

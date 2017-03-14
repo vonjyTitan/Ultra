@@ -13,6 +13,7 @@ public class Historique extends DataEntity {
 	private String tablenom;
 	private Date datelog;
 	private String prenom;
+	private String libelle;
 	public String getAction() {
 		return action;
 	}
@@ -54,6 +55,12 @@ public class Historique extends DataEntity {
 	}
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+	public String getLibelle() {
+		return libelle;
+	}
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 	
 }

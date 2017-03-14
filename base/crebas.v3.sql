@@ -5,7 +5,7 @@ select sum(IFNULL(mp.total, 0) ) as actuel,sum(IFNULL(mp.estimation,0)) as estim
 IFNULL(projet.avance,0)-sum(IFNULL(mp.remboursement,0)) as avanceactuel,IFNULL(projet.avance,0) as avance
  from 
  projet
- join moisprojet mp on mp.idprojet=projet.idprojet
+ left join moisprojet mp on mp.idprojet=projet.idprojet
  group by projet.libelle,projet.code,projet.idprojet,projet.avance
  order by projet.idprojet desc;
 
@@ -24,4 +24,12 @@ join client on client.idclient=p.idclient
 join entreprise on entreprise.identreprise =p.identreprise
 left join moisprojet mp on p.idprojet =mp.idprojet
 group by p.IDPROJET, p.IDCLIENT, p.IDENTREPRISE, p.LIBELLE, p.LIEU, p.DESCRIPTION, p.DATEDEBUT, p.DATEFIN, p.ETAT, p.AVANCE, p.code, client.nom, entreprise.nom,p.retenue
+;
+
+create or replace view projet_historique_libelle as
+select p.libelle,h.* 
+from 
+historique_libelle h join projet p
+on p.idprojet = h.idintable
+where tablenom='projet'
 ;
