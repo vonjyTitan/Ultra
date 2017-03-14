@@ -1,16 +1,22 @@
 package com.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
+
+import com.mapping.BillExtraction;
+import com.mapping.DecompteExtraction;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
 
 import dao.Connecteur;
 import dao.DaoModele;
+import jxl.write.Label;
 import utilitaire.ConstantEtat;
 import utilitaire.Utilitaire;
 
@@ -157,6 +163,59 @@ public class DecompteService {
 			 if(conn!=null)
 				 conn.close();
 		 }
+	}
+	public DecompteExtraction getDataToextract(int idmoisprojet)throws Exception{
+		DecompteExtraction reponse = new DecompteExtraction();
+		Connection conn=null;
+		PreparedStatement ps=null;
+		try{
+			conn = Connecteur.getConnection();
+			
+			Estimation est= DaoModele.getInstance().findById(new Estimation(),idmoisprojet,conn);
+			reponse.setIdcertificat(est.getIdmoisprojet());
+			
+			ResultSet rsBill = conn.createStatement().executeQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet);
+			
+			ps = conn.prepareStatement("select billitem.idbill,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as previous "+
+					" from billitem "+
+					"join itemrapport ir "+
+					"on ir.idbillitem=billitem.idbillitem "+
+					"join moisprojet mp "+
+					"on mp.idmoisprojet=ir.idmoisprojet "+
+					"where mp.mois<? and billitem.idbill=? "+
+					"group by billitem.idbill");
+			
+			     ResultSet rs=null;
+			     while(rsBill.next()){
+			    	 BillExtraction bill = new BillExtraction(); 
+			    	 
+			    	 bill.setIdbill(rsBill.getInt("idbill"));
+			    	 bill.setLibelle(rsBill.getString("libelle"));
+			    	 bill.setEstimative(rsBill.getDouble("estimative"));
+	    			 bill.setCurrent(rsBill.getDouble("curr"));
+	    			 
+	    			 ps.setObject(1, est.getMois());
+			    	 ps.setObject(2, bill.getIdbill());
+			    	 
+			    	 rs=ps.executeQuery();
+			    	 while(rs.next()){
+			    		 bill.setPrecedant(rs.getDouble("previous"));
+			    		 bill.setCummulative(bill.getPrecedant()+bill.getCurrent());
+			    	 }
+			    	 reponse.getBills().add(bill);
+			    	 
+			     }
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+			if(ps!=null)
+				ps.close();
+		}
+		return reponse;
 	}
 	
 }
