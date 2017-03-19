@@ -9,7 +9,7 @@
 <%
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Estimation(), "crud-update?classenom=com.mapping.Estimation&cible=decompte/decompte-fiche&referreur=main.jsp?cible=decompte/decompte-modif",request);
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
-	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","total","datedecompte","datecertification","matonsitecredit","matonsitedebit","etat"});
+	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","total","datedecompte","datecertification","matonsitecredit","matonsitedebit","etat","retenue"});
 %>
 <h3><a href="javascript:;" onclick="history.back();" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Estimation and Count update</h3>
 <%=builder.getHTML("General information", 6)%>

@@ -53,7 +53,7 @@ public class DecompteAction extends Action {
 			DaoModele.getInstance().save(estimation, conn);
 			DecompteService.getInstance().setDefaultItemRapportForMoisProjet(estimation.getIdmoisprojet(), conn);
 			conn.commit();
-			goTo(request, response, "get","main.jsp?cible=decompte/deompte-fiche&id="+estimation.getIdmoisprojet());
+			goTo(request, response, "get","main.jsp?cible=decompte/decompte-fiche&id="+estimation.getIdmoisprojet());
 		}
 		catch(Exception ex){
 			if(conn!=null)
@@ -137,37 +137,21 @@ public class DecompteAction extends Action {
 	}
 	
 	public void certified(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		Connection conn = null;
-		 try{
-			 conn = Connecteur.getConnection();
-			 conn.setAutoCommit(false);
-			 int id = Integer.parseInt(SessionUtil.getValForAttr(request, "id"));
-
-			 DecompteService.getInstance().setEstimationEtat(id, ConstantEtat.MOIS_CERTIFIED, conn);
-			 
-			 conn.commit();
-			 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
-			 
-		 }
-		 catch(Exception ex){
-			 if(conn!=null)
-				 conn.rollback();
-			 ex.printStackTrace();
+		int id = Integer.parseInt(SessionUtil.getValForAttr(request, "id"));
+		try{
+			DecompteService.getInstance().certifiedDecompte(id);
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
 			 throw new Exception("Internal server error");
-		 }
-		 finally{
-			 if(conn!=null)
-				 conn.close();
-		 }
-		
+		}
 		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
 	public void matonsiteupdate(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		 String[] credits=request.getParameterValues("credit");
-		 String[] debits=request.getParameterValues("debit");
 		 String[] idmatonsite=request.getParameterValues("idmatonsite");
 		 int idmoisprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "idmoisprojet"));
-		 DecompteService.getInstance().decompteMatOnSite(idmoisprojet, credits, debits,idmatonsite);
+		 DecompteService.getInstance().decompteMatOnSite(idmoisprojet, credits,idmatonsite);
 		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
 	public void extract(HttpServletRequest request,HttpServletResponse response)throws Exception{

@@ -17,7 +17,7 @@
 	List<Estimation>  listEstimation = DaoModele.getInstance().findPageGenerique(1, estimationCrit," and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));
 	PageFiche builder=new PageFiche(crit,request);
 	builder.setDefaultClassForCOntainer("col-lg-6");
-	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","estimation","datedecompte","datecertification","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
+	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","datedecompte","datecertification","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
 	double somme = DecompteService.getInstance().getQuantityxUnitPrice(Integer.parseInt(SessionUtil.getValForAttr(request, "id")));
 	MatOnSite critmts = new MatOnSite();
 	critmts.setPackSize(50);
@@ -43,7 +43,7 @@
 <div class="form-group col-lg-12" style="margin-left: 50px;">
 	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-modif&id=<%=SessionUtil.getValForAttr(request, "id")%>">Update</a>
 	<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" href="#" >Export to Excel</a>
-		<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" onclick="<%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "$('#decompte_form').submit()" : "") %>" href="javascript:;">Certified</a>
+		<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" onclick="<%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "certificated();" : "") %>" href="javascript:;">Certified</a>
 <form action="decompte-decompte" id="decompte_form">
 	<input type="hidden" name="etat" value="<%=ConstantEtat.MOIS_CERTIFIED %>" >
 	<input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet() %>" >
@@ -77,11 +77,11 @@
 		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
 	<thead>
 		<tr>
-			<th>Code</th>
-			<th>Label</th>
-			<th>PU</th>
-			<th>Estimate</th>
-			<th>Quantity</th>
+			<th>Id</th>
+			<th>Description</th>
+			<th>Rate</th>
+			<th>Calculated Quantity</th>
+			<th>Estimated Quantity</th>
 
 		</tr>
 	</thead>
@@ -142,33 +142,32 @@
 </div>
 </div>
 <div class="col-lg-6" >
-	<h3>Material on site (debit and credit on the month only)</h3>
+	<h3>Material on site (value on this month only)</h3>
 	<form action="decompte-matonsiteupdate">
 		         <input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet()%>">
 		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" style="background-color: #d2c9c9;">
 	<thead>
 	<tr>
-		<th>Code</th>
-		<th>Label</th>
-		<th>PU</th>
-		<th>Credit</th>
-		<th>Debit</th>
+		<th>Id</th>
+		<th>Description</th>
+		<th>Rate</th>
+		<th>This</th>
 	</tr>
 	</thead>
 	<tbody>
 		<%for(MatOnSite matonsite:matonsites){
 			%>
+			<tr>
 				<td><%=matonsite.getCode() %></td>
 				<td><%=matonsite.getLibelle() %></td>
 				<td><%=matonsite.getPu() %></td>
 				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
 				<td><input type="text" name="credit" value="<%=matonsite.getCredit()%>">
 				<input type="hidden" name="idmatonsite" value="<%=matonsite.getIdmatonsite()%>"></td>
-				<td><input type="text" name="debit" value="<%=matonsite.getDebit()%>"></td>
 				<%} else{%>
 				<td><%=matonsite.getCredit() %></td>
-				<td><%=matonsite.getDebit() %></td>
 				<%} %>
+				</tr>
 		<%}%>
 	</tbody>
 	</table>
@@ -180,7 +179,15 @@
 $(document).ready(function(){
 	window.setTimeout(function(){
 		$("#tabindex > a").trigger("click");},500);
+		$("#decompte_form").on("submit",function(){
+			return certificated;
+		});
 	});
 	
+	function certificated(){
+		var r = confirm("Would you like to certificate ?");
+		if(r==true)
+			$("#decompte_form").submit();
+	}
 </script>
 

@@ -19,6 +19,7 @@ import dao.Connecteur;
 import dao.DaoModele;
 import jxl.write.Label;
 import utilitaire.ConstantEtat;
+import utilitaire.SessionUtil;
 import utilitaire.Utilitaire;
 
 public class DecompteService {
@@ -116,7 +117,7 @@ public class DecompteService {
 		return somme;
 	}
 	
-	public void decompteMatOnSite(int idmoisprojet,String[]credits,String[]debits, String[] idmatonsite) throws Exception{
+	public void decompteMatOnSite(int idmoisprojet,String[]credits, String[] idmatonsite) throws Exception{
 		
 		Connection conn =null;
 		 PreparedStatement prUpd = null;
@@ -127,7 +128,7 @@ public class DecompteService {
 			 
 			 Estimation est =DaoModele.getInstance().findById(new Estimation(), idmoisprojet, conn);
 			 
-			 String updateExiste = "update matonsite_moisprojet set credit =?, debit=? where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
+			 String updateExiste = "update matonsite_moisprojet set credit =? where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
 			 String updateGeneral = "update matonsite set debit=(select sum(debit) from matonsite_moisprojet where idmatonsite=?) , credit=(select sum(credit) from matonsite_moisprojet where idmatonsite=?) where idmatonsite=?";
 			 
 			 int taille = credits.length;
@@ -135,14 +136,11 @@ public class DecompteService {
 			 prMtos = conn.prepareStatement(updateGeneral);
 			 
 			 String credit="";
-			 String debit = "";
 			 for(int i=0;i<taille;i++){
 				 credit= (credits[i]==null || credits[i].length()==0) ? "0" : credits[i];
-				 debit= (debits[i]==null || debits[i].length()==0) ? "0" : debits[i];
 				 
 				 prUpd.setObject(1, credit);
-				 prUpd.setObject(2, debit);
-				 prUpd.setObject(3, Integer.valueOf(idmatonsite[i]));
+				 prUpd.setObject(2, Integer.valueOf(idmatonsite[i]));
 				 
 				 prUpd.executeUpdate();
 				 
@@ -165,6 +163,50 @@ public class DecompteService {
 				 conn.close();
 		 }
 	}
+	
+	public void certifiedDecompte(int idecompte) throws Exception{
+		Connection conn = null;
+		 try{
+			 conn = Connecteur.getConnection();
+			 conn.setAutoCommit(false);
+
+			 Estimation dec = DaoModele.getInstance().findById(new Estimation(), idecompte, conn);
+			 Projet p = DaoModele.getInstance().findById(new Projet(), dec.getIdprojet(), conn);
+			 
+			 Double cummulativeRetension = 0.0;
+			 Double totalEstimationprojet  = 0.0;
+			 Double actRetenue = dec.getTotal()*p.getRetenue()/100;
+					 
+			 String sql_cum_ret="select sum(retenue) as retenue as  form moisprojet where idprojet = "+dec.getIdprojet();
+			 ResultSet resRet = conn.createStatement().executeQuery(sql_cum_ret);
+			 
+			 while(resRet.next()){
+				 cummulativeRetension = resRet.getDouble("retenue");
+			 }
+			 
+			 if(cummulativeRetension+actRetenue>(totalEstimationprojet*5/100)){
+				 actRetenue = 0.0;
+			 }
+			 
+			 DecompteService.getInstance().setEstimationEtat(idecompte, ConstantEtat.MOIS_CERTIFIED, conn);
+			 dec.setRetenue(actRetenue);
+			 DaoModele.getInstance().update(dec,conn);
+			 
+			 conn.commit();
+			 
+		 }
+		 catch(Exception ex){
+			 if(conn!=null)
+				 conn.rollback();
+			 ex.printStackTrace();
+			 throw new Exception("Internal server error");
+		 }
+		 finally{
+			 if(conn!=null)
+				 conn.close();
+		 }
+	}
+	
 	public DecompteExtraction getDataToextract(int idmoisprojet)throws Exception{
 		DecompteExtraction reponse = new DecompteExtraction();
 		Connection conn=null;
@@ -176,6 +218,7 @@ public class DecompteService {
 			Projet critProjet = new Projet();
 			critProjet.setNomTable("projet_libelle");
 			Projet projet = DaoModele.getInstance().findById(critProjet, est.getIdprojet(), conn);
+			Double lastRetention = 0.0;
 			
 			reponse.setContractor(projet.getEntreprise());
 			reponse.setSociete(projet.getClient());
@@ -210,8 +253,30 @@ public class DecompteService {
 			    		 bill.setCummulative(bill.getPrecedant()+bill.getCurrent());
 			    	 }
 			    	 reponse.getBills().add(bill);
-			    	 
 			     }
+			     
+			     reponse.calculeSubTotal1();
+			     
+			     PreparedStatement statLastRet = conn.prepareStatement("select sum(retenue) as retenue from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
+			     statLastRet.setObject(1, est.getMois());
+			     ResultSet resLastRet = statLastRet.executeQuery();
+			     
+			     while(resLastRet.next()){
+			    	 lastRetention = resLastRet.getDouble("retenue");
+			     }
+			     
+			     RowExtraction retention = new RowExtraction();
+			     retention.setCurrent(est.getRetenue()*-1);
+			     retention.setPrecedant(lastRetention*-1);
+			     retention.setCummulative((est.getRetenue()+lastRetention)*-1);
+			     
+			     reponse.setRetention(retention);
+			     reponse.calculeSubTotal2();
+			     
+			     RowExtraction matonsite = new RowExtraction();
+			     
+			     
+			     
 		}
 		catch(Exception ex){
 			throw ex;

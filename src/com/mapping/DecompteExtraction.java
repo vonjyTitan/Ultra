@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecompteExtraction {
-	private List<RowExtraction> bills;
-	private int idcertificat;
-	private Date certificatdate;
-	private String contractor;
-	private String societe;
-	private RowExtraction retention;
-	private RowExtraction subtotal1;
-	private RowExtraction subtotal2;
+	private List<RowExtraction> bills; //fait
+	private int idcertificat; //fait
+	private Date certificatdate; //fait
+	private String contractor; //fait
+	private String societe; //fait
+	private RowExtraction retention; //fait
+	private RowExtraction subtotal1; //fait
+	private RowExtraction subtotal2; //fait
 	private RowExtraction avance;
 	private RowExtraction resteavance;
 	private RowExtraction matonsite;
@@ -20,7 +20,33 @@ public class DecompteExtraction {
 	public DecompteExtraction(){
 		setBills(new ArrayList<RowExtraction>());
 	}
-
+	
+	public void calculeSubTotal1(){
+		Double last = 0.0;
+		Double curr = 0.0;
+		Double cumm = 0.0;
+		Double tender = 0.0;
+		
+		for(RowExtraction row:bills){
+			tender+=row.getEstimative();
+			last+=row.getPrecedant();
+			curr+=row.getCurrent();
+		}
+		cumm=last+curr;
+		
+		subtotal1 = new RowExtraction();
+		subtotal1.setCummulative(cumm);
+		subtotal1.setPrecedant(last);
+		subtotal1.setCurrent(curr);
+		subtotal1.setEstimative(tender);
+		
+	}
+	public void calculeSubTotal2(){
+		subtotal2 =  new RowExtraction();
+		subtotal2.setCummulative(subtotal1.getCummulative()+retention.getCummulative());
+		subtotal2.setCurrent(subtotal1.getCurrent()+retention.getCurrent());
+		subtotal2.setPrecedant(subtotal1.getPrecedant()+retention.getPrecedant());
+	}
 
 	public List<RowExtraction> getBills() {
 		return bills;

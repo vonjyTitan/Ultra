@@ -33,7 +33,7 @@
 		<tr>
 			<th>Code</th>
 			<th>Label</th>
-			<th>PU</th>
+			<th>Rate</th>
 			<th>Estimate</th>
 			<th>Total</th>
 			<th></th>
@@ -64,7 +64,7 @@
 	<thead>
 		<tr>
 			<th>Code</th>
-			<th>PU</th>
+			<th>Rate</th>
 			<th>Estimate</th>
 			<th></th>
 		</tr>
