@@ -18,3 +18,5 @@ join entreprise on entreprise.identreprise =p.identreprise
 left join moisprojet mp on p.idprojet =mp.idprojet
 group by p.IDPROJET, p.IDCLIENT, p.IDENTREPRISE, p.LIBELLE, p.LIEU, p.DESCRIPTION, p.DATEDEBUT, p.DATEFIN, p.ETAT, p.AVANCE, p.code, client.nom, entreprise.nom,p.retenue,p.contrat
 ;
+
+ALTER TABLE `matonsite_moisprojet` ADD `montant` DOUBLE NOT NULL DEFAULT '0';

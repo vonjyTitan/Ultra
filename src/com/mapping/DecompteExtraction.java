@@ -14,8 +14,8 @@ public class DecompteExtraction {
 	private RowExtraction subtotal1; //fait
 	private RowExtraction subtotal2; //fait
 	private RowExtraction avance;
-	private RowExtraction resteavance;
-	private RowExtraction matonsite;
+	private RowExtraction lessrepayment; //fait
+	private RowExtraction matonsite;//fait
 	
 	public DecompteExtraction(){
 		setBills(new ArrayList<RowExtraction>());
@@ -140,13 +140,13 @@ public class DecompteExtraction {
 	}
 
 
-	public RowExtraction getResteavance() {
-		return resteavance;
+	public RowExtraction getLessrepayment() {
+		return lessrepayment;
 	}
 
 
-	public void setResteavance(RowExtraction resteavance) {
-		this.resteavance = resteavance;
+	public void setLessrepayment(RowExtraction resteavance) {
+		this.lessrepayment = resteavance;
 	}
 
 

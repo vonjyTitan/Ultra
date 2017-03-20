@@ -128,8 +128,8 @@ public class DecompteService {
 			 
 			 Estimation est =DaoModele.getInstance().findById(new Estimation(), idmoisprojet, conn);
 			 
-			 String updateExiste = "update matonsite_moisprojet set credit =? where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
-			 String updateGeneral = "update matonsite set debit=(select sum(debit) from matonsite_moisprojet where idmatonsite=?) , credit=(select sum(credit) from matonsite_moisprojet where idmatonsite=?) where idmatonsite=?";
+			 String updateExiste = "update matonsite_moisprojet set credit =?,montant=?*(select pu from matonsite mo where mo.idmatonsite=?) where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
+			 String updateGeneral = "update matonsite set credit=(select sum(montant) from matonsite_moisprojet where idmatonsite=?) where idmatonsite=?";
 			 
 			 int taille = credits.length;
 			 prUpd = conn.prepareStatement(updateExiste);
@@ -140,13 +140,14 @@ public class DecompteService {
 				 credit= (credits[i]==null || credits[i].length()==0) ? "0" : credits[i];
 				 
 				 prUpd.setObject(1, credit);
-				 prUpd.setObject(2, Integer.valueOf(idmatonsite[i]));
+				 prUpd.setObject(2, credit);
+				 prUpd.setObject(3, Integer.valueOf(idmatonsite[i]));
+				 prUpd.setObject(4, Integer.valueOf(idmatonsite[i]));
 				 
 				 prUpd.executeUpdate();
 				 
 				 prMtos.setObject(1, Integer.valueOf(idmatonsite[i]));
 				 prMtos.setObject(2, Integer.valueOf(idmatonsite[i]));
-				 prMtos.setObject(3, Integer.valueOf(idmatonsite[i]));
 				 
 				 prMtos.executeUpdate();
 			 }
@@ -191,6 +192,8 @@ public class DecompteService {
 			 DecompteService.getInstance().setEstimationEtat(idecompte, ConstantEtat.MOIS_CERTIFIED, conn);
 			 dec.setRetenue(actRetenue);
 			 DaoModele.getInstance().update(dec,conn);
+			 DaoModele.getInstance().executeUpdate("update moisprojet set MATONSITECREDIT=(select sum(montant) from matonsite_moisprojet mm on mm.idmoisprojet="+idecompte+") where idmoisprojet="+idecompte,conn);
+			 
 			 
 			 conn.commit();
 			 
@@ -218,7 +221,10 @@ public class DecompteService {
 			Projet critProjet = new Projet();
 			critProjet.setNomTable("projet_libelle");
 			Projet projet = DaoModele.getInstance().findById(critProjet, est.getIdprojet(), conn);
+			
 			Double lastRetention = 0.0;
+			Double lastMatOnSite = 0.0;
+			Double lastRepayment = 0.0;
 			
 			reponse.setContractor(projet.getEntreprise());
 			reponse.setSociete(projet.getClient());
@@ -273,9 +279,32 @@ public class DecompteService {
 			     reponse.setRetention(retention);
 			     reponse.calculeSubTotal2();
 			     
+			     PreparedStatement statLastMOT = conn.prepareStatement("select sum(MATONSITECREDIT) as montant from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
+			     statLastMOT.setObject(1, est.getMois());
+			     ResultSet resLastMOT = statLastMOT.executeQuery();
+			     while(resLastMOT.next()){
+			    	 lastMatOnSite = resLastMOT.getDouble("montant");
+			     }
+			     
 			     RowExtraction matonsite = new RowExtraction();
+			     matonsite.setPrecedant(lastMatOnSite);
+			     matonsite.setCurrent(est.getMatonsitecredit());
+			     matonsite.setCummulative(matonsite.getCurrent()+matonsite.getPrecedant());
 			     
+			     reponse.setMatonsite(matonsite);
 			     
+			     PreparedStatement statRepayment = conn.prepareStatement("select sum(REMBOURSEMENT) as montant from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
+			     statRepayment.setObject(1, est.getMois());
+			     ResultSet resLastRepayment = statLastMOT.executeQuery();
+			     while(resLastRepayment.next()){
+			    	 lastRepayment = resLastRepayment.getDouble("montant");
+			     }
+			     RowExtraction lessrepayment = new RowExtraction();
+			     lessrepayment.setPrecedant(-1*lastRepayment);
+			     lessrepayment.setCurrent(-1*est.getRemboursement());
+			     lessrepayment.setCummulative(lessrepayment.getPrecedant()+lessrepayment.getCurrent());
+			     
+			     reponse.setLessrepayment(lessrepayment);
 			     
 		}
 		catch(Exception ex){
