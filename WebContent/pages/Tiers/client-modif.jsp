@@ -13,5 +13,5 @@
 	//builder.setOrdre(new String[]{"idcustomer","Name","Description"});
 	builder.setChampTextarea("description");
 %>
-<h3>Customer update</h3>
+<h3>Client update</h3>
 <%=builder.getHTML("General information", 12)%>

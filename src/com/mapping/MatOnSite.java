@@ -12,6 +12,7 @@ public class MatOnSite extends DataEntity {
 	private double debit;
 	private String libelle;
 	private String code;
+	private Double montant;
 	public int getIdmatonsite() {
 		return idmatonsite;
 	}
@@ -59,6 +60,12 @@ public class MatOnSite extends DataEntity {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public Double getMontant() {
+		return montant;
+	}
+	public void setMontant(Double montant) {
+		this.montant = montant;
 	}
 	
 }
