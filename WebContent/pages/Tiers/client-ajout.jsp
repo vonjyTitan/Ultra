@@ -11,5 +11,5 @@
 	builder.removeChamp("idclient");
 	builder.setChampTextarea("description");
 %>
-<h3>Add new Customer</h3>
+<h3>Add new Client</h3>
 <%=builder.getHTML("General information", 12)%>

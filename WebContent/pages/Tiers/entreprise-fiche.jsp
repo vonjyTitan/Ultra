@@ -12,7 +12,7 @@
 	PageFiche builder=new PageFiche(crit,request);
 	//builder.removeChamp("idunite");
 %>
-<h3><a href="main.jsp?cible=Tiers/entreprise-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Customer details</h3>
+<h3><a href="main.jsp?cible=Tiers/entreprise-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Contractor details</h3>
 <%=HTMLBuilder.beginPanel("General information",12) %>
 <%=builder.getBody()%>
 <div class="form-group col-lg-12" style="text-align: right;">

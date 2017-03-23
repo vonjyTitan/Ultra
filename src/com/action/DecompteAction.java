@@ -58,7 +58,7 @@ public class DecompteAction extends Action {
 			DaoModele.getInstance().save(estimation, conn);
 			DecompteService.getInstance().setDefaultItemRapportForMoisProjet(estimation.getIdmoisprojet(), conn);
 			conn.commit();
-			goTo(request, response, "get","main.jsp?cible=decompte/deompte-fiche&id="+estimation.getIdmoisprojet());
+			goTo(request, response, "get","main.jsp?cible=decompte/decompte-fiche&id="+estimation.getIdmoisprojet());
 		}
 		catch(Exception ex){
 			if(conn!=null)
@@ -142,37 +142,21 @@ public class DecompteAction extends Action {
 	}
 	
 	public void certified(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		Connection conn = null;
-		 try{
-			 conn = Connecteur.getConnection();
-			 conn.setAutoCommit(false);
-			 int id = Integer.parseInt(SessionUtil.getValForAttr(request, "id"));
-
-			 DecompteService.getInstance().setEstimationEtat(id, ConstantEtat.MOIS_CERTIFIED, conn);
-			 
-			 conn.commit();
-			 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
-			 
-		 }
-		 catch(Exception ex){
-			 if(conn!=null)
-				 conn.rollback();
-			 ex.printStackTrace();
+		int id = Integer.parseInt(SessionUtil.getValForAttr(request, "id"));
+		try{
+			DecompteService.getInstance().certifiedDecompte(id);
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
 			 throw new Exception("Internal server error");
-		 }
-		 finally{
-			 if(conn!=null)
-				 conn.close();
-		 }
-		
+		}
 		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
 	public void matonsiteupdate(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		 String[] credits=request.getParameterValues("credit");
-		 String[] debits=request.getParameterValues("debit");
 		 String[] idmatonsite=request.getParameterValues("idmatonsite");
 		 int idmoisprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "idmoisprojet"));
-		 DecompteService.getInstance().decompteMatOnSite(idmoisprojet, credits, debits,idmatonsite);
+		 DecompteService.getInstance().decompteMatOnSite(idmoisprojet, credits,idmatonsite);
 		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
 	
@@ -186,88 +170,6 @@ public class DecompteAction extends Action {
 	}
 	
 	public void extract(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		{
-			WritableWorkbook w=null;
-		    Connection conn=null;
-		    try
-		    {
-		    	conn = Connecteur.getConnection();
-		    	int idmoisprojet = Integer.valueOf(SessionUtil.getValForAttr(request, "id"));
-		    	
-			     response.setContentType("application/vnd.ms-excel");
-			     response.setHeader("Content-Disposition", 
-			    "attachment; filename=PAYMENT_CERTIFICATE_"+idmoisprojet+".xls");
-			     
-			     Estimation est= DaoModele.getInstance().findById(new Estimation(),idmoisprojet,conn);
-			     
-			     w = Workbook.createWorkbook(response.getOutputStream());
-			     WritableSheet s = w.createSheet("PAYMENT CERTIFICATE", 0);
-			     ResultSet rsBill = conn.createStatement().executeQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet);
-
-			     int il=0;
-			     s.addCell(new Label(0, il, "BILL"));
-			     s.addCell(new Label(1, il, "DESCRIPTION"));
-			     s.addCell(new Label(2, il, "TENDER (MUR)"));
-			     s.addCell(new Label(3, il, "PREVIOUS (MUR)"));
-			     s.addCell(new Label(4, il, "CURRENT (MUR)"));
-			     s.addCell(new Label(5, il, "CUMULATIVE (MUR)"));
-			     
-			     PreparedStatement ps = conn.prepareStatement("select billitem.idbill,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as previous "+
-					" from billitem "+
-					"join itemrapport ir "+
-					"on ir.idbillitem=billitem.idbillitem "+
-					"join moisprojet mp "+
-					"on mp.idmoisprojet=ir.idmoisprojet "+
-					"where mp.mois<? and billitem.idbill=? "+
-					"group by billitem.idbill");
-			     ResultSet rs=null;
-			     
-			     Double curr=0.0;//current value
-			     Double cum=0.0;// cummulle
-			     Double prev=0.0;
-			     int idbill =0;
-			     il++;
-			     while(rsBill.next()){
-			    	 int icol=0;
-			    	 idbill = rsBill.getInt("idbill");
-			    	 s.addCell(new Label(icol, il, idbill+""));
-			    	 icol++;
-			    	 s.addCell(new Label(icol, il, rsBill.getString("libelle")));
-			    	 icol++;
-	    			 s.addCell(new Label(icol, il, String.valueOf(rsBill.getDouble("estimative"))));
-	    			 icol++;
-	    			 
-	    			 curr = Double.valueOf(rsBill.getDouble("curr"));
-	    			 
-	    			 ps.setObject(1, est.getMois());
-			    	 ps.setObject(2, idbill);
-			    	 rs=ps.executeQuery();
-			    	 while(rs.next()){
-			    		 prev = rs.getDouble("previous");
-			    		 cum=prev+curr;
-			    		 s.addCell(new Label(icol, il, prev.toString()));
-			    	 }
-	    			 icol++;
-	    			 s.addCell(new Label(icol, il, curr.toString()));
-			    	icol++;
-			    	 s.addCell(new Label(icol, il, cum.toString()));
-			    	 il++;
-			     }
-			     
-			     
-			     
-			     w.write();
-		 
-		    } catch (Exception e)
-		    {
-		     throw new ServletException("Exctraction error", e);
-		    } finally
-		    {
-		     if (w != null)
-		      w.close();
-		     if(conn!=null)
-		    	 conn.close();
-		    }
-		}
+		
 	}
 }

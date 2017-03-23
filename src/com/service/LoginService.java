@@ -54,6 +54,7 @@ public class LoginService {
 		catch(Exception ex){
 			if(connex!=null)
 				connex.rollback();
+			ex.printStackTrace();
 		}
 		finally{
 			if(connex!=null)

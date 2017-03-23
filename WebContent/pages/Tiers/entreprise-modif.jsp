@@ -12,5 +12,5 @@
 	builder.addNotVisibleChamp("identreprise");
 	builder.setChampTextarea("description");
 %>
-<h3>Customer update</h3>
+<h3>Contractor update</h3>
 <%=builder.getHTML("General information", 6)%>

@@ -28,6 +28,8 @@ public class Estimation extends DataEntity {
 	private String code;
 	private String libelle;
 	private String description;
+	@Parameter(libelle="Less Retention Money")
+	private Double retenue;
 	
 	
 	
@@ -120,6 +122,12 @@ public class Estimation extends DataEntity {
 	}
 	public void setMatonsitedebit(double matonsitedebit) {
 		this.matonsitedebit = matonsitedebit;
+	}
+	public Double getRetenue() {
+		return retenue;
+	}
+	public void setRetenue(Double retenue) {
+		this.retenue = retenue;
 	}
 	
 }

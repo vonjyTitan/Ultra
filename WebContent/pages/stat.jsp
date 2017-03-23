@@ -12,7 +12,6 @@
 	 int pageGeneral = Integer.valueOf("0"+SessionUtil.getValForAttr(request, "PageProj"));
  	pageGeneral = pageGeneral==0 ? 1: pageGeneral;
  	ListPaginner<ProjetStat> generalStat = (ListPaginner)StatService.getInstance().getStatProjetEnCour(pageGeneral);
- 	System.out.print("page general number : "+generalStat.nbPage);
  	Historique critH = new Historique();
  	critH.setNomChampOrder("datelog");
  	critH.setOrdering(DataEntity.DESC);

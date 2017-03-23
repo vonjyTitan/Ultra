@@ -9,7 +9,7 @@
 <%
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Estimation(),"decompte-ajout",request);
 	builder.removeChamp("idmoisprojet");
-	builder.addNotVisibleChamp(new String[]{"idprojet","idutilisateur","total","datedecompte","datecertification","matonsitecredit","matonsitedebit","etat"});
+	builder.addNotVisibleChamp(new String[]{"idprojet","idutilisateur","total","datedecompte","datecertification","matonsitecredit","matonsitedebit","etat","retenue"});
 	Projet p = DaoModele.getInstance().findById(new Projet(), Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 	((Estimation)builder.getEntity()).setIdprojet(p.getIdprojet());
 	

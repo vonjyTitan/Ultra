@@ -114,10 +114,10 @@
 
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
-			<li class="active" id="tabindex">
-        <a  href="#1a" data-toggle="tab">Bills</a>
+			<li class="active" id="tabindex"><a href="#2a" data-toggle="tab" >Certificat</a>
 			</li>
-			<li><a href="#2a" data-toggle="tab">Estimate and Count</a>
+			<li>
+        <a  href="#1a" data-toggle="tab">Bills</a>
 			</li>
 			<li><a href="#3a" data-toggle="tab">Material on site</a>
 			</li>
@@ -183,6 +183,8 @@
                                 <th>Month</th>
                                 <th>Amount</th>  
                                 <th>Status</th>
+                                <th>Estimated</th>
+                                <th>Actual</th>
                                 <th>Date of count</th>
                                 <th></th>                              
                             </tr>
@@ -206,6 +208,8 @@
 								<%
 							}
 							%></td>
+							<td><%=estimation.getTotal() %></td>
+							<td><%=estimation.getEstimation()%></td>
 							<td><%=UtileAffichage.formatAfficherDate(estimation.getDatedecompte()) %></td>
 							<td><a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-fiche&id=<%=estimation.getIdmoisprojet() %>">Details</a>
 							<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-modif&id=<%=estimation.getIdmoisprojet() %>"><i class="fa fa-pencil"></i></a></td>

@@ -1,17 +1,25 @@
 package com.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
+
+import com.mapping.RowExtraction;
+import com.mapping.DecompteExtraction;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
+import com.mapping.Projet;
 
 import dao.Connecteur;
 import dao.DaoModele;
+import jxl.write.Label;
 import utilitaire.ConstantEtat;
+import utilitaire.SessionUtil;
 import utilitaire.Utilitaire;
 
 public class DecompteService {
@@ -109,7 +117,7 @@ public class DecompteService {
 		return somme;
 	}
 	
-	public void decompteMatOnSite(int idmoisprojet,String[]credits,String[]debits, String[] idmatonsite) throws Exception{
+	public void decompteMatOnSite(int idmoisprojet,String[]credits, String[] idmatonsite) throws Exception{
 		
 		Connection conn =null;
 		 PreparedStatement prUpd = null;
@@ -120,28 +128,26 @@ public class DecompteService {
 			 
 			 Estimation est =DaoModele.getInstance().findById(new Estimation(), idmoisprojet, conn);
 			 
-			 String updateExiste = "update matonsite_moisprojet set credit =?, debit=? where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
-			 String updateGeneral = "update matonsite set debit=(select sum(debit) from matonsite_moisprojet where idmatonsite=?) , credit=(select sum(credit) from matonsite_moisprojet where idmatonsite=?) where idmatonsite=?";
+			 String updateExiste = "update matonsite_moisprojet set credit =?,montant=?*(select pu from matonsite mo where mo.idmatonsite=?) where idmoisprojet="+idmoisprojet+" and idmatonsite=?";
+			 String updateGeneral = "update matonsite set credit=(select sum(montant) from matonsite_moisprojet where idmatonsite=?) where idmatonsite=?";
 			 
 			 int taille = credits.length;
 			 prUpd = conn.prepareStatement(updateExiste);
 			 prMtos = conn.prepareStatement(updateGeneral);
 			 
 			 String credit="";
-			 String debit = "";
 			 for(int i=0;i<taille;i++){
 				 credit= (credits[i]==null || credits[i].length()==0) ? "0" : credits[i];
-				 debit= (debits[i]==null || debits[i].length()==0) ? "0" : debits[i];
 				 
 				 prUpd.setObject(1, credit);
-				 prUpd.setObject(2, debit);
+				 prUpd.setObject(2, credit);
 				 prUpd.setObject(3, Integer.valueOf(idmatonsite[i]));
+				 prUpd.setObject(4, Integer.valueOf(idmatonsite[i]));
 				 
 				 prUpd.executeUpdate();
 				 
 				 prMtos.setObject(1, Integer.valueOf(idmatonsite[i]));
 				 prMtos.setObject(2, Integer.valueOf(idmatonsite[i]));
-				 prMtos.setObject(3, Integer.valueOf(idmatonsite[i]));
 				 
 				 prMtos.executeUpdate();
 			 }
@@ -157,6 +163,160 @@ public class DecompteService {
 			 if(conn!=null)
 				 conn.close();
 		 }
+	}
+	
+	public void certifiedDecompte(int idecompte) throws Exception{
+		Connection conn = null;
+		 try{
+			 conn = Connecteur.getConnection();
+			 conn.setAutoCommit(false);
+
+			 Estimation dec = DaoModele.getInstance().findById(new Estimation(), idecompte, conn);
+			 Projet p = DaoModele.getInstance().findById(new Projet(), dec.getIdprojet(), conn);
+			 
+			 Double cummulativeRetension = 0.0;
+			 Double totalEstimationprojet  = 0.0;
+			 Double actRetenue = dec.getTotal()*p.getRetenue()/100;
+					 
+			 String sql_cum_ret="select sum(retenue) as retenue as  form moisprojet where idprojet = "+dec.getIdprojet();
+			 ResultSet resRet = conn.createStatement().executeQuery(sql_cum_ret);
+			 
+			 while(resRet.next()){
+				 cummulativeRetension = resRet.getDouble("retenue");
+			 }
+			 
+			 if(cummulativeRetension+actRetenue>(totalEstimationprojet*5/100)){
+				 actRetenue = 0.0;
+			 }
+			 
+			 DecompteService.getInstance().setEstimationEtat(idecompte, ConstantEtat.MOIS_CERTIFIED, conn);
+			 dec.setRetenue(actRetenue);
+			 DaoModele.getInstance().update(dec,conn);
+			 DaoModele.getInstance().executeUpdate("update moisprojet set MATONSITECREDIT=(select sum(montant) from matonsite_moisprojet mm on mm.idmoisprojet="+idecompte+") where idmoisprojet="+idecompte,conn);
+			 
+			 
+			 conn.commit();
+			 
+		 }
+		 catch(Exception ex){
+			 if(conn!=null)
+				 conn.rollback();
+			 ex.printStackTrace();
+			 throw new Exception("Internal server error");
+		 }
+		 finally{
+			 if(conn!=null)
+				 conn.close();
+		 }
+	}
+	
+	public DecompteExtraction getDataToextract(int idmoisprojet)throws Exception{
+		DecompteExtraction reponse = new DecompteExtraction();
+		Connection conn=null;
+		PreparedStatement ps=null;
+		try{
+			conn = Connecteur.getConnection();
+			
+			Estimation est= DaoModele.getInstance().findById(new Estimation(),idmoisprojet,conn);
+			Projet critProjet = new Projet();
+			critProjet.setNomTable("projet_libelle");
+			Projet projet = DaoModele.getInstance().findById(critProjet, est.getIdprojet(), conn);
+			
+			Double lastRetention = 0.0;
+			Double lastMatOnSite = 0.0;
+			Double lastRepayment = 0.0;
+			
+			reponse.setContractor(projet.getEntreprise());
+			reponse.setSociete(projet.getClient());
+			reponse.setIdcertificat(est.getIdmoisprojet());
+			reponse.setCertificatdate(new java.sql.Date(new java.util.Date().getTime()));
+			
+			ResultSet rsBill = conn.createStatement().executeQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet);
+			
+			ps = conn.prepareStatement("select billitem.idbill,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as previous "+
+					" from billitem "+
+					"left join itemrapport ir "+
+					"on ir.idbillitem=billitem.idbillitem "+
+					"left join moisprojet mp "+
+					"on mp.idmoisprojet=ir.idmoisprojet "+
+					"where mp.mois<? and billitem.idbill=? "+
+					"group by billitem.idbill");
+			
+			     ResultSet rs=null;
+			     while(rsBill.next()){
+			    	 RowExtraction bill = new RowExtraction(); 
+			    	 
+			    	 bill.setLibelle(rsBill.getString("libelle"));
+			    	 bill.setEstimative(rsBill.getDouble("estimative"));
+	    			 bill.setCurrent(rsBill.getDouble("curr"));
+	    			 
+	    			 ps.setObject(1, est.getMois());
+			    	 ps.setObject(2, rsBill.getInt("idbill"));
+			    	 
+			    	 rs=ps.executeQuery();
+			    	 while(rs.next()){
+			    		 bill.setPrecedant(rs.getDouble("previous"));
+			    		 bill.setCummulative(bill.getPrecedant()+bill.getCurrent());
+			    	 }
+			    	 reponse.getBills().add(bill);
+			     }
+			     
+			     reponse.calculeSubTotal1();
+			     
+			     PreparedStatement statLastRet = conn.prepareStatement("select sum(retenue) as retenue from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
+			     statLastRet.setObject(1, est.getMois());
+			     ResultSet resLastRet = statLastRet.executeQuery();
+			     
+			     while(resLastRet.next()){
+			    	 lastRetention = resLastRet.getDouble("retenue");
+			     }
+			     
+			     RowExtraction retention = new RowExtraction();
+			     retention.setCurrent(est.getRetenue()*-1);
+			     retention.setPrecedant(lastRetention*-1);
+			     retention.setCummulative((est.getRetenue()+lastRetention)*-1);
+			     
+			     reponse.setRetention(retention);
+			     reponse.calculeSubTotal2();
+			     
+			     PreparedStatement statLastMOT = conn.prepareStatement("select sum(MATONSITECREDIT) as montant from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
+			     statLastMOT.setObject(1, est.getMois());
+			     ResultSet resLastMOT = statLastMOT.executeQuery();
+			     while(resLastMOT.next()){
+			    	 lastMatOnSite = resLastMOT.getDouble("montant");
+			     }
+			     
+			     RowExtraction matonsite = new RowExtraction();
+			     matonsite.setPrecedant(lastMatOnSite);
+			     matonsite.setCurrent(est.getMatonsitecredit());
+			     matonsite.setCummulative(matonsite.getCurrent()+matonsite.getPrecedant());
+			     
+			     reponse.setMatonsite(matonsite);
+			     
+			     PreparedStatement statRepayment = conn.prepareStatement("select sum(REMBOURSEMENT) as montant from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
+			     statRepayment.setObject(1, est.getMois());
+			     ResultSet resLastRepayment = statLastMOT.executeQuery();
+			     while(resLastRepayment.next()){
+			    	 lastRepayment = resLastRepayment.getDouble("montant");
+			     }
+			     RowExtraction lessrepayment = new RowExtraction();
+			     lessrepayment.setPrecedant(-1*lastRepayment);
+			     lessrepayment.setCurrent(-1*est.getRemboursement());
+			     lessrepayment.setCummulative(lessrepayment.getPrecedant()+lessrepayment.getCurrent());
+			     
+			     reponse.setLessrepayment(lessrepayment);
+			     
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+			if(ps!=null)
+				ps.close();
+		}
+		return reponse;
 	}
 	
 }

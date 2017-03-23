@@ -285,24 +285,24 @@ try{
 				<li class="sub-menu">
 					<a href="javascript:;" >
                           <i class="fa fa-cube"></i>
-                          <span>Third Party</span>
+                          <span>Client and contractor</span>
                       </a>
                       <ul class="sub">
                       <%if(clientM){ %>
                       <li class="sub-menu">
-                      	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Customer</a>
+                      	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Client</a>
                       	<ul class="sub">
-                      		<li><a href="main.jsp?cible=Tiers/client-liste" id="client-liste"><i class="fa fa-list"></i>List Customer</a></li>               
-                      		<li><a href="main.jsp?cible=Tiers/client-ajout" id="client-ajout"><i class="fa fa-plus"></i>Add New Customer</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/client-liste" id="client-liste"><i class="fa fa-list"></i>List Client</a></li>               
+                      		<li><a href="main.jsp?cible=Tiers/client-ajout" id="client-ajout"><i class="fa fa-plus"></i>Add New Client</a></li>
                			</ul>
                       </li>
                       	<%} if(entrepriseM){%>
                       <li class="sub-menu">
-                      	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Company</a>
+                      	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Contractor</a>
                       	<ul class="sub">
-                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="entreprise-liste"></i>List Company</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="entreprise-liste"></i>List Contractor</a></li>
                			
-                      		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="entreprise-ajout"></i>Add New Company</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="entreprise-ajout"></i>Add New Contractor</a></li>
                			</ul>
                       </li>
                       <%} %>

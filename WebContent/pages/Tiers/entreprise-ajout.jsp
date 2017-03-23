@@ -11,5 +11,5 @@
 	builder.removeChamp("idmoisprojet");
 	builder.setChampTextarea("description");
 %>
-<h3>Add new Company</h3>
+<h3>Add new Contractor</h3>
 <%=builder.getHTML("General information", 12)%>
