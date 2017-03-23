@@ -5,11 +5,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
 
 import com.mapping.RowExtraction;
+import com.mapping.Bill;
 import com.mapping.DecompteExtraction;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
@@ -75,6 +79,47 @@ public class DecompteService {
 	public void setMontantItemProject(double montant , int iditemrapport, Connection conn)throws Exception{
 		DaoModele.getInstance().executeUpdate("update itemrapport set montant= "+montant+ " where iditemrapport= "+iditemrapport, conn);
 
+	}
+	
+	public Map<Bill,List<ItemRapport>> getItemRapportByBill(int idmoisprojet) throws Exception{
+		Map<Bill,List<ItemRapport>> reponse = new HashMap<>();
+		Connection conn=null;
+		PreparedStatement statLast = null;
+		try{
+			conn = Connecteur.getConnection();
+			Estimation est = DaoModele.getInstance().findById(new Estimation(), idmoisprojet, conn);
+			Bill critBill=new Bill();
+			critBill.setNomTable("bill_libelle");
+			List<Bill> billResult=DaoModele.getInstance().findPageGenerique(1, critBill," and idprojet= " + est.getIdprojet());
+			ItemRapport critItem=new ItemRapport();
+			critItem.setNomTable("itemrapport_libelle");
+			
+			statLast = conn.prepareStatement("select sum(montant) as last from itemrapport ir join moisprojet mp on ir.idmoisprojet=mp.idmoisprojet where ir.idbillitem=? and mp.mois<? ");
+			ResultSet last = null;
+			
+			for(int i=0;i<billResult.size();i++){
+				List<ItemRapport> ItemResult=DaoModele.getInstance().findPageGenerique(1, critItem," and idbill= " + billResult.get(i).getIdbill() +" and idmoisprojet= " + idmoisprojet);
+				for(ItemRapport ir:ItemResult){
+					statLast.setObject(1, ir.getIdbillitem());
+					statLast.setObject(2, est.getMois());
+					
+					last = statLast.executeQuery();
+					if(last.next())
+						ir.setLast(last.getDouble("last"));
+				}
+				reponse.put(billResult.get(i), ItemResult);
+			}
+			return reponse;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+			if(statLast!=null)
+				statLast.close();
+		}
 	}
 	
 	public void setEstimationEtat(int idmoisprojet,int etat)throws Exception{
@@ -186,7 +231,7 @@ public class DecompteService {
 			 }
 			 
 			 if(cummulativeRetension+actRetenue>(totalEstimationprojet*5/100)){
-				 actRetenue = 0.0;
+				 actRetenue = (totalEstimationprojet*5/100)-cummulativeRetension;
 			 }
 			 
 			 DecompteService.getInstance().setEstimationEtat(idecompte, ConstantEtat.MOIS_CERTIFIED, conn);
