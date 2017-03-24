@@ -20,3 +20,15 @@ group by p.IDPROJET, p.IDCLIENT, p.IDENTREPRISE, p.LIBELLE, p.LIEU, p.DESCRIPTIO
 ;
 
 ALTER TABLE `matonsite_moisprojet` ADD `montant` DOUBLE NOT NULL DEFAULT '0';
+
+create or replace view itemrapport_libelle as
+select itemr.* ,i.code,i.libelle,bill.idbill,b.pu,b.estimation from itemrapport as itemr
+join billitem b on itemr.idbillitem = b.idbillitem
+join item as i on i.iditem = b.iditem
+join bill on bill.idbill= b.idbill;
+
+create or replace view matonsite_projet_libelle as 
+select ml.code,ml.libelle,ml.pu,msp.credit,msp.debit,msp.idmoisprojet,ml.idmatonsite,msp.montant
+from matonsite_libelle ml
+join matonsite_moisprojet msp
+on msp.idmatonsite=ml.idmatonsite;

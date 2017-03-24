@@ -18,6 +18,8 @@ public class ItemRapport extends DataEntity {
 	private Double pu;
 	private Double estimation;
 	private Date datedecompte;
+	private Double montant;
+	private Double last;
 	
 	
 	public Double getPu() {
@@ -91,5 +93,17 @@ public class ItemRapport extends DataEntity {
 	}
 	public void setDatedecompte(Date datedecompte) {
 		this.datedecompte = datedecompte;
+	}
+	public Double getMontant() {
+		return montant;
+	}
+	public void setMontant(Double montant) {
+		this.montant = montant;
+	}
+	public Double getLast() {
+		return last;
+	}
+	public void setLast(Double last) {
+		this.last = last;
 	}
 }

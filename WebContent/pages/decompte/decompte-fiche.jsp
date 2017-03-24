@@ -1,8 +1,12 @@
+<%@page import="utilitaire.UtileAffichage"%>
 <%@page import="com.service.DecompteService"%>
 <%@page import="utilitaire.ConstantEtat"%>
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="dao.DaoModele"%>
 <%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.Map.Entry"%>
 <%@page import="java.util.List"%>
 <%@page import="com.affichage.InsertUpdateBuilder.ERROR_SHOW"%>
 <%@page import="com.affichage.*"%>
@@ -23,11 +27,12 @@
 	critmts.setPackSize(50);
 	critmts.setNomTable("matonsite_projet_libelle");
 	List<MatOnSite> matonsites = DaoModele.getInstance().findPageGenerique(1, critmts," and idmoisprojet="+listEstimation.get(0).getIdmoisprojet());
+	Map<Bill,List<ItemRapport>> billItem = DecompteService.getInstance().getItemRapportByBill(Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 %>
 <h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=listEstimation.get(0).getIdprojet() %>"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Estimation details</h3>
-<%=HTMLBuilder.beginPanel("General information",12) %>
+<%=HTMLBuilder.beginPanel("General information",6) %>
 <div class="form-group col-lg-6">
-	<p class="col-lg-6">Etat : </p>
+	<p class="col-lg-6">Status : </p>
 	<% if(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CREATED){%>
 	<p class="col-lg-6">Created</p>
 	<%} 
@@ -57,26 +62,58 @@
 </div>
 
 <%=HTMLBuilder.endPanel()%>
-<div class="col-lg-6">
+<div class="col-lg-6" >
+	<h3>Material on site (value on this month only)</h3>
+	<form action="decompte-matonsiteupdate">
+		         <input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet()%>">
+		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" style="background-color: #d2c9c9;">
+	<thead>
+	<tr>
+		<th>Id</th>
+		<th>Description</th>
+		<th>Rate</th>
+		<th>Last</th>
+		<th>This</th>
+		<th>Amount</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%for(MatOnSite matonsite:matonsites){
+			%>
+			<tr>
+				<td><%=matonsite.getCode() %></td>
+				<td><%=matonsite.getLibelle() %></td>
+				<td><%=matonsite.getPu() %></td>
+				<td>0.0</td>
+				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
+				<td><input type="text" name="credit" value="<%=matonsite.getCredit()%>">
+				<input type="hidden" name="idmatonsite" value="<%=matonsite.getIdmatonsite()%>"></td>
+				<%} else{%>
+				<td><%=matonsite.getCredit() %></td>
+				<%} %>
+				<td><%=matonsite.getMontant() %></td>
+				</tr>
+		<%}%>
+	</tbody>
+	</table>
+	<input type ="submit" class="btn btn-primary" <%=(matonsites.size()==0 ? "disabled=\"disabled\"" : "") %> value="update">
+	</form>
+</div>
+<div class="col-lg-12">
 <div id="exTab3" class="">	
 <ul  class="nav nav-pills">
 	<% 
-		
-		Bill critBill=new Bill();
-		critBill.setNomTable("bill_libelle");
-		List<Bill> billResult=DaoModele.getInstance().findPageGenerique(1, critBill," and idprojet= " + listEstimation.get(0).getIdprojet());
-	%>
-<%for(int i=0;i<billResult.size();i++){ %>
+		Set<Entry<Bill,List<ItemRapport>>> set = billItem.entrySet();
+		int i = 0;
+		for(Entry<Bill,List<ItemRapport>> entry:set){%>
 			<li <% if(i == 0){%>class="active" id="tabindex"<%} %> >
-        		<a  href=<%="#"+i+"a" %> data-toggle="tab"><%=billResult.get(i).getCode() %></a>
+        		<a  href=<%="#"+i+"a" %> data-toggle="tab"><%=entry.getKey().getCode() %></a>
 			</li>
 			<%} %>
 		</ul>
 		<div class="tab-content clearfix">
-		<%for(int i=0;i<billResult.size();i++){ 
-			ItemRapport critItem=new ItemRapport();
-			critItem.setNomTable("itemrapport_libelle");
-			List<ItemRapport> ItemResult=DaoModele.getInstance().findPageGenerique(1, critItem," and idbill= " + billResult.get(i).getIdbill() +" and idmoisprojet= " + SessionUtil.getValForAttr(request, "id"));%>
+		<%for(Entry<Bill,List<ItemRapport>> entry:set){ 
+			List<ItemRapport> ItemResult=entry.getValue();%>
 			  <div class="tab-pane active" id=<%=i+"a" %>>
 		     <form action="decompte-decompte">
 		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
@@ -85,8 +122,10 @@
 			<th>Id</th>
 			<th>Description</th>
 			<th>Rate</th>
+			<th>Last</th>
 			<th>Calculated Quantity</th>
 			<th>Estimated Quantity</th>
+			<th>Amount</th>
 
 		</tr>
 	</thead>
@@ -102,7 +141,7 @@
 				<td><%=item.getCode() %></td>
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu()%></td>
-				
+				<td><%=item.getLast() %></td>
 				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
 					<td><input type="text" name="estimate" value="<%=item.getQuantiteestime() %>" ></td>
 					<td><input type="text" name="quantite" value="<%=item.getCredit() %>" ></td>
@@ -112,13 +151,14 @@
 					<td><%=item.getQuantiteestime() %></td>
 					<td><%=item.getCredit() %></td>
 				<% }%>
-			
+				<td><%=UtileAffichage.formatMoney(item.getMontant()) %></td>
 				<input type="hidden" name=iditemrapport value="<%=item.getIditemrapport() %>" >
 				<input type="hidden" name=idmoisprojet value="<%=item.getIdmoisprojet() %>" >
 				<input type="hidden" name="idbillitem" value="<%=item.getIdbillitem() %>" >
 			</tr>
 		
 		<%
+		i++;
 		}
 		
 		
@@ -146,39 +186,7 @@
 </div>
 </div>
 </div>
-<div class="col-lg-6" >
-	<h3>Material on site (value on this month only)</h3>
-	<form action="decompte-matonsiteupdate">
-		         <input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet()%>">
-		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" style="background-color: #d2c9c9;">
-	<thead>
-	<tr>
-		<th>Id</th>
-		<th>Description</th>
-		<th>Rate</th>
-		<th>This</th>
-	</tr>
-	</thead>
-	<tbody>
-		<%for(MatOnSite matonsite:matonsites){
-			%>
-			<tr>
-				<td><%=matonsite.getCode() %></td>
-				<td><%=matonsite.getLibelle() %></td>
-				<td><%=matonsite.getPu() %></td>
-				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
-				<td><input type="text" name="credit" value="<%=matonsite.getCredit()%>">
-				<input type="hidden" name="idmatonsite" value="<%=matonsite.getIdmatonsite()%>"></td>
-				<%} else{%>
-				<td><%=matonsite.getCredit() %></td>
-				<%} %>
-				</tr>
-		<%}%>
-	</tbody>
-	</table>
-	<input type ="submit" class="btn btn-primary" <%=(matonsites.size()==0 ? "disabled=\"disabled\"" : "") %> value="update">
-	</form>
-</div>
+
 <script>
 
 $(document).ready(function(){
