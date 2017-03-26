@@ -50,6 +50,7 @@ public class DecompteAction extends Action {
 			conn.setAutoCommit(false);
 			estimation.setEtat(ConstantEtat.MOIS_CREATED);
 			estimation.setIdutilisateur(user.getIdutilisateur());
+			estimation.setRetenue(0.0);
 			DaoModele.getInstance().save(estimation, conn);
 			DecompteService.getInstance().setDefaultItemRapportForMoisProjet(estimation.getIdmoisprojet(), conn);
 			conn.commit();

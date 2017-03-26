@@ -28,7 +28,7 @@ public class BillService {
 		try{
 			conn = Connecteur.getConnection();
 			conn.setAutoCommit(false);
-			addItems(iditems, pus, estimations,idutilisateur,idbill,conn);
+			addItems(iditems, pus, estimations,idbill,idutilisateur,conn);
 			conn.commit();
 		}
 		catch(Exception ex){

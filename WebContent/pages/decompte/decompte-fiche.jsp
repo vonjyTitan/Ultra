@@ -104,7 +104,7 @@
 			<li <% if(i == 0){%>class="active" id="tabindex"<%} %> >
         		<a  href=<%="#"+i+"a" %> data-toggle="tab"><%=entry.getKey().getCode() %></a>
 			</li>
-			<%} %>
+			<%i++;}i=0; %>
 		</ul>
 		<div class="tab-content clearfix">
 		<%for(Entry<Bill,List<ItemRapport>> entry:set){ 
