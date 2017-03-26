@@ -1,3 +1,6 @@
+import com.mapping.DecompteExtraction;
+import com.service.DecompteService;
+
 import utilitaire.UtilCrypto;
 
 public class MainBoq {
@@ -5,7 +8,8 @@ public class MainBoq {
 	public static void main(String[] args) 
 	{
 		try{
-			System.out.println(UtilCrypto.decrypt("LIKDYP7P+adsCPSdk7Tw8g=="));
+			DecompteExtraction data = DecompteService.getInstance().getDataToextract(10);
+			System.out.println(" taille : " +data.getBills().size());
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
