@@ -13,10 +13,47 @@ public class DecompteExtraction {
 	private RowExtraction retention; //fait
 	private RowExtraction subtotal1; //fait
 	private RowExtraction subtotal2; //fait
-	private RowExtraction avance;
+	private RowExtraction avance; //fait
 	private RowExtraction lessrepayment; //fait
 	private RowExtraction matonsite;//fait
+	private RowExtraction total;//fait
+	private Double totalAmoutExctVta;//fait
+	private Double totalAmoutIncVta;//fait
+	private Double addVta;//fait
+	private Double contractValue;//fait
 	
+	public Double getTotalAmoutExctVta() {
+		return totalAmoutExctVta;
+	}
+
+	public void setTotalAmoutExctVta(Double totalAmoutExctVta) {
+		this.totalAmoutExctVta = totalAmoutExctVta;
+	}
+
+	public Double getTotalAmoutIncVta() {
+		return totalAmoutIncVta;
+	}
+
+	public void setTotalAmoutIncVta(Double totalAmoutIncVta) {
+		this.totalAmoutIncVta = totalAmoutIncVta;
+	}
+
+	public Double getAddVta() {
+		return addVta;
+	}
+
+	public void setAddVta(Double addVta) {
+		this.addVta = addVta;
+	}
+
+	public Double getContractValue() {
+		return contractValue;
+	}
+
+	public void setContractValue(Double contractValue) {
+		this.contractValue = contractValue;
+	}
+
 	public DecompteExtraction(){
 		setBills(new ArrayList<RowExtraction>());
 	}
@@ -46,6 +83,16 @@ public class DecompteExtraction {
 		subtotal2.setCummulative(subtotal1.getCummulative()+retention.getCummulative());
 		subtotal2.setCurrent(subtotal1.getCurrent()+retention.getCurrent());
 		subtotal2.setPrecedant(subtotal1.getPrecedant()+retention.getPrecedant());
+	}
+	public void calculeTotal(){
+		total = new RowExtraction();
+		total.setPrecedant(subtotal2.getPrecedant()+avance.getPrecedant()+lessrepayment.getPrecedant()+matonsite.getPrecedant());
+		total.setCurrent(subtotal2.getCurrent()+avance.getCurrent()+lessrepayment.getCurrent()+matonsite.getCurrent());
+		total.setCummulative(subtotal2.getCummulative()+avance.getCummulative()+lessrepayment.getCummulative()+matonsite.getCummulative());
+		totalAmoutExctVta = Math.abs(total.getCurrent());
+		addVta = totalAmoutExctVta*0.15;
+		totalAmoutIncVta = totalAmoutExctVta+addVta;
+		
 	}
 
 	public List<RowExtraction> getBills() {
@@ -157,6 +204,14 @@ public class DecompteExtraction {
 
 	public void setMatonsite(RowExtraction matonsite) {
 		this.matonsite = matonsite;
+	}
+
+	public RowExtraction getTotal() {
+		return total;
+	}
+
+	public void setTotal(RowExtraction total) {
+		this.total = total;
 	}
 	
 }

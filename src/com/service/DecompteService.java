@@ -14,6 +14,7 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
 
 import com.mapping.RowExtraction;
 import com.mapping.Bill;
+import com.mapping.DataEntity;
 import com.mapping.DecompteExtraction;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
@@ -338,6 +339,26 @@ public class DecompteService {
 			     
 			     reponse.setMatonsite(matonsite);
 			     
+			     RowExtraction avance=new RowExtraction();
+			     
+			     Estimation firstest = new Estimation();
+			     firstest.setPackSize(1);
+			     firstest.setNomChampOrder("idmoisprojet");
+			     firstest.setOrdering(DataEntity.DESC);
+			     if(DaoModele.getInstance().findPageGenerique(1, firstest, conn, " and idprojet="+est.getIdprojet()).get(0).getIdmoisprojet()==est.getIdmoisprojet()){
+			    	 //this is the first 
+			    	 avance.setPrecedant(0.0);
+			    	 avance.setCurrent(projet.getAvance());
+			    	 avance.setCummulative(projet.getAvance());
+			     }
+			     else{
+			    	 avance.setPrecedant(projet.getAvance());
+			    	 avance.setCurrent(0.0);
+			    	 avance.setCummulative(projet.getAvance());
+			     }
+			     
+			     reponse.setAvance(avance);
+			     
 			     PreparedStatement statRepayment = conn.prepareStatement("select sum(REMBOURSEMENT) as montant from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
 			     statRepayment.setObject(1, est.getMois());
 			     ResultSet resLastRepayment = statLastMOT.executeQuery();
@@ -350,6 +371,8 @@ public class DecompteService {
 			     lessrepayment.setCummulative(lessrepayment.getPrecedant()+lessrepayment.getCurrent());
 			     
 			     reponse.setLessrepayment(lessrepayment);
+			     reponse.calculeTotal();
+			     reponse.setContractValue(projet.getContrat());
 			     
 		}
 		catch(Exception ex){
