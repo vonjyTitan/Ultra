@@ -23,10 +23,8 @@
 	builder.setDefaultClassForCOntainer("col-lg-6");
 	builder.addNotVisibleChamp(new String[]{"idmoisprojet","idprojet","idutilisateur","datedecompte","datecertification","matonsitecredit","matonsitedebit","libelle","description","code","etat"});
 	double somme = DecompteService.getInstance().getQuantityxUnitPrice(Integer.parseInt(SessionUtil.getValForAttr(request, "id")));
-	MatOnSite critmts = new MatOnSite();
-	critmts.setPackSize(50);
-	critmts.setNomTable("matonsite_projet_libelle");
-	List<MatOnSite> matonsites = DaoModele.getInstance().findPageGenerique(1, critmts," and idmoisprojet="+listEstimation.get(0).getIdmoisprojet());
+	
+	List<MatOnSite> matonsites = DecompteService.getInstance().getMatOnSiteByEstimation(Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 	Map<Bill,List<ItemRapport>> billItem = DecompteService.getInstance().getItemRapportByBill(Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 %>
 <h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=listEstimation.get(0).getIdprojet() %>"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Estimation details</h3>
@@ -79,7 +77,7 @@
 				<td><%=matonsite.getCode() %></td>
 				<td><%=matonsite.getLibelle() %></td>
 				<td><%=matonsite.getPu() %></td>
-				<td>0.0</td>
+				<td><%=matonsite.getLast() %></td>
 				<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ){%>
 				<td><input type="text" name="credit" value="<%=matonsite.getCredit()%>">
 				<input type="hidden" name="idmatonsite" value="<%=matonsite.getIdmatonsite()%>"></td>

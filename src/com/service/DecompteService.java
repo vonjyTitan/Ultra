@@ -18,6 +18,7 @@ import com.mapping.DataEntity;
 import com.mapping.DecompteExtraction;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
+import com.mapping.MatOnSite;
 import com.mapping.Projet;
 
 import dao.Connecteur;
@@ -82,6 +83,38 @@ public class DecompteService {
 
 	}
 	
+	public List<MatOnSite> getMatOnSiteByEstimation(int idmoisprojet) throws Exception{
+		Connection conn=null;
+		try{
+			conn = Connecteur.getConnection();
+			MatOnSite critmts = new MatOnSite();
+			critmts.setPackSize(50);
+			critmts.setNomTable("matonsite_projet_libelle");
+			List<MatOnSite> matonsites = DaoModele.getInstance().findPageGenerique(1, critmts,conn," and idmoisprojet="+idmoisprojet);
+			Estimation est = DaoModele.getInstance().findById(new Estimation(), idmoisprojet, conn);
+			
+			
+			PreparedStatement pr = conn.prepareStatement("select sum(montant) as montant from  matonsite_moisprojet mtp join moisprojet mp on mtp.idmoisprojet=mp.idmoisprojet where mp.mois<? and mtp.idmatonsite=?");
+			ResultSet res =null;
+			
+			for(MatOnSite matonsite:matonsites){
+				pr.setObject(1, est.getMois());
+				pr.setObject(2, matonsite.getIdmatonsite());
+				res = pr.executeQuery();
+				if(res.next()){
+					matonsite.setLast(res.getDouble("montant"));
+				}
+			}
+			return matonsites;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+	}
 	public Map<Bill,List<ItemRapport>> getItemRapportByBill(int idmoisprojet) throws Exception{
 		Map<Bill,List<ItemRapport>> reponse = new HashMap<>();
 		Connection conn=null;
