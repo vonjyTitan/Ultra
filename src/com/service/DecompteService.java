@@ -14,9 +14,11 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
 
 import com.mapping.RowExtraction;
 import com.mapping.Bill;
+import com.mapping.DataEntity;
 import com.mapping.DecompteExtraction;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
+import com.mapping.MatOnSite;
 import com.mapping.Projet;
 
 import dao.Connecteur;
@@ -81,6 +83,38 @@ public class DecompteService {
 
 	}
 	
+	public List<MatOnSite> getMatOnSiteByEstimation(int idmoisprojet) throws Exception{
+		Connection conn=null;
+		try{
+			conn = Connecteur.getConnection();
+			MatOnSite critmts = new MatOnSite();
+			critmts.setPackSize(50);
+			critmts.setNomTable("matonsite_projet_libelle");
+			List<MatOnSite> matonsites = DaoModele.getInstance().findPageGenerique(1, critmts,conn," and idmoisprojet="+idmoisprojet);
+			Estimation est = DaoModele.getInstance().findById(new Estimation(), idmoisprojet, conn);
+			
+			
+			PreparedStatement pr = conn.prepareStatement("select sum(montant) as montant from  matonsite_moisprojet mtp join moisprojet mp on mtp.idmoisprojet=mp.idmoisprojet where mp.mois<? and mtp.idmatonsite=?");
+			ResultSet res =null;
+			
+			for(MatOnSite matonsite:matonsites){
+				pr.setObject(1, est.getMois());
+				pr.setObject(2, matonsite.getIdmatonsite());
+				res = pr.executeQuery();
+				if(res.next()){
+					matonsite.setLast(res.getDouble("montant"));
+				}
+			}
+			return matonsites;
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+	}
 	public Map<Bill,List<ItemRapport>> getItemRapportByBill(int idmoisprojet) throws Exception{
 		Map<Bill,List<ItemRapport>> reponse = new HashMap<>();
 		Connection conn=null;
@@ -338,6 +372,26 @@ public class DecompteService {
 			     
 			     reponse.setMatonsite(matonsite);
 			     
+			     RowExtraction avance=new RowExtraction();
+			     
+			     Estimation firstest = new Estimation();
+			     firstest.setPackSize(1);
+			     firstest.setNomChampOrder("idmoisprojet");
+			     firstest.setOrdering(DataEntity.DESC);
+			     if(DaoModele.getInstance().findPageGenerique(1, firstest, conn, " and idprojet="+est.getIdprojet()).get(0).getIdmoisprojet()==est.getIdmoisprojet()){
+			    	 //this is the first 
+			    	 avance.setPrecedant(0.0);
+			    	 avance.setCurrent(projet.getAvance());
+			    	 avance.setCummulative(projet.getAvance());
+			     }
+			     else{
+			    	 avance.setPrecedant(projet.getAvance());
+			    	 avance.setCurrent(0.0);
+			    	 avance.setCummulative(projet.getAvance());
+			     }
+			     
+			     reponse.setAvance(avance);
+			     
 			     PreparedStatement statRepayment = conn.prepareStatement("select sum(REMBOURSEMENT) as montant from moisprojet where idprojet="+est.getIdprojet()+" and mois<?");
 			     statRepayment.setObject(1, est.getMois());
 			     ResultSet resLastRepayment = statLastMOT.executeQuery();
@@ -350,6 +404,8 @@ public class DecompteService {
 			     lessrepayment.setCummulative(lessrepayment.getPrecedant()+lessrepayment.getCurrent());
 			     
 			     reponse.setLessrepayment(lessrepayment);
+			     reponse.calculeTotal();
+			     reponse.setContractValue(projet.getContrat());
 			     
 		}
 		catch(Exception ex){

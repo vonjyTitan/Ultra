@@ -13,6 +13,7 @@ public class MatOnSite extends DataEntity {
 	private String libelle;
 	private String code;
 	private Double montant;
+	private Double last;
 	public int getIdmatonsite() {
 		return idmatonsite;
 	}
@@ -66,6 +67,12 @@ public class MatOnSite extends DataEntity {
 	}
 	public void setMontant(Double montant) {
 		this.montant = montant;
+	}
+	public Double getLast() {
+		return last;
+	}
+	public void setLast(Double last) {
+		this.last = last;
 	}
 	
 }

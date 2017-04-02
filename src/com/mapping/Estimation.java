@@ -20,7 +20,7 @@ public class Estimation extends DataEntity {
 	private Date datedecompte;
 	@Parameter(libelle="Date of certificate")
 	private Date datecertification;
-	@Parameter(libelle="Refund")
+	@Parameter(libelle="Less Repayment of Advance")
 	private double remboursement;
 	private int etat;
 	private double matonsitecredit;
