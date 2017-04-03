@@ -1,5 +1,8 @@
 package com.action;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,11 +13,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.affichage.HTMLBuilder;
+import com.export.ProcessReports;
 import com.mapping.Bill;
 import com.mapping.Estimation;
 import com.mapping.ItemRapport;
@@ -155,6 +160,16 @@ public class DecompteAction extends Action {
 		 DecompteService.getInstance().decompteMatOnSite(idmoisprojet, credits,idmatonsite);
 		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
+	
+	public void getCertificate(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		File savePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/final.pdf");
+		//File filePath = new File(request.getServletContext().getRealPath("Certification.jrxml"));
+		//File savePath = new File(request.getServletContext().getRealPath("GeneratedFile/userDetail.pdf"));
+		File filePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/CertificationBoq.jrxml");
+		new ProcessReports().generateReport(filePath , savePath);
+				
+	}
+	
 	public void extract(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		
 	}

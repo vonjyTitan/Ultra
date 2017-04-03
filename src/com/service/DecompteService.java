@@ -312,14 +312,14 @@ public class DecompteService {
 			
 			ResultSet rsBill = conn.createStatement().executeQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet);
 			
-			ps = conn.prepareStatement("select billitem.idbill,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as previous "+
+			ps = conn.prepareStatement("select sum(case when ir.credit>0 then ir.credit else ir.quantiteestime end)*billitem.pu as previous "+
 					" from billitem "+
 					"left join itemrapport ir "+
 					"on ir.idbillitem=billitem.idbillitem "+
 					"left join moisprojet mp "+
 					"on mp.idmoisprojet=ir.idmoisprojet "+
 					"where mp.mois<? and billitem.idbill=? "+
-					"group by billitem.idbill");
+					"");
 			
 			     ResultSet rs=null;
 			     while(rsBill.next()){
