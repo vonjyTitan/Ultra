@@ -57,9 +57,9 @@
 <%=HTMLBuilder.endPanel()%>
 <div class="col-lg-6" >
 	<h3>Material on site (value on this month only)</h3>
-	<form action="decompte-matonsiteupdate">
+	<form action="decompte-matonsiteupdate" style="max-height:600px;overflow-y:auto;">
 		         <input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet()%>">
-		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" style="background-color: #d2c9c9;">
+		          <table class="table table-striped table-advance table-hover table-bordered table-scrollable" style="background-color: #d2c9c9; ">
 	<thead>
 	<tr>
 		<th>Id</th>
@@ -70,7 +70,7 @@
 		<th>Amount</th>
 	</tr>
 	</thead>
-	<tbody>
+	<tbody >
 		<%for(MatOnSite matonsite:matonsites){
 			%>
 			<tr>
