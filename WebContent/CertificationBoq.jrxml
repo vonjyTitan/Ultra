@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-04-02T19:35:12 -->
+<!-- 2017-04-04T07:34:00 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CertificationBoq" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b943b8d1-f39f-457d-ad6b-8806a156e828">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -117,7 +117,6 @@
 			<![CDATA[]]>
 		</queryString>
 		<field name="nom" class="java.lang.String"/>
-		<field name="contractor" class="java.lang.String"/>
 		<field name="societe" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="Dataset2" uuid="48b237d2-05e5-46d4-8705-8ee08da2c8f5">
@@ -138,7 +137,6 @@
 		<field name="societe" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="contractor" class="com.mapping.DecompteExtraction"/>
 	<parameter name="societe" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>

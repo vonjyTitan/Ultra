@@ -45,10 +45,11 @@
 <%=builder.getBody()%>
 <div class="form-group col-lg-12" style="margin-left: 50px;">
 	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-modif&id=<%=SessionUtil.getValForAttr(request, "id")%>">Update</a>
-	<form action="decompte-getCertificate" id="getCertificate_form">
 	
-<input type ="submit" class="btn btn-primary" value="Export to Excel">
-</form>
+	<form action="decompte-getCertificate" id="getCertificate_form">
+		<input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet() %>" >
+		<input type ="submit" class="btn btn-primary" value="Export to Excel">
+	</form>
 	<a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-getCertificate">Extract 1</a>
 	<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" href="#" >Export to Excel</a>
 		<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" onclick="<%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "certificated();" : "") %>" href="javascript:;">Certified</a>

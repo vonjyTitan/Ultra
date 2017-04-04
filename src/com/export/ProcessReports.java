@@ -43,20 +43,16 @@ public class ProcessReports {
 	    AffichageExport affichageExport = new AffichageExport();
 	    affichageExport.setData(retourExport);
 	    bills = retourExport.getBills();
-	    Client u1 =new Client();
-	    u1.setNom("nom1");
-	    Client u2 =new Client();
-	    u2.setNom("nom2");
+	   
 	    
-	    List<Client> listUser = new ArrayList<Client>();
-	    listUser.add(u1);
-	    listUser.add(u2);
+	
 	    System.out.println(retourExport.getBills().size() +"contractor");
 	    
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(retourExport.getBills());
+	    System.out.println(retourExport.getBills().get(0).getLibelle() + "ksdkjfkjdskjf");
 	    parameter.put("ItemDataSource",itemsJRBean);
-	    parameter.put("contractor",affichageExport.getContractor());
-	    parameter.put("societe",affichageExport.getSociete());
+	    //parameter.put("contractor",affichageExport.getContractor());
+	    //parameter.put("societe",affichageExport.getSociete());
 
 	    try {
 	        jasperReport = JasperCompileManager
