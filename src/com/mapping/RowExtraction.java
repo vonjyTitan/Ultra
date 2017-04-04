@@ -10,28 +10,28 @@ public class RowExtraction{
 		
 	}
 	public Double getEstimative() {
-		return estimative;
+		return estimative==null ? 0.0 : estimative;
 	}
 	public void setEstimative(Double estimative) {
-		this.estimative = estimative;
+		this.estimative = estimative==null ? 0.0 : estimative;
 	}
 	public Double getCurrent() {
-		return current;
+		return current==null ? 0.0 : current;
 	}
 	public void setCurrent(Double current) {
-		this.current = current;
+		this.current = current==null ? 0.0 : current;
 	}
 	public Double getCummulative() {
-		return cummulative;
+		return cummulative==null ? 0.0 : cummulative;
 	}
 	public void setCummulative(Double cummulative) {
-		this.cummulative = cummulative;
+		this.cummulative = cummulative==null ? 0.0 : cummulative;
 	}
 	public Double getPrecedant() {
-		return precedant;
+		return precedant==null ? 0.0 : precedant;
 	}
 	public void setPrecedant(Double precedant) {
-		this.precedant = precedant;
+		this.precedant = precedant==null ? 0.0 : precedant;
 	}
 	public String getLibelle() {
 		return libelle;

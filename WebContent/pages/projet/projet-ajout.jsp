@@ -21,8 +21,8 @@
 <%=builder.getHTMLBody() %>
 <div id="datefincontainer" class="form-group col-lg-12">
 <div class="col-sm-4 col-sm-4 ">
-<label class="control-label" for="datefin">Attached files </label></div>
-<div class="col-sm-7" id="filescontainer">
+<label class="control-label" for="datefin" style="display:none;">Attached files </label></div>
+<div class="col-sm-7" id="filescontainer" style="display:none;">
 </div></div>
 <%=HTMLBuilder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Engineers", 6)%>
