@@ -33,11 +33,13 @@ import java.util.Set;
 
 public class ProcessReports {
 	List<RowExtraction> bills;
-	public void generateReport(File filePath , File savePath) throws Exception {
+	public void generateReport(File filePath , File savePath, int idMoisProjet ) throws Exception {
+		
+		System.out.println("test" + idMoisProjet);
 		JasperReport jasperReport;
 	    JasperPrint jasperPrint;
 	    Map<String, Object> parameter = new HashMap<String, Object>();
-	    DecompteExtraction retourExport = DecompteService.getInstance().getDataToextract((5));
+	    DecompteExtraction retourExport = DecompteService.getInstance().getDataToextract((idMoisProjet));
 	    AffichageExport affichageExport = new AffichageExport();
 	    affichageExport.setData(retourExport);
 	    bills = retourExport.getBills();
