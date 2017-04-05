@@ -51,9 +51,10 @@ public class ProcessReports {
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(retourExport.getBills());
 	    System.out.println(retourExport.getBills().get(0).getLibelle() + "ksdkjfkjdskjf");
 	    parameter.put("ItemDataSource",itemsJRBean);
-	    //parameter.put("contractor",affichageExport.getContractor());
-	    //parameter.put("societe",affichageExport.getSociete());
-
+	    parameter.put("contractor",affichageExport.getContractor());
+	    parameter.put("societe",affichageExport.getSociete());
+	    parameter.put("subtotal1",affichageExport.getSubtotal1());
+	    
 	    try {
 	        jasperReport = JasperCompileManager
 	                .compileReport(filePath.getPath());
