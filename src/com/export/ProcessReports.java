@@ -33,29 +33,79 @@ import java.util.Set;
 
 public class ProcessReports {
 	List<RowExtraction> bills;
-	public void generateReport(File filePath , File savePath) throws Exception {
+	public void generateReport(File filePath , File savePath, int idMoisProjet ) throws Exception {
+		
+		System.out.println("test" + idMoisProjet);
 		JasperReport jasperReport;
 	    JasperPrint jasperPrint;
 	    Map<String, Object> parameter = new HashMap<String, Object>();
-	    DecompteExtraction retourExport = DecompteService.getInstance().getDataToextract((5));
+	    DecompteExtraction retourExport = DecompteService.getInstance().getDataToextract((idMoisProjet));
 	    AffichageExport affichageExport = new AffichageExport();
 	    affichageExport.setData(retourExport);
 	    bills = retourExport.getBills();
-	    Client u1 =new Client();
-	    u1.setNom("nom1");
-	    Client u2 =new Client();
-	    u2.setNom("nom2");
+	   
 	    
-	    List<Client> listUser = new ArrayList<Client>();
-	    listUser.add(u1);
-	    listUser.add(u2);
+	
 	    System.out.println(retourExport.getBills().size() +"contractor");
 	    
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(retourExport.getBills());
+	    
+	    System.out.println(retourExport.getBills().get(0).getLibelle() + "ksdkjfkjdskjf");
+	    
 	    parameter.put("ItemDataSource",itemsJRBean);
-	    parameter.put("contractor",affichageExport.getContractor());
-	    parameter.put("societe",affichageExport.getSociete());
+	    
+	    parameter.put("idcertificat",retourExport.getIdcertificat());
+	    parameter.put("certificatdate",retourExport.getContractor());
+	    parameter.put("contractor",retourExport.getContractor());
+	    parameter.put("societe",retourExport.getSociete());
+	    
+	    parameter.put("libelleSubtitle1",retourExport.getSubtotal1().getLibelle());
+	    parameter.put("estimateSubtitle1",retourExport.getSubtotal1().getEstimative());
+	    parameter.put("currentSubttile1",retourExport.getSubtotal1().getCurrent());
+	    parameter.put("cummulativeSubtitle",retourExport.getSubtotal1().getCummulative());
+	    parameter.put("precedantSubtitle",retourExport.getSubtotal1().getPrecedant());
+	    
+	    parameter.put("libelleSubtitle2",retourExport.getSubtotal2().getLibelle());
+	    parameter.put("estimateSubtitle2",retourExport.getSubtotal2().getEstimative());
+	    parameter.put("currentSubttile2",retourExport.getSubtotal2().getCurrent());
+	    parameter.put("cummulativeSubtitle2",retourExport.getSubtotal2().getCummulative());
+	    parameter.put("precedantSubtitle2",retourExport.getSubtotal2().getPrecedant());
+	    
+	    parameter.put("libelleSubtitle1",retourExport.getSubtotal1().getLibelle());
+	    parameter.put("estimateSubtitle1",retourExport.getSubtotal1().getEstimative());
+	    parameter.put("currentSubttile1",retourExport.getSubtotal1().getCurrent());
+	    parameter.put("cummulativeSubtitle",retourExport.getSubtotal1().getCummulative());
+	    parameter.put("precedantSubtitle",retourExport.getSubtotal1().getPrecedant());
+	    
+	    parameter.put("libelleAvance",retourExport.getAvance().getLibelle());
+	    parameter.put("estimateAvance",retourExport.getAvance().getEstimative());
+	    parameter.put("currentAvance",retourExport.getAvance().getCurrent());
+	    parameter.put("cummulativeAvance",retourExport.getAvance().getCummulative());
+	    parameter.put("precedantAvance",retourExport.getAvance().getPrecedant());
+	    
+	    parameter.put("libelleLessrepayment",retourExport.getLessrepayment().getLibelle());
+	    parameter.put("estimateLessrepayment",retourExport.getLessrepayment().getEstimative());
+	    parameter.put("currentLessrepayment",retourExport.getLessrepayment().getCurrent());
+	    parameter.put("cummulativeLessrepayment",retourExport.getLessrepayment().getCummulative());
+	    parameter.put("precedantLessrepayment",retourExport.getLessrepayment().getPrecedant());
 
+	    parameter.put("libelleMatonsite",retourExport.getMatonsite().getLibelle());
+	    parameter.put("estimateMatonsite",retourExport.getMatonsite().getEstimative());
+	    parameter.put("currentMatonsite",retourExport.getMatonsite().getCurrent());
+	    parameter.put("cummulativeMatonsite",retourExport.getMatonsite().getCummulative());
+	    parameter.put("precedantMatonsite",retourExport.getMatonsite().getPrecedant());
+	    	    
+	    parameter.put("libelleTotal",retourExport.getTotal().getLibelle());
+	    parameter.put("estimateTotal",retourExport.getTotal().getEstimative());
+	    parameter.put("currentTotal",retourExport.getTotal().getCurrent());
+	    parameter.put("cummulativeTotal",retourExport.getTotal().getCummulative());
+	    parameter.put("precedantTotal",retourExport.getTotal().getPrecedant());
+	    
+	    parameter.put("totalAmoutExctVta",retourExport.getTotalAmoutExctVta());
+	    parameter.put("totalAmoutIncVta",retourExport.getTotalAmoutIncVta());
+	    parameter.put("addVta",retourExport.getAddVta());
+	    parameter.put("contractValue",retourExport.getContractValue());
+	    
 	    try {
 	        jasperReport = JasperCompileManager
 	                .compileReport(filePath.getPath());
