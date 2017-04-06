@@ -396,8 +396,9 @@ public abstract class DataEntity {
 		while(classe!=DataEntity.class && classe.getAnnotation(Extension.class)==null){
 			inter=classe.getDeclaredFields();
 			for(Field f:inter){
-				if(isBaseType(f.getType()))
+				if(isBaseType(f.getType())){
 					lc.add(f);
+				}
 			}
 			classe=classe.getSuperclass();
 		}

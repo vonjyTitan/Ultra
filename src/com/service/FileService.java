@@ -78,7 +78,7 @@ public class FileService {
 	}
 	public void saveAndUploadFile(List<FileItem> items,String table,int idintable,Connection conn)throws Exception{
 
-		String filepath = ConfigUtil.getConfigBundle().getString("file.path")+"/"+table+"_"+idintable;
+		String filepath = ConfigUtil.getConfigValue("file.path")+"/"+table+"_"+idintable;
 		File folder = new File(filepath);
 		if(!folder.exists()){
 			try{

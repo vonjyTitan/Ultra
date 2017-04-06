@@ -10,7 +10,7 @@ IFNULL(projet.avance,0)-sum(IFNULL(mp.remboursement,0)) as avanceactuel,IFNULL(p
  order by projet.idprojet desc;
 
 create or replace view billitem_libelle as
-select item.IDITEM, item.IDUNITE, item.LIBELLE, item.DISCRIPTION, item.CODE, item.unite, bi.pu, bi.idbill,bi.estimation,bi.idbillitem,sum(IFNULL(ir.credit,ir.quantiteestime))*item.pu as actuel  from
+select item.IDITEM, item.IDUNITE, item.LIBELLE, item.DISCRIPTION, item.CODE, item.unite, bi.pu, bi.idbill,bi.estimation,bi.idbillitem,sum(IFNULL(ir.credit,ir.quantiteestime))*bi.pu as actuel  from
 item_libelle item join billitem bi on item.iditem=bi.iditem
 left join itemrapport ir on ir.idbillitem=bi.idbillitem
 group by item.IDITEM, item.IDUNITE, item.LIBELLE, item.DISCRIPTION, item.CODE, item.unite, bi.pu, bi.idbill,bi.estimation,bi.idbillitem

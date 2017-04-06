@@ -1,5 +1,7 @@
 package com.action;
 
+import java.sql.Connection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,7 @@ import com.mapping.Utilisateur;
 import com.rooteur.Action;
 import com.service.LoginService;
 
+import dao.Connecteur;
 import dao.DaoModele;
 import utilitaire.SessionUtil;
 
@@ -29,17 +32,28 @@ public class CrudAction extends Action {
 		catch(Exception ex){
 			throw new Exception("La class doit heritE de la class DataEntity!");
 		}
-		if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"), entity.getActionName()+"-ajout"))
-			throw new Exception("Yout do not have access to this page");
-		entity=new HTMLBuilder(entity, request).getEntity();
-		if(!entity.isValide())
-		{
-			goTo(request,response,SessionUtil.getValForAttr(request, "refereur")+"&erreur=Champ invalide");
-			return;
+		Connection conn=null;
+		try{
+			conn = Connecteur.getConnection();
+			if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"), entity.getActionName()+"-ajout",conn))
+				throw new Exception("Yout do not have access to this page");
+			entity=new HTMLBuilder(entity, request).getEntity();
+			if(!entity.isValide())
+			{
+				goTo(request,response,SessionUtil.getValForAttr(request, "refereur")+"&erreur=Champ invalide");
+				return;
+			}
+			DaoModele.getInstance().save(entity,conn);
+			String cible=SessionUtil.getValForAttr(request, "cible");
+			goTo(request,response,"get","main.jsp?cible="+cible);
 		}
-		DaoModele.getInstance().save(entity);
-		String cible=SessionUtil.getValForAttr(request, "cible");
-		goTo(request,response,"get","main.jsp?cible="+cible);
+		catch(Exception ex){
+			
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
 	}
 	public void update(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		String classe=SessionUtil.getValForAttr(request, "classenom");
@@ -86,15 +100,26 @@ public class CrudAction extends Action {
 		catch(Exception ex){
 			throw new Exception("La class doit heritE de la class DataEntity!");
 		}
-		if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"), entity.getActionName()+"-ajout"))
-			throw new Exception("Yout do not have access to this page");
-		entity.setValueForField(entity.getFieldByName(entity.getPkName()),Integer.valueOf((String)SessionUtil.getValForAttr(request, "id")));
-		if(DaoModele.getInstance().findById(entity)==null)
-		{
-			throw new Exception("Objet introuvable");
+		Connection conn=null;
+		try{
+			conn = Connecteur.getConnection();
+			if(!LoginService.getInstance().isAllowed((Utilisateur) request.getSession().getAttribute("utilisateur"), entity.getActionName()+"-ajout",conn))
+				throw new Exception("Yout do not have access to this page");
+			entity.setValueForField(entity.getFieldByName(entity.getPkName()),Integer.valueOf((String)SessionUtil.getValForAttr(request, "id")));
+			if(DaoModele.getInstance().findById(entity)==null)
+			{
+				throw new Exception("Objet introuvable");
+			}
+			DaoModele.getInstance().delete(entity,conn);
+			String cible=SessionUtil.getValForAttr(request, "cible");
+			goTo(request,response,"get","main.jsp?cible="+cible);
 		}
-		DaoModele.getInstance().delete(entity);
-		String cible=SessionUtil.getValForAttr(request, "cible");
-		goTo(request,response,"get","main.jsp?cible="+cible);
+		catch(Exception ex){
+			
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
 	}
 }

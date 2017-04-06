@@ -14,6 +14,16 @@ public class ConfigUtil {
 			bundle=ResourceBundle.getBundle("domaine.properties.project");
 		return bundle;
 	}
+	public static String getConfigValue(String key){
+		ResourceBundle configuration = getConfigBundle();
+		
+		String prefix = "";
+		String environement = configuration.getString("config.environement");
+		if(!environement.contains("local")){
+			prefix = environement.replace(";", "")+".";
+		}
+		return configuration.getString(prefix+key);
+	}
 	public static ResourceBundle getBundleByName(String name){
 		if(allbundle.containsKey(name)){
 			return allbundle.get(name);

@@ -10,7 +10,7 @@
 	Materiel crit=new Materiel();
 	crit.setNomTable("materiel_libelle");
 	PageFiche builder=new PageFiche(crit,request);
-	builder.removeChamp("idunite");
+	builder.removeChamp(new String[]{"idunite","idmateriel"});
 %>
 <h3><a href="main.jsp?cible=configuration/materiel-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Material details</h3>
 <%=HTMLBuilder.beginPanel("General information",6) %>

@@ -21,7 +21,7 @@ public class Projet extends DataEntity {
 	@Parameter(libelle="Custommer")
 	private int idclient;
 	@ForeignKey(toclasse=Entreprise.class, libtable="nom",pktable="identreprise",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-entreprise")
-	@Parameter(libelle="Company")
+	@Parameter(libelle="Contractor")
 	private int identreprise;
 	@Parameter(libelle="Start Date")
 	private java.sql.Date datedebut;
@@ -31,7 +31,7 @@ public class Projet extends DataEntity {
 	private int etat;
 	@Parameter(libelle="Customer")
 	private String client;
-	@Parameter(libelle="Company")
+	@Parameter(libelle="Client")
 	private String entreprise;
 	@Parameter(libelle="Start Advance")
 	private Double avance;
@@ -141,17 +141,17 @@ public class Projet extends DataEntity {
 	public void setTotalestimation(Double totalestimation) {
 		this.totalestimation = totalestimation;
 	}
-	public Double getRetenue() {
-		return retenue;
-	}
-	public void setRetenue(Double retenue) {
-		this.retenue = retenue;
-	}
 	public Double getContrat() {
 		return contrat;
 	}
 	public void setContrat(Double contrat) {
 		this.contrat = contrat;
+	}
+	public Double getRetenue() {
+		return retenue;
+	}
+	public void setRetenue(Double retenue) {
+		this.retenue = retenue;
 	}
 	
 	

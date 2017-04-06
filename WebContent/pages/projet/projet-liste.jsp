@@ -14,7 +14,7 @@
 	builder.addNotVisibleChamp(new String[]{"idprojet","idclient","identreprise","etat","description","avanceactuel","total","totalestimation","retenue"});
 	builder.setOrdre(new String[]{"code","libelle","lieu","datedebut","datefin","client","entreprise"});
 	builder.setLienForChamp("code","main.jsp?cible=projet/projet-fiche","idprojet");
-	builder.getFilterBuilder().removeChamp(new String[]{"idprojet","datefin","avance","retenue"});
+	builder.getFilterBuilder().removeChamp(new String[]{"contrat","idprojet","datefin","avance","retenue"});
 	builder.getFilterBuilder().setChampToInterval("datedebut");
 	active.put("1", "Active");
 	active.put("2", "Not active");

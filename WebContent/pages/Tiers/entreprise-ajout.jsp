@@ -8,7 +8,7 @@
 <jsp:include page='../verificateur.jsp'/>
 <%
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Entreprise(),"crud-insert?classenom=com.mapping.Entreprise&cible=Tiers/entreprise-liste&referreur=main.jsp?cible=Tiers/entreprise-ajout",request);
-	builder.removeChamp("idmoisprojet");
+	builder.removeChamp("identreprise");
 	builder.setChampTextarea("description");
 %>
 <h3>Add new Contractor</h3>

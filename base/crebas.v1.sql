@@ -379,3 +379,5 @@ as
 select user.*, role.libelle as role
 from utilisateur as user join role 
 on role.idrole=user.idrole where isingenieur=1;
+
+ create or replace VIEW `rolefonctionnalite_libelle` AS select `role`.`IDROLE` AS `idrole`,`role`.`LIBELLE` AS `role`,`fonctionnalite`.`IDFONCTIONNALITE` AS `idfonctionnalite`,`fonctionnalite`.`DESCRIPTION` AS `fonctionnalite` from ((`role` join `rolefonctionnalite` `rf` on((`role`.`IDROLE` = `rf`.`IDROLE`))) join `fonctionnalite` on((`fonctionnalite`.`IDFONCTIONNALITE` = `rf`.`IDFONCTIONNALITE`)));
