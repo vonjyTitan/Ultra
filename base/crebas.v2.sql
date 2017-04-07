@@ -87,7 +87,6 @@ CREATE TABLE IF NOT EXISTS `matonsite_moisprojet` (
   KEY `mp_mtos` (`idmatonsite`,`idmoisprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-create index mp_mtos on matonsite_moisprojet(idmatonsite,idmoisprojet);
 
 create or replace view matonsite_projet_libelle as 
 select ml.code,ml.libelle,ml.pu,msp.credit,msp.debit,msp.idmoisprojet,ml.idmatonsite

@@ -2,6 +2,7 @@
 <%@page import="utilitaire.SessionUtil"%>
 <%@page import="com.mapping.Utilisateur"%>
 <%@page import="com.service.LoginService"%>
+<%@page import="java.util.Map"%>
 <% 
 	String cible=SessionUtil.getValForAttr(request,"cible");
 	String currmenu=SessionUtil.getValForAttr(request,"cible");
@@ -77,7 +78,7 @@ try{
             
             <!--logo end-->
            
-            <!--  <div class="nav notify-row" id="top_menu">
+             <div class="nav notify-row" id="top_menu">
             <ul class="nav top-menu">
                     <!-- settings start -->
                     <!-- <li class="dropdown">
@@ -213,10 +214,17 @@ try{
                         </ul>
                     </li>-->
                     <!-- inbox dropdown end -->
+                    
+                    <form action="main.jsp?cible=projet/projet-liste" method="post" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search Project</label>
+            		<input type="text" class="form-control" name="libelle" id="search" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
                 </ul>
                 <!--  notification end -->
-          
-            <!-- </div>-->
+            </div>
             
             <div class="top-menu">
             
@@ -239,13 +247,7 @@ try{
               	   <!-- <p class="centered"><a href="profile.html"><img src="assets/img/lxc_logo.png" class="img-circle" width="60"></a></p>-->
               	  <h5 class="centered"><%=user.getPrenom()%></h5>
               	  <h5 class="centered">(<%=user.getRole()%>)</h5>
-                  <!-- <form action="" class="search-form">
-                <div class="form-group has-feedback">
-            		<label for="search" class="sr-only">Search</label>
-            		<input type="text" class="form-control" name="search" id="search" placeholder="search">
-              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
-            	</div>
-            </form>-->
+                   
                   <li class="mt">
                       <a class="active" id="menu-ecceuil" href="main.jsp?cible=stat&currmenu=menu-ecceuil" >
                           <i class="fa fa-dashboard"></i>
@@ -253,7 +255,8 @@ try{
                       </a>
                   </li>
                   <%
-                  	if(LoginService.getInstance().isAllowed(user, "projet-gvbh")){
+                  Map<String,Boolean> access = LoginService.getInstance().getAllAuthForUser(user,request);
+                  	if(access.get("projet")){
                   %>
 				<li class="sub-menu">
                       <a href="javascript:;" >
@@ -278,8 +281,8 @@ try{
                       </ul>
                 </li>-->
                  <%
-                 boolean clientM = LoginService.getInstance().isAllowed(user, "client-gvbh");
-                 boolean entrepriseM = LoginService.getInstance().isAllowed(user, "entreprise-gvbh");
+                 boolean clientM = access.get("client");
+                 boolean entrepriseM = access.get("entreprise");
                   	if(clientM || entrepriseM){
                   %>
 				<li class="sub-menu">
@@ -300,16 +303,15 @@ try{
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Contractor</a>
                       	<ul class="sub">
-                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="entreprise-liste"></i>List Contractor</a></li>
-               			
-                      		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="entreprise-ajout"></i>Add New Contractor</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="entreprise-liste"><i class="fa fa-list"></i>List Contractor</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="entreprise-ajout"><i class="fa fa-plus"></i>Add Contractor</a></li>
                			</ul>
                       </li>
                       <%} %>
                   </ul>
                   </li>
                   <%} 
-                  	if(LoginService.getInstance().isAllowed(user, "ingenieur-gvbh")){
+                  	if(access.get("ingenieur")){
                   %>
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -322,8 +324,8 @@ try{
                       </ul>
                 </li>
                 <%} 
-                  	boolean userM = LoginService.getInstance().isAllowed(user, "utilisateur-gvbh");
-                  	boolean roleM = LoginService.getInstance().isAllowed(user, "role-gvbh");
+                  	boolean userM = access.get("utilisateur");
+                  	boolean roleM = access.get("role");
                   	if(userM || roleM){
                 %>
                    <li class="sub-menu">
@@ -359,9 +361,9 @@ try{
                       </ul>
                   </li>
                   <%} 
-                	boolean itemM = LoginService.getInstance().isAllowed(user, "item-gvbh");
-                  	boolean materielM = LoginService.getInstance().isAllowed(user, "materiel-gvbh");
-                  	boolean unitM = LoginService.getInstance().isAllowed(user, "unite-gvbh");
+                	boolean itemM = access.get("item");
+                  	boolean materielM = access.get("materiel");
+                  	boolean unitM = access.get("unite");
                   	if(itemM || materielM || unitM){
                   %>
                    <li class="sub-menu">

@@ -2,7 +2,11 @@ package com.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.mapping.DataEntity;
 import com.mapping.RoleFonctionnalite;
@@ -27,14 +31,58 @@ public class LoginService {
 		return instance;
 	}
 	public boolean isAllowed(Utilisateur utilisateur,String activite)throws Exception{
+		Connection conn = null;
+		try{
+			conn = Connecteur.getConnection();
+			return isAllowed(utilisateur, activite,conn);
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+	}
+	public boolean isAllowed(Utilisateur utilisateur,String activite,Connection conn)throws Exception{
 		String fonctionnalite = activite.split("-")[0];
 		if(excludeInTestAccess.contains(fonctionnalite.toLowerCase()))
 			return true;
 		RoleFonctionnalite crit = new RoleFonctionnalite();
 		crit.setNomTable("userrole_libelle");
-		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit, " and idutilisateur="+utilisateur.getIdrole()+" and upper(fonctionnalite)=upper('"+fonctionnalite+"')");
+		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit,conn, " and idutilisateur="+utilisateur.getIdrole()+" and upper(fonctionnalite)=upper('"+fonctionnalite+"')");
 		return rep.size()!=0;
 	}
+	
+	public Map<String,Boolean> getAllAuthForUser(Utilisateur user,HttpServletRequest request)throws Exception{
+		Map<String,Boolean> rep = new HashMap<>();
+		Connection conn = null;
+		try{
+			conn = Connecteur.getConnection();
+			
+			rep.put("projet", isAllowed(user, "projet-gvbh",conn));
+			rep.put("client", isAllowed(user, "client-gvbh",conn));
+			rep.put("entreprise", isAllowed(user, "entreprise-gvbh",conn));
+			rep.put("ingenieur", isAllowed(user, "ingenieur-gvbh",conn));
+			
+			rep.put("utilisateur", isAllowed(user, "utilisateur-gvbh",conn));
+			rep.put("role", isAllowed(user, "role-gvbh",conn));
+			
+			rep.put("item", isAllowed(user, "item--gvbh",conn));
+			rep.put("materiel", isAllowed(user, "materiel-gvbh",conn));
+			rep.put("unite", isAllowed(user, "unite-gvbh",conn));
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		finally{
+			if(conn!=null)
+				conn.close();
+		}
+		return rep;
+	}
+	
 	public Utilisateur testLogin(String login,String passe)throws Exception{
 			
 		Connection connex=null;

@@ -65,17 +65,17 @@ public class Connecteur
 		if(dataBaseList==null)
 		{
 			
-			ResourceBundle configuration=ConfigUtil.getConfigBundle();
 			dataBaseList=new HashMap<String,ComboPooledDataSource>();
 			dataBaseTypeList=new HashMap<String,DatabaseType>();
 			
-			String[] databasekeyList=configuration.getString("bdd.key").split(";");
-			String[] databasenameList=configuration.getString("bdd.name").split(";");
-			String[] databaseList=configuration.getString("bdd.url").split(";");
-			String[] typedatabaseliste=configuration.getString("bdd.typeBase").split(";");
-			String[] userdatabaseliste=configuration.getString("bdd.utilisateur").split(";");
-			String[] passeDatabaseList=configuration.getString("bdd.passe").split(";");
-			String[] poolDatabaseList=configuration.getString("bdd.pool").split(";");
+			
+			String[] databasekeyList=ConfigUtil.getConfigValue("bdd.key").split(";");
+			String[] databasenameList=ConfigUtil.getConfigValue("bdd.name").split(";");
+			String[] databaseList=ConfigUtil.getConfigValue("bdd.url").split(";");
+			String[] typedatabaseliste=ConfigUtil.getConfigValue("bdd.typeBase").split(";");
+			String[] userdatabaseliste=ConfigUtil.getConfigValue("bdd.utilisateur").split(";");
+			String[] passeDatabaseList=ConfigUtil.getConfigValue("bdd.passe").split(";");
+			String[] poolDatabaseList=ConfigUtil.getConfigValue("bdd.pool").split(";");
 			
 			for(int x=0;x<databasenameList.length;x++)
 			{
