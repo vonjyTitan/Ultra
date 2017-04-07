@@ -6,6 +6,7 @@ public class RowExtraction{
 	private Double current;
 	private Double cummulative;
 	private Double precedant;
+	private int index;
 	public RowExtraction(){
 		
 	}
@@ -38,5 +39,11 @@ public class RowExtraction{
 	}
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
 	}
 }

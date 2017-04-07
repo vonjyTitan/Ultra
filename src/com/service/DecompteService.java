@@ -322,12 +322,15 @@ public class DecompteService {
 					"");
 			
 			     ResultSet rs=null;
+			     int index=1;
+			     
 			     while(rsBill.next()){
 			    	 RowExtraction bill = new RowExtraction(); 
 			    	 
 			    	 bill.setLibelle(rsBill.getString("libelle"));
 			    	 bill.setEstimative(rsBill.getDouble("estimative"));
 	    			 bill.setCurrent(rsBill.getDouble("curr"));
+	    			 bill.setIndex(index);
 	    			 
 	    			 ps.setObject(1, est.getMois());
 			    	 ps.setObject(2, rsBill.getInt("idbill"));
@@ -338,6 +341,7 @@ public class DecompteService {
 			    		 bill.setCummulative(bill.getPrecedant()+bill.getCurrent());
 			    	 }
 			    	 reponse.getBills().add(bill);
+			    	 index++;
 			     }
 			     
 			     reponse.calculeSubTotal1();
