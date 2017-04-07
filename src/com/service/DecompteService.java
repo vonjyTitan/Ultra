@@ -330,7 +330,7 @@ public class DecompteService {
 			    	 bill.setLibelle(rsBill.getString("libelle"));
 			    	 bill.setEstimative(rsBill.getDouble("estimative"));
 	    			 bill.setCurrent(rsBill.getDouble("curr"));
-	    			 bill.setIndex(index);
+	    			 bill.setIndex(index+"");
 	    			 
 	    			 ps.setObject(1, est.getMois());
 			    	 ps.setObject(2, rsBill.getInt("idbill"));
