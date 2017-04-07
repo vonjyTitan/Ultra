@@ -43,7 +43,7 @@
 					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#3399FF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Century Gothic" size="10" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ENGINEER'S INTERIM PAYMENT CERTIFICATE]]></text>
 			</staticText>
