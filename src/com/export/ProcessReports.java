@@ -1,6 +1,8 @@
 package com.export;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -9,14 +11,22 @@ import java.security.cert.Certificate;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
 import com.mapping.AffichageExport;
 import com.mapping.Client;
@@ -31,9 +41,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 public class ProcessReports {
 	List<RowExtraction> bills;
-	public void generateReport(File filePath , File savePath, int idMoisProjet ) throws Exception {
+	public void generateReport(File filePath , File savePath, int idMoisProjet , HttpServletResponse response) throws Exception {
 		
 		System.out.println("test" + idMoisProjet);
 		JasperReport jasperReport;
@@ -71,12 +85,6 @@ public class ProcessReports {
 	    parameter.put("cummulativeSubtitle2",retourExport.getSubtotal2().getCummulative());
 	    parameter.put("precedantSubtitle2",retourExport.getSubtotal2().getPrecedant());
 	    
-	    parameter.put("libelleSubtitle1",retourExport.getSubtotal1().getLibelle());
-	    parameter.put("estimateSubtitle1",retourExport.getSubtotal1().getEstimative());
-	    parameter.put("currentSubttile1",retourExport.getSubtotal1().getCurrent());
-	    parameter.put("cummulativeSubtitle",retourExport.getSubtotal1().getCummulative());
-	    parameter.put("precedantSubtitle",retourExport.getSubtotal1().getPrecedant());
-	    
 	    parameter.put("libelleAvance",retourExport.getAvance().getLibelle());
 	    parameter.put("estimateAvance",retourExport.getAvance().getEstimative());
 	    parameter.put("currentAvance",retourExport.getAvance().getCurrent());
@@ -110,10 +118,30 @@ public class ProcessReports {
 	        jasperReport = JasperCompileManager
 	                .compileReport(filePath.getPath());
 
-	        jasperPrint = JasperFillManager.fillReport(jasperReport, parameter,new JRBeanCollectionDataSource(affichageExport.getBills()));
-	        JasperExportManager.exportReportToPdfFile(jasperPrint,
-	        		savePath.getPath());
-
+	        //jasperPrint = JasperFillManager.fillReport(jasperReport, parameter,new JRBeanCollectionDataSource(affichageExport.getBills()));
+	        //JasperExportManager.exportReportToPdfFile(jasperPrint,
+	        	//	savePath.getPath());
+	        
+	        
+            byte[] bytes = null;
+            ServletOutputStream servletOutputStream = response.getOutputStream();
+            InputStream reportStream = new FileInputStream(filePath.getPath());
+            
+            bytes = JasperRunManager.runReportToPdf(jasperReport,parameter,new JRBeanCollectionDataSource(affichageExport.getBills()));
+            response.setContentType("application/pdf");
+            response.setContentLength(bytes.length);
+            servletOutputStream.write(bytes, 0, bytes.length);
+            servletOutputStream.flush();
+            servletOutputStream.close(); 
+	        /*JRXlsxExporter exporter = new JRXlsxExporter();
+	        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+	        File outputFile = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/final.xlsx");
+	        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFile));
+	        SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration(); 
+	        configuration.setDetectCellType(true);//Set configuration as you like it!!
+	        configuration.setCollapseRowSpan(false);
+	        exporter.setConfiguration(configuration);
+	        exporter.exportReport();*/
 	    } catch (JRException e) {
 	        e.printStackTrace();
 	    }
