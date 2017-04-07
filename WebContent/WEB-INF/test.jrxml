@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-04-08T01:49:19 -->
+<!-- 2017-04-08T02:33:57 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7135b54-ceb5-4981-b8b2-d1e803351086">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="false"/>
@@ -30,6 +30,31 @@
 	<parameter name="currentSubttile1" class="java.lang.Double"/>
 	<parameter name="cummulativeSubtitle" class="java.lang.Double"/>
 	<parameter name="precedantSubtitle" class="java.lang.Double"/>
+	<parameter name="libelleSubtitle2" class="java.lang.String"/>
+	<parameter name="estimateSubtitle2" class="java.lang.Double"/>
+	<parameter name="currentSubttile2" class="java.lang.Double"/>
+	<parameter name="cummulativeSubtitle2" class="java.lang.Double"/>
+	<parameter name="precedantSubtitle2" class="java.lang.Double"/>
+	<parameter name="libelleAvance" class="java.lang.String"/>
+	<parameter name="estimateAvance" class="java.lang.Double"/>
+	<parameter name="currentAvance" class="java.lang.Double"/>
+	<parameter name="cummulativeAvance" class="java.lang.Double"/>
+	<parameter name="precedantAvance" class="java.lang.Double"/>
+	<parameter name="libelleLessrepayment" class="java.lang.String"/>
+	<parameter name="estimateLessrepayment" class="java.lang.Double"/>
+	<parameter name="currentLessrepayment" class="java.lang.Double"/>
+	<parameter name="cummulativeLessrepayment" class="java.lang.Double"/>
+	<parameter name="precedantLessrepayment" class="java.lang.Double"/>
+	<parameter name="libelleMatonsite" class="java.lang.String"/>
+	<parameter name="estimateMatonsite" class="java.lang.Double"/>
+	<parameter name="currentMatonsite" class="java.lang.Double"/>
+	<parameter name="cummulativeMatonsite" class="java.lang.Double"/>
+	<parameter name="precedantMatonsite" class="java.lang.Double"/>
+	<parameter name="libelleTotal" class="java.lang.String"/>
+	<parameter name="estimateTotal" class="java.lang.Double"/>
+	<parameter name="currentTotal" class="java.lang.Double"/>
+	<parameter name="cummulativeTotal" class="java.lang.Double"/>
+	<parameter name="precedantTotal" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -44,7 +69,7 @@
 					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#3399FF"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Century Gothic" size="10" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ENGINEER'S INTERIM PAYMENT CERTIFICATE]]></text>
 			</staticText>
