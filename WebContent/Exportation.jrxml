@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-04-07T07:23:08 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Exportation" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="25237bc7-db48-44f9-b43d-db2a7856105b">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ExportationDS"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -69,7 +70,7 @@
 	<detail>
 		<band height="233" splitType="Stretch">
 			<componentElement>
-				<reportElement x="95" y="33" width="200" height="200" uuid="c6d3aa56-d4e2-4900-b8fa-89664b0cc29a">
+				<reportElement x="0" y="10" width="180" height="50" uuid="c6d3aa56-d4e2-4900-b8fa-89664b0cc29a">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -93,6 +94,11 @@
 								<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="7ed801d7-c616-4de2-a693-54df199e7c33">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne2"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="30"/>
 					</jr:column>
 				</jr:table>
 			</componentElement>

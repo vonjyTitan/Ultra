@@ -170,7 +170,9 @@ public class DecompteAction extends Action {
 		//File filePath = new File(request.getServletContext().getRealPath("Certification.jrxml"));
 		//File savePath = new File(request.getServletContext().getRealPath("GeneratedFile/userDetail.pdf"));
 		File filePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/WEB-INF/test.jrxml");
-		new ProcessReports().generateReport(filePath , savePath ,idmoisprojet);
+		new ProcessReports().generateReport(filePath , savePath ,idmoisprojet,response);
+		
+		
 				
 	}
 	
