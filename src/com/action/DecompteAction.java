@@ -161,15 +161,15 @@ public class DecompteAction extends Action {
 		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
 	}
 	
-	public void getCertificate(HttpServletRequest request, HttpServletResponse response)throws Exception{
+	public void getcertificate(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		int idmoisprojet = 0;
 		 if(request.getParameterValues("idmoisprojet")!=null){
 			 idmoisprojet = Integer.parseInt(request.getParameter("idmoisprojet"));
 		 }
-		File savePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/final.pdf");
-		//File filePath = new File(request.getServletContext().getRealPath("Certification.jrxml"));
-		//File savePath = new File(request.getServletContext().getRealPath("GeneratedFile/userDetail.pdf"));
-		File filePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/WEB-INF/test.jrxml");
+		//File savePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/final.pdf");
+		File filePath = new File(request.getServletContext().getRealPath("WEB-INF/test.jrxml"));
+		File savePath = new File(request.getServletContext().getRealPath("GeneratedFile/userDetail.pdf"));
+		//File filePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/WEB-INF/test.jrxml");
 		new ProcessReports().generateReport(filePath , savePath ,idmoisprojet,response);
 		
 		

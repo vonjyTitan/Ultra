@@ -54,7 +54,8 @@
  </form>
  </div>
 <div class="form-group col-lg-3">
-<form action="decompte-getCertificate" id="getCertificate_form" target="_blank">
+<form action="decompte-getcertificate" method="post" id="getCertificate_form" target="_blank">
+<input name="idmoisprojet" type="hidden" value="<%=listEstimation.get(0).getIdmoisprojet()%>"/>
 <input type ="submit" <%=(listEstimation.get(0).getEtat() == ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %> class="btn btn-primary btn-xs" value="Export to Excel">
 </form>
 </div>
