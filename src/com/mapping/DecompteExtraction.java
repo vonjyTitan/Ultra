@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DecompteExtraction {
 	private List<RowExtraction> bills; //fait
-	private int idcertificat; //fait
+	private Double idcertificat; //fait
 	private Date certificatdate; //fait
 	private String contractor; //fait
 	private String societe; //fait
@@ -107,12 +107,12 @@ public class DecompteExtraction {
 	
 	
 
-	public int getIdcertificat() {
+	public Double getIdcertificat() {
 		return idcertificat;
 	}
 
 
-	public void setIdcertificat(int idcertificat) {
+	public void setIdcertificat(Double idcertificat) {
 		this.idcertificat = idcertificat;
 	}
 

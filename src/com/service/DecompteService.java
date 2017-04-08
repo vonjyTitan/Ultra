@@ -307,7 +307,8 @@ public class DecompteService {
 			
 			reponse.setContractor(projet.getEntreprise());
 			reponse.setSociete(projet.getClient());
-			reponse.setIdcertificat(est.getIdmoisprojet());
+			Double obj = new Double(est.getIdmoisprojet());
+			reponse.setIdcertificat(obj);
 			reponse.setCertificatdate(new java.sql.Date(new java.util.Date().getTime()));
 			
 			ResultSet rsBill = conn.createStatement().executeQuery("select * from decompte_refactor_val where idmoisprojet="+idmoisprojet);
