@@ -44,7 +44,7 @@ join item as i on i.iditem = b.iditem
 join bill on bill.idbill= b.idbill;
 
 create or replace view decompte_refactor_val as
-select bill.idbill, bill.libelle,ir.idmoisprojet,sum(case when ir.credit=0 then ir.credit else ir.quantiteestime end)*billitem.pu as curr,sum(billitem.estimation) as estimative
+select bill.idbill, bill.libelle,ir.idmoisprojet,sum(case when ir.credit!=0 and ir.credit is not null then ir.credit else ir.quantiteestime end)*billitem.pu as curr,sum(billitem.estimation) as estimative
 from bill join billitem
 on bill.idbill=billitem.idbill
 join itemrapport ir
