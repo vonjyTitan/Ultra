@@ -118,12 +118,12 @@ public class ProcessReports {
 	        jasperReport = JasperCompileManager
 	                .compileReport(filePath.getPath());
 
-	        //jasperPrint = JasperFillManager.fillReport(jasperReport, parameter,new JRBeanCollectionDataSource(affichageExport.getBills()));
+	        jasperPrint = JasperFillManager.fillReport(jasperReport, parameter,new JRBeanCollectionDataSource(affichageExport.getBills()));
 	        //JasperExportManager.exportReportToPdfFile(jasperPrint,
 	        	//	savePath.getPath());
 	        
 	        
-            byte[] bytes = null;
+            /*byte[] bytes = null;
             ServletOutputStream servletOutputStream = response.getOutputStream();
             InputStream reportStream = new FileInputStream(filePath.getPath());
             
@@ -132,50 +132,34 @@ public class ProcessReports {
             response.setContentLength(bytes.length);
             servletOutputStream.write(bytes, 0, bytes.length);
             servletOutputStream.flush();
-            servletOutputStream.close(); 
-	        /*JRXlsxExporter exporter = new JRXlsxExporter();
+            servletOutputStream.close(); */
+	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+	        JRXlsxExporter exporter = new JRXlsxExporter();
 	        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 	        File outputFile = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/final.xlsx");
-	        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFile));
+	        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(out));
 	        SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration(); 
 	        configuration.setDetectCellType(true);//Set configuration as you like it!!
 	        configuration.setCollapseRowSpan(false);
 	        exporter.setConfiguration(configuration);
-	        exporter.exportReport();*/
+	        
+	        exporter.exportReport();
+	        byte[] bytes = null;
+	        bytes = out.toByteArray();
+	        ServletOutputStream servletOutputStream = response.getOutputStream();
+            InputStream reportStream = new FileInputStream(filePath.getPath());
+            
+            response.setContentType("application/vnd.ms-excel");
+            response.addHeader("Content-disposition", "attachment; filename=Certificat N: "+retourExport.getIdcertificat()+".xls");
+            response.setContentLength(bytes.length);
+            servletOutputStream.write(bytes, 0, bytes.length);
+            servletOutputStream.flush();
+            servletOutputStream.close();
+            
 	    } catch (JRException e) {
 	        e.printStackTrace();
 	    }
-		/*try
-		{
-			System.out.println("A");
-			String pdfPath = savePath.toString();
-			savePath.delete();
-			//InputStream is = new InputStream(fileJrxml);
-			JasperDesign design = JRXmlLoader.load("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/src/com/export/Certification.jrxml");
-			System.out.println("B");
-			JasperReport report = JasperCompileManager.compileReport(design);
-			System.out.println("C");
-			List<Client> listUser = new ArrayList <Client>();
-			JasperPrint print = JasperFillManager.fillReport(report, null,
-					new JRBeanCollectionDataSource(listUser));
-			System.out.println("D");
-			
-			OutputStream output;
-			try {
-				output = new FileOutputStream(new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/GeneratedFile/test2.pdf"));
-				JasperExportManager.exportReportToPdfStream(print, output); 
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			
-			//JasperExportManager.exportReportToPdfFile(print, pdfPath);
-			
-		}
-		catch(JRException ex)
-		{
-			ex.printStackTrace();
-		}*/
+		
 	}
 	public List<RowExtraction> getBills(){
 		return this.bills;
