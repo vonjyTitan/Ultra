@@ -28,6 +28,7 @@
 </div>
 <%=HTMLBuilder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Items", 7)%>
+<div class="col-lg-12" style="max-height:250px;overflow-y:auto;">
 <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
 	<thead>
 		<tr>
@@ -56,6 +57,7 @@
 		%>
 	</tbody>
 </table>
+</div>
 <%=HTMLBuilder.endPanel() %>
 <%=HTMLBuilder.beginPanel("Add news Items", 7)%>
 <form method="post" action="bill-ajoutitem">
