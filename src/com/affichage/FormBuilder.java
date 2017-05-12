@@ -198,7 +198,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		String reponse="";
 		reponse+=select;
 		if(select.length()==0){
-			reponse+=getTypeForField(field)+" name=\""+field.getName()+"\" id=\""+field.getName()+"\"  class=\""+classe+"\" "+add+" "+getEndInput(field,defaultValudeForField(field,true));
+			reponse+=getTypeForField(field)+" name=\""+field.getName()+"\" id=\""+field.getName()+"\"  class=\""+classe+" "+((field.getType().equals(Date.class) || field.getType().equals(java.sql.Date.class)) ? "datepicker" : "")+" \" "+add+" "+getEndInput(field,defaultValudeForField(field,true));
 		}
 		return reponse;
 	}

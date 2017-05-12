@@ -14,6 +14,7 @@
 	crit.setNomTable("ingenieur_libelle");
 	crit.setPackSize(100);
 	List<Utilisateur> ingenieurs = DaoModele.getInstance().findPageGenerique(1, crit);
+	((Projet)builder.getEntity()).setRetenue(10.0);
 %>
 <h3>Add new project</h3>
 <%=builder.beginHTMLForm(true)%>

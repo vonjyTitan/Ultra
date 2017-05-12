@@ -220,6 +220,9 @@ String id=SessionUtil.getValForAttr(request,"id");
                     {type: "block", label: "Regular event", }
                 ]
             });
+            $('.datepicker').datepicker({
+        		format: 'dd/mm/yyyy'
+        	});
         });
         
         
