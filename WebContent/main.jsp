@@ -567,7 +567,11 @@ try{
         	$("#"+inputname+"_lib").prop("value",libelle);
         }
     </script>
-  
+  <style>
+	.dropdown-menu{
+		z-index:999999;
+	}
+</style>
 
   </body>
 </html>
