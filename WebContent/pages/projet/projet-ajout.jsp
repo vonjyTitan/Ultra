@@ -83,7 +83,6 @@
 <%=HTMLBuilder.endPanel()%>
 <%=builder.getHTMLButton() %>
 <%=builder.endHTMLForm()%>
-<script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/attachement.js"></script>
 <script>
 var taille=<%=ingenieurs.size()%>;
@@ -114,10 +113,13 @@ function addChildIng(){
 	indice++;
 }
 function addChildEstim(){
-	var node = "<tr><td><input placeholder=\"dd/MM/yyyy\" type=\"text\" name=\"dateestimation\"/></td>";
+	var node = "<tr><td><input placeholder=\"dd/MM/yyyy\" class=\"datepicker\" type=\"text\" name=\"dateestimation\"/></td>";
 	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#estimates").append(node);
+	$('.datepicker').datepicker({
+		format: 'dd/mm/yyyy'
+	});
 	$("[name='suppr']").on("click",function(){$(this).parent("td").parent("tr").remove();});
 }
 function addChildBill(){

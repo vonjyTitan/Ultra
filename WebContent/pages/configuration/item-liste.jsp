@@ -12,7 +12,7 @@
 	TableBuilder builder= new TableBuilder(crit,request);
 	builder.setLienForChamp("code", "main.jsp?cible=configuration/item-fiche", "iditem");
 	builder.removeChamp(new String[]{"iditem","idunite"});
-	builder.getFilterBuilder().removeChamp("unite");
+	builder.getFilterBuilder().removeChamp(new String[]{"unite","iditem"});
 	builder.setLienForModif("main.jsp?cible=configuration/item-modif");
 %>
 <h3>List of all Items</h3>

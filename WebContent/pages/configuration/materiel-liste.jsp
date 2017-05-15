@@ -15,7 +15,7 @@
 	builder.setLienForChamp("code","main.jsp?cible=configuration/materiel-fiche","idmateriel");
 	builder.removeChamp("idmateriel");
 	builder.setLienForModif("main.jsp?cible=configuration/materiel-modif");
-	builder.getFilterBuilder().removeChamp("unite");
+	builder.getFilterBuilder().removeChamp(new String[]{"unite","idmateriel"});
 %>
 <h3>Material list</h3>
 <%=builder.getFilterBuilder().getHTML("Filter", 12)%>
