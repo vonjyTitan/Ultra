@@ -18,6 +18,7 @@ public class IngenieurAction extends Action {
 			return;
 		}
 		user.setIsingenieur(1);
+		user.setEtat(1);
 		DaoModele.getInstance().save(user);
 		user.setPasse(UtilCrypto.encrypt(user.getPasse()));
 		goTo(request, response,"get", "main.jsp?cible=configuration/ingenieur-liste&idutilisateur="+user.getIdutilisateur());
