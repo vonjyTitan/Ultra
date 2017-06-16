@@ -14,5 +14,6 @@ public @interface ForeignKey {
 	boolean nullable() default false;
 	SELECT_TYPE selecttype() default SELECT_TYPE.OPTION;
 	String popupCible() default "";
+	String popupAjout() default "";
 	String messageOnNotExiste() default "";
 }

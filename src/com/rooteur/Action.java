@@ -14,6 +14,9 @@ import org.apache.struts2.rest.HttpHeaders;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mapping.DataEntity;
+
+import utilitaire.SessionUtil;
 
 public class Action {
 	public void run(String nomMethod,HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -69,5 +72,17 @@ public class Action {
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected void afterPopupAjout(HttpServletRequest request,HttpServletResponse response,DataEntity entity) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException{
+		String libtable = SessionUtil.getValForAttr(request, "libtable");
+		String inputname = SessionUtil.getValForAttr(request, "inputname");
+		String content = "<html><body><script>try {window.opener.HandlePopupResult('"+entity.getPkValue()+"','"+entity.getValueForField(entity.getFieldByName("libtable"))+"','"+inputname+"');}catch (err) {}window.close();</script></body></html>";
+		response.getWriter().write(content);
+	}
+	
+	protected Boolean isAjoutPopup(HttpServletRequest request){
+		String libtable = SessionUtil.getValForAttr(request, "libtable");
+		return libtable.length()!=0;
 	}
 }

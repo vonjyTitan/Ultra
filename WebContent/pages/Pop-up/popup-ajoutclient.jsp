@@ -5,11 +5,11 @@
 <%@page import="com.affichage.InsertUpdateBuilder.ERROR_SHOW"%>
 <%@page import="com.affichage.*"%>
 <%@page import="com.mapping.*"%>
-<jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Client(),"crud-insert?classenom=com.mapping.Client&cible=Tiers/client-liste&refereur=main.jsp?cible=Tiers/client-ajout",request);
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Client(),"crud-insert?classenom=com.mapping.Client&refereur=popup.jsp?cible=Pop-up/popup-ajoutclient",request);
 	builder.removeChamp("idclient");
 	builder.setChampTextarea("description");
+	builder.setPopupType(true);
 %>
 <h3>Add new Client</h3>
 <%=builder.getHTML("General information", 12)%>

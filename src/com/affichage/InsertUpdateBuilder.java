@@ -24,6 +24,7 @@ public class InsertUpdateBuilder<T extends DataEntity> extends FormBuilder<T> {
 	
 	private String cible=null;
 	private String title=null;
+	private Boolean popupType=false;
 	
 	
 	public InsertUpdateBuilder(T entity,String cible,HttpServletRequest request) throws Exception{
@@ -65,6 +66,7 @@ public class InsertUpdateBuilder<T extends DataEntity> extends FormBuilder<T> {
 			ex.printStackTrace();
 			throw ex;
 		}
+		reponse+=getPopupField();
 		return reponse;
 	}
 	
@@ -73,7 +75,23 @@ public class InsertUpdateBuilder<T extends DataEntity> extends FormBuilder<T> {
 			removeChamp(ch);
 	}
 	
+	@Override
+	protected String getInputWithPopup(Champ f,String classe) throws Exception{
+		Object dv = defaultValudeForField(f);
+		String popupAjout = f.getFk().popupAjout();
+		Boolean existePopupAjout = popupAjout!=null && popupAjout.length()!=0;		
+		
+		String reponse="<input type=\"hidden\" value=\""+dv+"\" id=\""+f.getName()+"_val\" name=\""+f.getName()+"\"><input id=\""+f.getName()+"_lib\" value=\""+f.getForeignKeyLibValue(dv)+"\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: "+(existePopupAjout ? "70" : "80")+"%;\" type=\"text\"><a href=\"javascript:;\" "
+				+ "onclick=\"window.open('popup.jsp?cible="+f.getFk().popupCible()+"&libtable="+f.getFk().libtable()+"&inputname="+f.getName()+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a>";
 
+		String scriptAjout = "";
+		if(existePopupAjout){
+			scriptAjout+="<a href=\"javascript:;\" "
+					+ "onclick=\"window.open('popup.jsp?cible="+popupAjout+"&libtable="+f.getFk().libtable()+"&inputname="+f.getName()+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">+</a>";
+		}
+		reponse+=scriptAjout;
+		return reponse;
+	}
 	
 	public void setValueFromDatabase(Object object)throws Exception{
 		if(request.getParameter("erreur")==null){
@@ -82,6 +100,13 @@ public class InsertUpdateBuilder<T extends DataEntity> extends FormBuilder<T> {
 				throw new Exception("Objet introuvable");
 			setEntity((T) l);
 		}
+	}
+	
+	public String getPopupField(){
+		if(!getPopupType())
+			return "";
+		return "<input name=\"libtable\" type=\"hidden\" value=\""+SessionUtil.getValForAttr(request, "libtable")+"\"/>"+
+				"<input name=\"inputname\" type=\"hidden\" value=\""+SessionUtil.getValForAttr(request, "libtable")+"\"/>";
 	}
 	
 	public ERROR_SHOW getShowErrorMode() {
@@ -98,6 +123,14 @@ public class InsertUpdateBuilder<T extends DataEntity> extends FormBuilder<T> {
 		this.title = title;
 	}
 	
+	public Boolean getPopupType() {
+		return popupType;
+	}
+
+	public void setPopupType(Boolean popupType) {
+		this.popupType = popupType;
+	}
+
 	public enum ERROR_SHOW{
 		POP_UP,
 		COLOR_LABELLE,

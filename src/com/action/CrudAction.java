@@ -45,16 +45,20 @@ public class CrudAction extends Action {
 			}
 			DaoModele.getInstance().save(entity,conn);
 			String cible=SessionUtil.getValForAttr(request, "cible");
-			goTo(request,response,"get","main.jsp?cible="+cible);
+			if(isAjoutPopup(request))
+				afterPopupAjout(request, response, entity);
+			else
+				goTo(request,response,"get","main.jsp?cible="+cible);
 		}
 		catch(Exception ex){
-			
+			throw ex;
 		}
 		finally{
 			if(conn!=null)
 				conn.close();
 		}
 	}
+	
 	public void update(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		String classe=SessionUtil.getValForAttr(request, "classenom");
 		if(classe==null || classe.isEmpty() || classe.compareToIgnoreCase("null")==0)
@@ -115,7 +119,7 @@ public class CrudAction extends Action {
 			goTo(request,response,"get","main.jsp?cible="+cible);
 		}
 		catch(Exception ex){
-			
+			throw ex;
 		}
 		finally{
 			if(conn!=null)

@@ -17,7 +17,7 @@ public class Projet extends DataEntity {
 	@Parameter(libelle="Localisation")
 	private String lieu;
 	private String description;
-	@ForeignKey(toclasse=Client.class,libtable="nom",pktable="idclient",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-client")
+	@ForeignKey(toclasse=Client.class,libtable="nom",pktable="idclient",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-client",popupAjout="Pop-up/popup-ajoutclient")
 	@Parameter(libelle="Custommer")
 	private int idclient;
 	@ForeignKey(toclasse=Entreprise.class, libtable="nom",pktable="identreprise",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-entreprise")

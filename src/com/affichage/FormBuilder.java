@@ -241,13 +241,19 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 			return buildSelect(f,f.getForeignKeyData(),classe,f.getFk().nullable());
 		}
 		else if(f.isForeignKey() && f.getFk().selecttype()==SELECT_TYPE.POP_UP){
-			Object dv = defaultValudeForField(f);
-			String reponse="<input type=\"hidden\" value=\""+dv+"\" id=\""+f.getName()+"_val\" name=\""+f.getName()+"\"><input id=\""+f.getName()+"_lib\" value=\""+f.getForeignKeyLibValue(dv)+"\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" "
-					+ "onclick=\"window.open('popup.jsp?cible="+f.getFk().popupCible()+"&libtable="+f.getFk().libtable()+"&inputname="+f.getName()+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a>";
-			return reponse;
+			return getInputWithPopup(f,classe);
 		}
 		return "";
 	}
+	protected String getInputWithPopup(Champ f,String classe) throws Exception{
+		Object dv = defaultValudeForField(f);
+		
+		String reponse="<input type=\"hidden\" value=\""+dv+"\" id=\""+f.getName()+"_val\" name=\""+f.getName()+"\"><input id=\""+f.getName()+"_lib\" value=\""+f.getForeignKeyLibValue(dv)+"\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" "
+				+ "onclick=\"window.open('popup.jsp?cible="+f.getFk().popupCible()+"&libtable="+f.getFk().libtable()+"&inputname="+f.getName()+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a>";
+		
+		return reponse;
+	}
+	
 	private String buildSelect(Champ f,List<OptionObject> data,String classe,boolean nullable) throws Exception{
 		String reponse="";
 		String option="";

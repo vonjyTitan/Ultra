@@ -7,7 +7,7 @@
 <%@page import="com.mapping.*"%>
 <jsp:include page='../verificateur.jsp'/>
 <%
-	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Item(),"crud-insert?classenom=com.mapping.Item&cible=configuration/item-liste&referreur=main.jsp?cible=configuration/item-ajout",request);
+	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Item(),"crud-insert?classenom=com.mapping.Item&cible=configuration/item-liste&refereur=main.jsp?cible=configuration/item-ajout",request);
 	builder.removeChamp("iditem");
 	builder.setChampTextarea("discription");
 %>
