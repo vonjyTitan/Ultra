@@ -56,6 +56,7 @@ public class DecompteAction extends Action {
 			estimation.setEtat(ConstantEtat.MOIS_CREATED);
 			estimation.setIdutilisateur(user.getIdutilisateur());
 			estimation.setRetenue(0.0);
+			estimation.setDatedecompte(estimation.getMois());
 			DaoModele.getInstance().save(estimation, conn);
 			DecompteService.getInstance().setDefaultItemRapportForMoisProjet(estimation.getIdmoisprojet(), conn);
 			conn.commit();

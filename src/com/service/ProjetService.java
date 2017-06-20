@@ -66,6 +66,7 @@ public class ProjetService {
 				inter.setEtat(ConstantEtat.MOIS_CREATED);
 				inter.setEstimation(Double.valueOf(estimation[i]));
 				inter.setMois((Date) UtileAffichage.parseFromRequest(dates[i], Date.class));
+				inter.setDatedecompte(inter.getMois());
 				inter.setRetenue(0.0);
 				mois.add(inter);
 			}

@@ -85,6 +85,7 @@ public class Estimation extends DataEntity {
 		return mois;
 	}
 	public void setMois(Date mois) {
+		this.datedecompte=mois;
 		this.mois = mois;
 	}
 	public Date getDatedecompte() {

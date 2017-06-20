@@ -20,6 +20,9 @@ public class ItemRapport extends DataEntity {
 	private Date datedecompte;
 	private Double montant;
 	private Double last;
+	private String utilisateur;
+	private int idutilisateur;
+	private int isingenieur;
 	
 	
 	public Double getPu() {
@@ -105,5 +108,23 @@ public class ItemRapport extends DataEntity {
 	}
 	public void setLast(Double last) {
 		this.last = last;
+	}
+	public String getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(String utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	public int getIdutilisateur() {
+		return idutilisateur;
+	}
+	public void setIdutilisateur(int idutilisateur) {
+		this.idutilisateur = idutilisateur;
+	}
+	public int getIsingenieur() {
+		return isingenieur;
+	}
+	public void setIsingenieur(int isingenieur) {
+		this.isingenieur = isingenieur;
 	}
 }
