@@ -166,10 +166,10 @@ public class DecompteAction extends Action {
 		 if(request.getParameterValues("idmoisprojet")!=null){
 			 idmoisprojet = Integer.parseInt(request.getParameter("idmoisprojet"));
 		 }
-		File savePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/final.pdf");
-		//File filePath = new File(request.getServletContext().getRealPath("WEB-INF/test.jrxml"));
-		//File savePath = new File(request.getServletContext().getRealPath("GeneratedFile/userDetail.pdf"));
-		File filePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/WEB-INF/test.jrxml");
+		//File savePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/final.pdf");
+		File filePath = new File(request.getServletContext().getRealPath("WEB-INF/test.jrxml"));
+		File savePath = new File(request.getServletContext().getRealPath("GeneratedFile/userDetail.pdf"));
+		//File filePath = new File("/Fanilo/Professionel/Maurice/Freelance/BOQ/Developpement/BOQ/Mars/Ultra/WebContent/WEB-INF/test.jrxml");
 		new ProcessReports().generateReport(filePath , savePath ,idmoisprojet,response);
 		
 		

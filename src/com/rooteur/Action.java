@@ -77,7 +77,7 @@ public class Action {
 	protected void afterPopupAjout(HttpServletRequest request,HttpServletResponse response,DataEntity entity) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException{
 		String libtable = SessionUtil.getValForAttr(request, "libtable");
 		String inputname = SessionUtil.getValForAttr(request, "inputname");
-		String content = "<html><body><script>try {window.opener.HandlePopupResult('"+entity.getPkValue()+"','"+entity.getValueForField(entity.getFieldByName("libtable"))+"','"+inputname+"');}catch (err) {}window.close();</script></body></html>";
+		String content = "<html><body><script>try {window.opener.HandlePopupResult('"+entity.getPkValue()+"','"+entity.getValueForField(entity.getFieldByName(libtable))+"','"+inputname+"');}catch (err) {}window.close();</script></body></html>";
 		response.getWriter().write(content);
 	}
 	

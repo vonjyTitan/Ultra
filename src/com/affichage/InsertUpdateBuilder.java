@@ -106,7 +106,7 @@ public class InsertUpdateBuilder<T extends DataEntity> extends FormBuilder<T> {
 		if(!getPopupType())
 			return "";
 		return "<input name=\"libtable\" type=\"hidden\" value=\""+SessionUtil.getValForAttr(request, "libtable")+"\"/>"+
-				"<input name=\"inputname\" type=\"hidden\" value=\""+SessionUtil.getValForAttr(request, "libtable")+"\"/>";
+				"<input name=\"inputname\" type=\"hidden\" value=\""+SessionUtil.getValForAttr(request, "inputname")+"\"/>";
 	}
 	
 	public ERROR_SHOW getShowErrorMode() {

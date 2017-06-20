@@ -121,7 +121,7 @@
 			</li>
 			<li><a href="#3a" data-toggle="tab">Material on site</a>
 			</li>
-			<li><a href="#5a" data-toggle="tab">Attached file</a>
+			<!-- <li><a href="#5a" data-toggle="tab">Attached file</a> -->
 			</li>
 			<li id="tablog"><a href="#4a" data-toggle="tab">Log</a>
 			</li>

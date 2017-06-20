@@ -45,7 +45,7 @@
 		for(BillItem item:items){
 		%>
 			<tr>
-				<td><%=item.getCode() %></td>
+				<td><a href="main.jsp?cible=Bill/bill-mesurment&id=<%=item.getIdbillitem()%>"><%=item.getCode() %></a></td>
 				<td><%=item.getLibelle() %></td>
 				<td><%=item.getPu() %></td>
 				<td><%=item.getEstimation() %></td>

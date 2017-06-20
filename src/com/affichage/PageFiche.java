@@ -2,6 +2,7 @@ package com.affichage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,12 +25,7 @@ public class PageFiche<T extends DataEntity> extends HTMLBuilder<DataEntity> {
 		Connection conn=null;
 			try{
 				conn=Connecteur.getConnection(entity.findDataBaseKey());
-				if(data==null){
-					entity=DaoModele.getInstance().findById(entity, Integer.valueOf(SessionUtil.getValForAttr(request, "id")),conn);
-					if(entity==null)
-						throw new Exception("Pas de resultat pour votre consultation");
-					data=(T) entity;
-				}
+				getData(conn);
 				entity=data;
 				String reponse="";
 				
@@ -103,7 +99,30 @@ public class PageFiche<T extends DataEntity> extends HTMLBuilder<DataEntity> {
 	public void setData(T data){
 		this.data=data;
 	}
-	public T getData(){
+	public T getData() throws SQLException{
+		if(data==null){
+			Connection conn=null;
+			try{
+				conn=Connecteur.getConnection(entity.findDataBaseKey());
+				return getData(conn);
+			}
+			catch(Exception ex){
+				
+			}
+			finally{
+				if(conn!=null)
+					conn.close();
+			}
+		}
+		return this.data;
+	}
+	public T getData(Connection conn) throws NumberFormatException, Exception{
+		if(data==null){
+			entity=DaoModele.getInstance().findById(entity, Integer.valueOf(SessionUtil.getValForAttr(request, "id")),conn);
+			if(entity==null)
+				throw new Exception("Pas de resultat pour votre consultation");
+			data=(T) entity;
+		}
 		return this.data;
 	}
 	public String getDefaultClassForCOntainer() {
