@@ -29,7 +29,7 @@
 			<th>Month of decompte</th>
 			<th>Calculated quantity</th>
 			<th>Estimated quantity</th>
-			<th>Total</th>
+			<th>Amount</th>
 			<th>User</th>
 		</tr>
 	</thead>
