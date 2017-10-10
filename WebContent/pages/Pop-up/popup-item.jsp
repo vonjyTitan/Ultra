@@ -11,7 +11,7 @@
 	TableBuilder builder= new PopupTable(crit,request);
 	builder.removeChamp(new String[]{"idunite"});
 	builder.addNotVisibleChamp("iditem");
-	builder.getFilterBuilder().removeChamp("unite");
+	builder.getFilterBuilder().removeChamp(new String[]{"unite","iditem"});
 %>
 <h3>List of all Items</h3>
 <%=builder.getFilterBuilder().getHTML("Filter") %>

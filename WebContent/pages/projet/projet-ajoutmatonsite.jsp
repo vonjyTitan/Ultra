@@ -44,7 +44,9 @@ $(document).ready(function(){
 	additem();
 });
 function additem(){
-	var node = "<tr><td><div class=\"col-sm-12\"><input id=\"idmateriel"+indice+"_val\" name=\"idmateriel\" type=\"hidden\"><input id=\"idmateriel"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-materiel&amp;libtable=libelle&amp;inputname=idmateriel"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a></div></td>";
+	var node = "<tr><td><div class=\"col-sm-12\"><input id=\"idmateriel"+indice+"_val\" name=\"idmateriel\" type=\"hidden\"><input id=\"idmateriel"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-materiel&amp;libtable=libelle&amp;inputname=idmateriel"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a>"+
+	"<a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-ajoutmateriel&amp;libtable=libelle&amp;inputname=idmateriel"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">+</a>"+
+	"</div></td>";
 	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"pu\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#materiels").append(node);

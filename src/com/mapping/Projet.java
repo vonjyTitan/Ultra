@@ -20,7 +20,7 @@ public class Projet extends DataEntity {
 	@ForeignKey(toclasse=Client.class,libtable="nom",pktable="idclient",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-client",popupAjout="Pop-up/popup-ajoutclient")
 	@Parameter(libelle="Custommer")
 	private int idclient;
-	@ForeignKey(toclasse=Entreprise.class, libtable="nom",pktable="identreprise",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-entreprise")
+	@ForeignKey(toclasse=Entreprise.class, libtable="nom",pktable="identreprise",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-entreprise",popupAjout="Pop-up/popup-ajoutentreprise")
 	@Parameter(libelle="Contractor")
 	private int identreprise;
 	@Parameter(libelle="Start Date")
