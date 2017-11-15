@@ -15,7 +15,7 @@
 	<thead>
 		<tr>
 			<th>Code</th>
-			<th>Libelle</th>
+			<th>Label</th>
 			<th>Unit</th>
 			<th>Description</th>
 			<th></th>

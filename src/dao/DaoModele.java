@@ -322,7 +322,6 @@ public class DaoModele {
 			if(data.size()==0)
 				return;
 			String requete=buildQueryInsert(data.get(0));
-			
 			pst=con.prepareStatement(requete,Statement.RETURN_GENERATED_KEYS);
 			int indiceStat=1;
 			Field[] champs=data.get(0).getAllFields();
