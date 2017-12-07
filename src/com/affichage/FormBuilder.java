@@ -92,7 +92,11 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 	public String blockFor(Champ f,boolean withDelete)throws Exception{
 		String reponse="";
 		if(isNotVisible(f)){
-			reponse+="<input type=\"hidden\" name=\""+f.getName()+"\" id=\""+f.getName()+"\" value=\""+defaultValudeForField(f,true)+"\" />";
+			Object value = defaultValudeForField(f,true);
+			if(value.getClass()==java.sql.Date.class || value.getClass()==java.util.Date.class){
+				value = UtileAffichage.formatAfficherDate((Date) value);
+			}
+			reponse+="<input type=\"hidden\" name=\""+f.getName()+"\" id=\""+f.getName()+"\" value=\""+value+"\" />";
 			if(withDelete)
 				removeChamp(f.getName());
 			return reponse;
