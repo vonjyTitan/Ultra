@@ -72,6 +72,10 @@ public class ProcessReports {
 	    parameter.put("certificatdate",retourExport.getContractor());
 	    parameter.put("contractor",retourExport.getContractor());
 	    parameter.put("societe",retourExport.getSociete());
+	    parameter.put("retentionCurrent",retourExport.getRetention().getCurrent());
+	    parameter.put("retentionCumulative",retourExport.getRetention().getCummulative());
+	    parameter.put("retentionEstimative",retourExport.getRetention().getEstimative());
+	    parameter.put("retentionPrevious",retourExport.getRetention().getPrecedant());
 	    
 	    parameter.put("libelleSubtitle1",retourExport.getSubtotal1().getLibelle());
 	    parameter.put("estimateSubtitle1",retourExport.getSubtotal1().getEstimative());
@@ -113,6 +117,8 @@ public class ProcessReports {
 	    parameter.put("totalAmoutIncVta",retourExport.getTotalAmoutIncVta());
 	    parameter.put("addVta",retourExport.getAddVta());
 	    parameter.put("contractValue",retourExport.getContractValue());
+	    
+	    
 	    
 	    try {
 	        jasperReport = JasperCompileManager

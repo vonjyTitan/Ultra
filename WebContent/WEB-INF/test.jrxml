@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-07T23:02:03 -->
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7135b54-ceb5-4981-b8b2-d1e803351086">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="false"/>
@@ -63,6 +62,10 @@
 	<parameter name="contractValue" class="java.lang.Double"/>
 	<parameter name="certificatdate" class="java.lang.String"/>
 	<parameter name="idcertificat" class="java.lang.Double"/>
+	<parameter name="retentionCurrent" class="java.lang.Double"/>
+	<parameter name="retentionCumulative" class="java.lang.Double"/>
+	<parameter name="retentionEstimative" class="java.lang.Double"/>
+	<parameter name="retentionPrevious" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -607,6 +610,18 @@
 			<textField>
 				<reportElement x="390" y="582" width="128" height="19" uuid="2932b9b2-5c3f-4463-9f72-67adbac9f698"/>
 				<textFieldExpression><![CDATA[$P{totalAmoutIncVta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="307" width="86" height="30" uuid="67d2dafd-6722-4030-a276-a662ccaed3bf"/>
+				<textFieldExpression><![CDATA[$P{retentionPrevious}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="307" width="79" height="30" uuid="321e790c-80ed-4753-afa8-7f4b3fe3d807"/>
+				<textFieldExpression><![CDATA[$P{retentionCurrent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="307" width="73" height="30" uuid="5108fb85-5e82-4190-8618-5c355ff9d5ce"/>
+				<textFieldExpression><![CDATA[$P{retentionCumulative}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
