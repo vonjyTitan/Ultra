@@ -152,7 +152,7 @@ public class DecompteAction extends Action {
 			ex.printStackTrace();
 			 throw new Exception("Internal server error");
 		}
-		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+request.getParameter("idmoisprojet"));
+		 goTo(request,response,"main.jsp?cible=decompte/decompte-fiche&id="+id);
 	}
 	public void matonsiteupdate(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		 String[] credits=request.getParameterValues("credit");

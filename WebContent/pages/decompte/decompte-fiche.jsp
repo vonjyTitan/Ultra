@@ -178,8 +178,9 @@
 		<input type ="submit" class="btn btn-primary" disabled="disabled" value="updated" onclick="return false;">
 	      
 	<%} %>
-	</div>
 	</form>
+	</div>
+	
 <%
 }
 		%>
@@ -199,8 +200,10 @@ $(document).ready(function(){
 	
 	function certificated(){
 		var r = confirm("Would you like to certificate ?");
-		if(r==true)
-			$("#decompte_form").submit();
+		if(r==true){
+			document.location = 'decompte-certified?id=<%=listEstimation.get(0).getIdmoisprojet()%>';
+			//$("#decompte_form").submit();
+		}
 	}
 </script>
 

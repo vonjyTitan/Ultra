@@ -250,32 +250,31 @@ public class DecompteService {
 			 conn = Connecteur.getConnection();
 			 conn.setAutoCommit(false);
 
-			 Estimation dec = DaoModele.getInstance().findById(new Estimation(), idecompte, conn);
-			 Projet p = DaoModele.getInstance().findById(new Projet(), dec.getIdprojet(), conn);
+			 Estimation dec = DaoModele.getInstance().findById(new Estimation(), idecompte);
+			 Projet p = DaoModele.getInstance().findById(new Projet(), dec.getIdprojet());
 			 
 			 Double cummulativeRetension = 0.0;
-			 Double totalEstimationprojet  = 0.0;
+			 Double totalEstimationprojet  = p.getContrat();
 			 Double actRetenue = dec.getTotal()*p.getRetenue()/100;
-					 
-			 String sql_cum_ret="select sum(retenue) as retenue as  form moisprojet where idprojet = "+dec.getIdprojet();
+			 
+			 String sql_cum_ret="select sum(retenue) as retenue  from moisprojet where idprojet = "+dec.getIdprojet();
 			 ResultSet resRet = conn.createStatement().executeQuery(sql_cum_ret);
 			 
 			 while(resRet.next()){
 				 cummulativeRetension = resRet.getDouble("retenue");
 			 }
 			 
+			 
 			 if(cummulativeRetension+actRetenue>(totalEstimationprojet*5/100)){
 				 actRetenue = (totalEstimationprojet*5/100)-cummulativeRetension;
 			 }
 			 
-			 DecompteService.getInstance().setEstimationEtat(idecompte, ConstantEtat.MOIS_CERTIFIED, conn);
 			 dec.setRetenue(actRetenue);
+			 dec.setEtat(ConstantEtat.MOIS_CERTIFIED);
 			 DaoModele.getInstance().update(dec,conn);
-			 DaoModele.getInstance().executeUpdate("update moisprojet set MATONSITECREDIT=(select sum(montant) from matonsite_moisprojet mm on mm.idmoisprojet="+idecompte+") where idmoisprojet="+idecompte,conn);
-			 
+			 conn.createStatement().execute("update moisprojet set MATONSITECREDIT=(select sum(montant) from matonsite_moisprojet mm where mm.idmoisprojet="+idecompte+") where idmoisprojet="+idecompte);
 			 
 			 conn.commit();
-			 
 		 }
 		 catch(Exception ex){
 			 if(conn!=null)
