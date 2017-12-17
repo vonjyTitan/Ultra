@@ -156,7 +156,7 @@ public class ProcessReports {
             InputStream reportStream = new FileInputStream(filePath.getPath());
             
             response.setContentType("application/vnd.ms-excel");
-            response.addHeader("Content-disposition", "attachment; filename=Certificat N: "+retourExport.getIdcertificat()+".xls");
+            response.addHeader("Content-disposition", "attachment; filename=Certificat_"+retourExport.getIdcertificat()+".xls");
             response.setContentLength(bytes.length);
             servletOutputStream.write(bytes, 0, bytes.length);
             servletOutputStream.flush();
