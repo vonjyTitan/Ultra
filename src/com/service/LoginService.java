@@ -50,7 +50,7 @@ public class LoginService {
 			return true;
 		RoleFonctionnalite crit = new RoleFonctionnalite();
 		crit.setNomTable("userrole_libelle");
-		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit,conn, " and idutilisateur="+utilisateur.getIdrole()+" and upper(fonctionnalite)=upper('"+fonctionnalite+"')");
+		List<RoleFonctionnalite> rep=DaoModele.getInstance().findPageGenerique(1, crit,conn, " and idutilisateur="+utilisateur.getIdutilisateur()+" and upper(fonctionnalite)=upper('"+fonctionnalite+"')");
 		return rep.size()!=0;
 	}
 	
