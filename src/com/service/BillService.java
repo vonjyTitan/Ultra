@@ -50,6 +50,9 @@ public class BillService {
 		int taille=iditems.length;
 		List<BillItem> list=new ArrayList<BillItem>();
 		for(int i=0;i<taille;i++){
+			if(iditems[i].trim().length()==0){
+				continue;
+			}
 			int iditem =Integer.valueOf("0"+iditems[i]);
 			double pu = Double.valueOf("0"+pus[i]);
 			double estimation = Double.valueOf("0"+estimations[i]);
