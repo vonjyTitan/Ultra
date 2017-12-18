@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.cert.Certificate;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -69,7 +71,10 @@ public class ProcessReports {
 	    parameter.put("ItemDataSource",itemsJRBean);
 	    
 	    parameter.put("idcertificat",retourExport.getIdcertificat());
-	    parameter.put("certificatdate",retourExport.getContractor());
+	    DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+	    System.out.println(retourExport.getCertificatdate() + "date io");
+	    String strDate = dateFormat.format(retourExport.getCertificatdate());
+	    parameter.put("certificatdate",strDate);
 	    parameter.put("contractor",retourExport.getContractor());
 	    parameter.put("societe",retourExport.getSociete());
 	    parameter.put("retentionCurrent",retourExport.getRetention().getCurrent());
