@@ -13,5 +13,5 @@
 	builder.setOrdre(new String[]{"code","libelle","idunite","description"});
 	builder.setChampTextarea("description");
 %>
-<h3>Material update</h3>
+<h3>Material: Edit information</h3>
 <%=builder.getHTML("General information", 6)%>

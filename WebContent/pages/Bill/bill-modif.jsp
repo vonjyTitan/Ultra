@@ -12,5 +12,5 @@
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
 	builder.setChampTextarea("description");
 %>
-<h3><a href="main.jsp?cible=Bill/bill-fiche&id=<%=SessionUtil.getValForAttr(request, "id") %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Update bill informations</h3>
+<h3><a href="main.jsp?cible=Bill/bill-fiche&id=<%=SessionUtil.getValForAttr(request, "id") %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Bill: Edit information</h3>
 <%=builder.getHTML("", 6)%>

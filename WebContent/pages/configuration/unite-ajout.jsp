@@ -11,5 +11,5 @@
 	builder.removeChamp("idunite");
 	builder.setChampTextarea("description");
 %>
-<h3> Add new Unit</h3>
+<h3> Add new measurement Unit</h3>
 <%=builder.getHTML("General information", 6)%>

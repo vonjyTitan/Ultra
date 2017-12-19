@@ -39,7 +39,7 @@
 		<tr>
 			<th>Code</th>
 			<th>Name</th>
-			<th>Custommer</th>
+			<th>Client</th>
 		</tr>
 	</thead>
 	<tbody>

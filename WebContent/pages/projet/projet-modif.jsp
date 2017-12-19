@@ -12,5 +12,5 @@
 	builder.addNotVisibleChamp(new String[]{"idprojet","etat"});
 	builder.setChampTextarea("description");
 %>
-<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=SessionUtil.getValForAttr(request, "id")%>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Update Project informations</h3>
+<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=SessionUtil.getValForAttr(request, "id")%>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Edit Project details</h3>
 <%=builder.getHTML("General informations", 6)%>

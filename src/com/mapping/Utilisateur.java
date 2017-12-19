@@ -29,7 +29,7 @@ public class Utilisateur extends DataEntity {
 	private String passe;
 	@Parameter(libelle="Status")
 	private int etat;
-	@Parameter(libelle="Role of the user",reference="idrole")
+	@Parameter(libelle="Assigned Role",reference="idrole")
 	@ForeignKey(toclasse=Role.class,pktable="idrole",libtable="libelle")
 	private int idrole;
 	private String role;

@@ -9,7 +9,7 @@
 <%
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Utilisateur(),"ingenieur-insert",request);
 	builder.removeChamp(new String[]{"isingenieur","idutilisateur","etat"});
-	builder.setLibelleFor("idrole", "Role of engineer");
+	builder.setLibelleFor("idrole", "Assign Role");
 %>
 <h3>Add new Engineer</h3>
 <%=builder.getHTML("General information", 6)%>

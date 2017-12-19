@@ -31,7 +31,7 @@
 <table class="table table-striped table-advance table-hover table-bordered">
 	<thead>
 		<tr>
-			<th>Forname and name</th>
+			<th>First and last names</th>
 			<th>Options</th>
 			<th></th>
 		</tr>

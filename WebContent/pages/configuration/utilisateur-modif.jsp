@@ -13,7 +13,7 @@
 	builder.addNotVisibleChamp(new String[]{"idutilisateur","isingenieur"});
 	builder.getFieldByName("passe").setMethodForChamp("findPasseDecrypted");%>
 	
-	<h3><a href="main.jsp?cible=configuration/utilisateur-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> User update</h3>
+	<h3><a href="main.jsp?cible=configuration/utilisateur-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Edit User information</h3>
 	<%
 	out.print(builder.getHTML("User informations",6)); 
 	%>

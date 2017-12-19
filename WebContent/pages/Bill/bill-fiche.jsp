@@ -59,7 +59,7 @@
 </table>
 </div>
 <%=HTMLBuilder.endPanel() %>
-<%=HTMLBuilder.beginPanel("Add news Items", 7)%>
+<%=HTMLBuilder.beginPanel("Add Items", 7)%>
 <form method="post" action="bill-ajoutitem">
 <input type="hidden" value="<%=data.getIdbill()%>" name="id"/>
 <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >

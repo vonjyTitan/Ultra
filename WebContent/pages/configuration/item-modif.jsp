@@ -12,6 +12,6 @@
 	builder.addNotVisibleChamp("iditem");
 	builder.setChampTextarea("discription");
 %>
-<h3>Update Item</h3>
+<h3>Item: Edit information</h3>
 
 <%=builder.getHTML("", 6)%>

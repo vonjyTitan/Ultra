@@ -16,7 +16,7 @@
 	List<RoleFonctionnalite> rfs=DaoModele.getInstance().findPageGenerique(1, new RoleFonctionnalite(), Connecteur.getConnection(), " and idrole="+id);
 	List<Fonctionnalite> foncts=DaoModele.getInstance().findPageGenerique(1,new Fonctionnalite());
 %>
-<h3><a href="main.jsp?cible=configuration/role-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Role update</h3>
+<h3><a href="main.jsp?cible=configuration/role-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Assigned Roles: Edit</h3>
 
 <%=builder.beginHTMLForm() %>
 <%=HTMLBuilder.beginPanel("Role details", 6) %>

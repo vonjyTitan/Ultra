@@ -231,7 +231,7 @@ try{
             <div class="top-menu">
             
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.jsp">Deconnexion</a></li>
+                    <li><a class="logout" href="login.jsp">Log out</a></li>
             	</ul>
             </div>
         </header>
@@ -263,7 +263,7 @@ try{
 				<li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-table"></i>
-                          <span>Manage Project</span>
+                          <span>Projects</span>
                       </a>
                       <ul class="sub">
                           <!--  <li><a  href="#" id="menu-liste-table"><i class="fa fa-archive"></i>Summary</a></li>-->
@@ -272,16 +272,6 @@ try{
                       </ul>
                 </li>
                 <%} %>
-                <!-- <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>Gestion Bill</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-list"></i>Liste Bill</a></li>
-                          <li><a  href="#" id="menu-ajout-table"><i class="fa fa-plus"></i>Ajout Nouveau Bill</a></li>
-                      </ul>
-                </li>-->
                  <%
                  boolean clientM = access.get("client");
                  boolean entrepriseM = access.get("entreprise");
@@ -297,7 +287,7 @@ try{
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-ajout&currmenu=menu-commmande-ajout" id="menu-commmande-ajout"><i class="fa fa-cubes"></i>Client</a>
                       	<ul class="sub">
-                      		<li><a href="main.jsp?cible=Tiers/client-liste" id="client-liste"><i class="fa fa-list"></i>List Client</a></li>               
+                      		<li><a href="main.jsp?cible=Tiers/client-liste" id="client-liste"><i class="fa fa-list"></i>List of Clients</a></li>               
                       		<li><a href="main.jsp?cible=Tiers/client-ajout" id="client-ajout"><i class="fa fa-plus"></i>Add New Client</a></li>
                			</ul>
                       </li>
@@ -305,7 +295,7 @@ try{
                       <li class="sub-menu">
                       	<a  href="main.jsp?cible=commande/commande-liste&currmenu=menu-commande-liste" id="menu-commande-liste"><i class="fa fa-university"></i>Contractor</a>
                       	<ul class="sub">
-                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="entreprise-liste"><i class="fa fa-list"></i>List Contractor</a></li>
+                      		<li><a href="main.jsp?cible=Tiers/entreprise-liste" id="entreprise-liste"><i class="fa fa-list"></i>List of Contractors</a></li>
                       		<li><a href="main.jsp?cible=Tiers/entreprise-ajout" id="entreprise-ajout"><i class="fa fa-plus"></i>Add Contractor</a></li>
                			</ul>
                       </li>
@@ -318,7 +308,7 @@ try{
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>
-                          <span>Manage Engineer</span>
+                          <span>Team</span>
                       </a>
                       <ul class="sub">
                           <li><a  href="main.jsp?cible=configuration/ingenieur-liste" id="ingenieur-liste"><i class="fa fa-list"></i>List of Engineer</a></li>
@@ -333,7 +323,7 @@ try{
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>
-                          <span>Manage User</span>
+                          <span>Users</span>
                       </a>
                       <ul class="sub">
                       <%if(userM){ %>
@@ -385,9 +375,9 @@ try{
                        	<%}
                       if(materielM){%>
                       	<li class="sub-menu">
-                      		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Material</a>
+                      		<a  href="#" id="menu-ajout-table"><i class="fa fa-magnet"></i>Materials</a>
 	                      	<ul class="sub">
-	                      		<li><a  href="main.jsp?cible=configuration/materiel-liste" id="materiel-liste"><i class="fa fa-list"></i>List Material</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/materiel-liste" id="materiel-liste"><i class="fa fa-list"></i>List of Materials</a></li>
 	               			
 	                      		<li><a  href="main.jsp?cible=configuration/materiel-ajout" id="materiel-ajout"><i class="fa fa-plus"></i>Add New Material</a></li>
 	               			</ul>
@@ -395,9 +385,9 @@ try{
                       	<%}
                       if(unitM){%>
                    	  	<li class="sub-menu">
-                   	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Unit</a>
+                   	  		<a  href="#" id="menu-ajout-table"><i class="fa fa-cogs"></i>Units</a>
 	                   	  	<ul class="sub">
-	                      		<li><a  href="main.jsp?cible=configuration/unite-liste" id="unite-liste"><i class="fa fa-list"></i>List Unit</a></li>
+	                      		<li><a  href="main.jsp?cible=configuration/unite-liste" id="unite-liste"><i class="fa fa-list"></i>List of Units</a></li>
 	               			
 	                      		<li><a  href="main.jsp?cible=configuration/unite-ajout" id="unite-ajout"><i class="fa fa-plus"></i>Add New Unit</a></li>
 	               			</ul>

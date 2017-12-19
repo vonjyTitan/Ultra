@@ -13,5 +13,5 @@
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
 	builder.getFieldByName("passe").setMethodForChamp("findPasseDecrypted");
 %>
-<h3>Update Engineer information</h3>
+<h3>Engineer: Edit details</h3>
 <%=builder.getHTML("General information", 6)%>

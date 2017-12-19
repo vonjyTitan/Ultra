@@ -14,5 +14,5 @@
 	((Estimation)builder.getEntity()).setIdprojet(p.getIdprojet());
 	
 %>
-<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=p.getIdprojet() %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Add new Estimation and Count for project <%=p.getLibelle() %></h3>
+<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=p.getIdprojet() %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Add new Estimate/Count for project "<%=p.getLibelle() %>"</h3>
 <%=builder.getHTML("General information", 6)%>

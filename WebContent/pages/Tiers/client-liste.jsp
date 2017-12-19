@@ -12,6 +12,6 @@
 	builder.setLienForId("main.jsp?cible=Tiers/client-fiche");
 %>
 <%=builder.getFilterBuilder().getHTML("filter") %>
-<%=HTMLBuilder.beginPanel("List of Client", 12) %>
+<%=HTMLBuilder.beginPanel("List of Clients", 12) %>
 <%=builder.getHTML()%> 
 <%=HTMLBuilder.endPanel()%>

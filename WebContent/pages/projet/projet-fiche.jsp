@@ -39,7 +39,7 @@
 <div class="form-group col-lg-12"><p class="col-lg-6">Less Retention : </p><p class="col-lg-6"><%=(crit.getRetenue()!=null ? crit.getRetenue().intValue() : 0) %> %</p></div>
 </div>
 <div class="form-group col-lg-12" style="text-align: right;">
-		<a class="btn btn-success btn-xs" href="main.jsp?cible=projet/projet-stat&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"> Statistical and summary </a>
+		<a class="btn btn-success btn-xs" href="main.jsp?cible=projet/projet-stat&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"> Statistics and Summary </a>
 		<a class="btn btn-primary btn-xs" href="main.jsp?cible=projet/projet-modif&id=<%=((Projet)builder.getEntity()).getIdprojet()%>"><i class="fa fa-pencil "></i> Update</a>
 </div>
 <%=HTMLBuilder.endPanel()%>
@@ -236,7 +236,7 @@
                             <thead>
                             <tr>
                                 <th>Code</th>
-                                <th>PU</th>  
+                                <th>Unit Price</th>  
                                 <th>Debit</th>
                                 <th>Credit</th>  
                                 <th></th>                         
@@ -371,7 +371,7 @@
             <div class="modal-body">
             	<input type="hidden" name="idmatonsite" id="idmatonsite"/>
             	<div id="codecontainer" class="form-group col-lg-12" style="margin-top:30px;"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="">Code Material : </label></div><div class="col-sm-7"><input name="codemateriel" id="codemateriel" class="form-control" disabled="true" value="" type="text"></div></div>
-                <div id="codecontainer" class="form-group col-lg-12"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="pu">PU : </label></div><div class="col-sm-7"><input name="pu" id="pu" class="form-control" value="" type="text"></div></div>
+                <div id="codecontainer" class="form-group col-lg-12"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="pu">Unit Price : </label></div><div class="col-sm-7"><input name="pu" id="pu" class="form-control" value="" type="text"></div></div>
             </div>
             
             <div class="modal-footer">

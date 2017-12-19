@@ -11,6 +11,7 @@ public class Estimation extends DataEntity {
 	private int idmoisprojet;
 	private int idprojet;
 	private int idutilisateur;
+	@Parameter(libelle="Estimate")
 	private double estimation;
 	private double total;
 	@Required

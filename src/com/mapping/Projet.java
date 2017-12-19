@@ -14,11 +14,11 @@ public class Projet extends DataEntity {
 	@Parameter(libelle="Name of project")
 	@Required
 	private String libelle;
-	@Parameter(libelle="Localisation")
+	@Parameter(libelle="Location")
 	private String lieu;
 	private String description;
 	@ForeignKey(toclasse=Client.class,libtable="nom",pktable="idclient",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-client",popupAjout="Pop-up/popup-ajoutclient")
-	@Parameter(libelle="Custommer")
+	@Parameter(libelle="Client")
 	private int idclient;
 	@ForeignKey(toclasse=Entreprise.class, libtable="nom",pktable="identreprise",selecttype=SELECT_TYPE.POP_UP,popupCible="Pop-up/popup-entreprise",popupAjout="Pop-up/popup-ajoutentreprise")
 	@Parameter(libelle="Contractor")

@@ -14,7 +14,7 @@
 	builder.setChampTextarea("description");
 	builder.setValueFromDatabase(SessionUtil.getValForAttr(request, "id"));
 	%>
-	<h3><a href="main.jsp?cible=configuration/unite-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Unit update</h3>
+	<h3><a href="main.jsp?cible=configuration/unite-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Unit: Edit information</h3>
 	<%
 	out.println(builder.getHTML("",6));
 %>

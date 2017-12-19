@@ -25,7 +25,7 @@
 	<thead>
 		<tr>
 			<th>Code</th>
-			<th>PU</th>
+			<th>Unit price</th>
 			<th>Estimate</th>
 			<th></th>
 		</tr>

@@ -13,7 +13,7 @@
 	crit.setNomTable("rolefonctionnalite_libelle");
 	List<RoleFonctionnalite> rfs=DaoModele.getInstance().findPageGenerique(1, crit, Connecteur.getConnection(), " and idrole="+SessionUtil.getValForAttr(request, "id"));
 %>
-<h3><a href="main.jsp?cible=configuration/role-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Role Details</h3>
+<h3><a href="main.jsp?cible=configuration/role-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a>Details of Role</h3>
 <%=HTMLBuilder.beginPanel("General information", 6) %>
 <%=builder.getBody() %>
 <div class="form-group col-lg-12" style="text-align: right;">

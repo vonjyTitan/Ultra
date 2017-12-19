@@ -11,6 +11,6 @@
 	builder.setLienForModif("main.jsp?cible=configuration/role-modif");
 	builder.setLienForId("main.jsp?cible=configuration/role-fiche");
 %>
-<%=HTMLBuilder.beginPanel("List of Role", 6) %>
+<%=HTMLBuilder.beginPanel("List of Roles", 6) %>
 <%=builder.getHTML()%>
 <%=HTMLBuilder.endPanel()%>

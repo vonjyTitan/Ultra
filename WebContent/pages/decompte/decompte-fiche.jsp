@@ -46,7 +46,7 @@
 <div class="col-lg-12">
 <div class="form-group col-lg-4" style="margin-left: 50px;">
 <a class="btn btn-primary btn-xs" href="main.jsp?cible=decompte/decompte-modif&id=<%=SessionUtil.getValForAttr(request, "id")%>">Update</a>
- 		<a class="btn btn-primary btn-xs <%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" onclick="<%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "certificated();" : "") %>" href="javascript:;">Certified</a>
+ 		<a class="btn btn-success btn-xs <%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "" : "disabled") %>" onclick="<%=(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED ? "certificated();" : "") %>" href="javascript:;">Certified</a>
  <form action="decompte-decompte" id="decompte_form">
  	<input type="hidden" name="etat" value="<%=ConstantEtat.MOIS_CERTIFIED %>" >
  	<input type="hidden" name="idmoisprojet" value="<%=listEstimation.get(0).getIdmoisprojet() %>" >
@@ -96,7 +96,7 @@
 		<%}%>
 	</tbody>
 	</table>
-	<input type ="submit" class="btn btn-primary" <%=(matonsites.size()==0 ? "disabled=\"disabled\"" : "") %> value="update">
+	<input type ="submit" class="btn btn-primary" <%=(matonsites.size()==0 ? "disabled=\"disabled\"" : "") %> value="Update">
 	</form>
 </div>
 <div class="col-lg-12">
@@ -171,11 +171,11 @@
 		<p>No data to updated</p>	
 	<%}%>
 	<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED && ItemResult.size()>0){%>
-		<input type ="submit" class="btn btn-primary" value="update">
+		<input type ="submit" class="btn btn-primary" value="Update">
 	      
 	<%} %>
 	<% if(listEstimation.get(0).getEtat() != ConstantEtat.MOIS_CERTIFIED &&  ItemResult.size() == 0){%>
-		<input type ="submit" class="btn btn-primary" disabled="disabled" value="updated" onclick="return false;">
+		<input type ="submit" class="btn btn-primary" disabled="disabled" value="Updated" onclick="return false;">
 	      
 	<%} %>
 	</form>
@@ -199,7 +199,7 @@ $(document).ready(function(){
 	});
 	
 	function certificated(){
-		var r = confirm("Would you like to certificate ?");
+		var r = confirm("Are you sure you want to issue certificate? By clicking, you will no longer be able to make further changes. ");
 		if(r==true){
 			document.location = 'decompte-certified?id=<%=listEstimation.get(0).getIdmoisprojet()%>';
 			//$("#decompte_form").submit();

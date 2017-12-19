@@ -12,7 +12,7 @@
 	PageFiche builder=new PageFiche(crit,request);
 	builder.removeChamp(new String[]{"idunite","idmateriel"});
 %>
-<h3><a href="main.jsp?cible=configuration/materiel-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Material details</h3>
+<h3><a href="main.jsp?cible=configuration/materiel-liste"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> View details of material</h3>
 <%=HTMLBuilder.beginPanel("General information",6) %>
 <%=builder.getBody()%>
 <div class="form-group col-lg-12" style="text-align: right;">

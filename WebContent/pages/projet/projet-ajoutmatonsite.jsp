@@ -13,7 +13,7 @@
 <%
 	Projet p=DaoModele.getInstance().findById(new Projet(), Integer.valueOf(SessionUtil.getValForAttr(request, "id")));
 %>
-<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=p.getIdprojet() %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Add Mat on site for project <%=p.getLibelle() %></h3>
+<h3><a href="main.jsp?cible=projet/projet-fiche&id=<%=p.getIdprojet() %>" ><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a> Add Materials on Site for project "<%=p.getLibelle() %>"</h3>
 <form action="projet-ajoutmatonsite" method="post" class="form-horizontal style-form">
 <input type="hidden" name="idprojet" value="<%=SessionUtil.getValForAttr(request, "id")%>"/>
 <%=HTMLBuilder.beginPanel("", 6)%>
@@ -21,7 +21,7 @@
 	<thead>
 		<tr>
 			<th>Code</th>
-			<th>PU</th>
+			<th>Unit price</th>
 			<th></th>
 		</tr>
 	</thead>
