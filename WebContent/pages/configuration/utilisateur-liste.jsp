@@ -15,7 +15,6 @@
 	active.put("2", "Not active");
 	builder.getFilterBuilder().setChampSelect("etat", active);
 	builder.addNotVisibleChamp(new String[]{"login","passe","idrole","isingenieur","etat_ingenieur","idingenieur"});
-	builder.setLibelleFor("idutilisateur", "Id");
 	builder.getFieldByName("etat").setMethodForChamp("findActive");
 	builder.setOrdre(new String[]{"idutilisateur","nom","prenom","role","active"});
 	builder.setLienForId("main.jsp?cible=configuration/utilisateur-fiche");

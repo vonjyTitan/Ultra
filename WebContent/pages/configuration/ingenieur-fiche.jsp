@@ -11,7 +11,7 @@
 	PageFiche builder=new PageFiche(new Utilisateur(),request);
 	builder.getEntity().setNomTable("ingenieur_libelle");
 	builder.addNotVisibleChamp(new String[]{"login","passe","idrole","isingenieur"});
-	builder.setLibelleFor("idutilisateur", "idEngineer");
+	builder.setLibelleFor("idutilisateur", "ID_Engineer");
 	builder.getFieldByName("etat").setMethodForChamp("findActive");
 	Projet p=new Projet();
 	p.setNomTable("ingenieurprojet_libelle");

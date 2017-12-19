@@ -19,7 +19,7 @@
 	builder.getFilterBuilder().setLibelleFor("idrole", "Role of engineer");
 	builder.getFieldByName("etat").setMethodForChamp("findActive");
 	builder.addNotVisibleChamp(new String[]{"login","passe","idrole","isingenieur"});
-	builder.setLibelleFor("idutilisateur", "Id");
+	builder.setLibelleFor("idutilisateur", "ID_Engineer");
 	builder.getFilterBuilder().removeChamp(new String[]{"idutilisateur","isingenieur","passe","login","role"});
 	builder.setLienForId("main.jsp?cible=configuration/ingenieur-fiche");
 	builder.setLienForModif("main.jsp?cible=configuration/ingenieur-modif");

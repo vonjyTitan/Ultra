@@ -12,6 +12,7 @@ import utilitaire.UtilCrypto;
 
 @Entity(reference="utilisateur",pkName="idutilisateur")
 public class Utilisateur extends DataEntity {
+	@Parameter(libelle="iduser")
 	private int idutilisateur;
 	@Required
 	@StringRestrict(minLength=4)

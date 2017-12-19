@@ -18,7 +18,6 @@
 	builder.getFieldByName("etat").setMethodForChamp("findActive");
 	builder.addNotVisibleChamp(new String[]{"login","passe","idrole","isingenieur"});
 	builder.getFilterBuilder().removeChamp(new String[]{"idutilisateur","isingenieur","passe","login","role"});
-	builder.setLibelleFor("idutilisateur", "Id");
 %>
 <%=builder.getFilterBuilder().getHTML("filter") %>
 <%=HTMLBuilder.beginPanel("List of engineers", 12) %>

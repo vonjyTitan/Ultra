@@ -60,7 +60,10 @@ public class Champ {
 		this.value=value;
 		this.libelle=(field!=null) ? entity.getLibelleForField(field) : name;
 		if(entity!=null){
-			if(this.libelle.toLowerCase().equals("id"+entity.getClass().getSimpleName().toLowerCase())){
+			String fname = field!=null ? field.getName() : name;
+			if(fname.equalsIgnoreCase(entity.getPkName())){
+			/*}
+			if(this.libelle.toLowerCase().equals("id"+entity.getClass().getSimpleName().toLowerCase())){*/
 				this.libelle = "ID_"+this.libelle.substring(2, 3).toUpperCase()+this.libelle.substring(3);
 			}
 		}

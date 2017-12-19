@@ -6,7 +6,7 @@ import com.annotations.Required;
 
 @Entity(pkName="identreprise", reference="entreprise")
 public class Entreprise extends DataEntity {
-	@Parameter(libelle="id")
+	@Parameter(libelle="idcontractor")
 	private int identreprise;
 	@Required
 	@Parameter(libelle="Name")
