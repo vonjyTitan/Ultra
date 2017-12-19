@@ -11,6 +11,25 @@
 	InsertUpdateBuilder builder=new InsertUpdateBuilder(new Utilisateur(),"utilisateur-ajout",request);
 	builder.removeChamp(new String[]{"idutilisateur","etat","isingenieur"});
 	builder.setLibelleFor("idrole", "Assign Role");
+	builder.removeChamp("passe");
 %>
 <h3> Add new User</h3>
-<%=builder.getHTML("User information",6)%>
+<%=HTMLBuilder.beginPanel("User information",6)%>
+<%=builder.beginHTMLForm()%>
+<%=builder.getHTMLBody()%>
+<div id="logincontainer" class="form-group col-lg-12">
+<div class="col-sm-4 col-sm-4 ">
+<label class="control-label" for="passe">Password * : </label>
+</div>
+<div class="col-sm-7"><input name="passe" id="passe" class="form-control  " value="" type="password">
+</div>
+</div>
+<div id="logincontainer" class="form-group col-lg-12">
+<div class="col-sm-4 col-sm-4 ">
+<label class="control-label" for="passe_confirm">Confirm Password * : </label>
+</div>
+<div class="col-sm-7"><input name="passe_confirm" id="passe_confirm" class="form-control  " value="" type="password">
+</div>
+</div>
+<%=builder.endHTMLFormWithButton()%>
+<%=HTMLBuilder.endPanel()%>

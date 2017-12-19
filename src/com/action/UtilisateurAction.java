@@ -62,6 +62,9 @@ public class UtilisateurAction extends Action {
 				goTo(request,response,"main.jsp?cible=configuration/utilisateur-ajout&erreur=Champ manquant");
 				return "error";
 			}
+			if(!user.getPasse().equals(SessionUtil.getValForAttr(request, "passe_confirm"))){
+				throw new Exception("Password does not match the confirm password");
+			}
 			user.setPasse(UtilCrypto.encrypt(user.getPasse()));
 			user.setEtat(1);
 			DaoModele.getInstance().save(user);
@@ -80,6 +83,9 @@ public class UtilisateurAction extends Action {
 			{
 				goTo(request, response, "main.jsp?cible=configuration/utilisateur-modif&erreur=Champ manquant");
 				return;
+			}
+			if(!user.getPasse().equals(SessionUtil.getValForAttr(request, "passe_confirm"))){
+				throw new Exception("Password does not match the confirm password");
 			}
 			user.setPasse(UtilCrypto.encrypt(user.getPasse()));
 			user.setEtat(usernw.getEtat());

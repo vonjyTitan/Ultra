@@ -341,11 +341,11 @@ try{
 	                       <li class="sub-menu">
 			                      <a href="javascript:;" >
 			                          <i class="fa fa-check-circle"></i>
-			                          <span>User Type</span>
+			                          <span>Manage Roles</span>
 			                      </a>
 			                      <ul class="sub">
-			                      <li><a  href="main.jsp?cible=configuration/role-liste" id="role-liste"><i class="fa fa-list"></i>List User Type</a></li>
-                          			<li><a  href="main.jsp?cible=configuration/role-ajout" id="role-ajout"><i class="fa fa-plus"></i>Add New User Type</a></li>
+			                      <li><a  href="main.jsp?cible=configuration/role-liste" id="role-liste"><i class="fa fa-list"></i>List of User Roles</a></li>
+                          			<li><a  href="main.jsp?cible=configuration/role-ajout" id="role-ajout"><i class="fa fa-plus"></i>Add New User Role</a></li>
 			                      </ul>
 	                      </li>
 	                      <%} %>

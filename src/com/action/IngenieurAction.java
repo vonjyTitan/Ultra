@@ -8,6 +8,7 @@ import com.mapping.Utilisateur;
 import com.rooteur.Action;
 
 import dao.DaoModele;
+import utilitaire.SessionUtil;
 import utilitaire.UtilCrypto;
 
 public class IngenieurAction extends Action {
@@ -19,6 +20,9 @@ public class IngenieurAction extends Action {
 			else
 				goTo(request, response, "popup.jsp?cible=popup-ajoutingenieur&erreur=iyg");
 			return;
+		}
+		if(!user.getPasse().equals(SessionUtil.getValForAttr(request, "passe_confirm"))){
+			throw new Exception("Password does not match the confirm password");
 		}
 		user.setIsingenieur(1);
 		user.setEtat(1);
@@ -34,6 +38,9 @@ public class IngenieurAction extends Action {
 		if(!user.isValide()){
 			goTo(request, response, "main.jsp?cible=configuration/ingenieur-ajout&erreur=iyg");
 			return;
+		}
+		if(!user.getPasse().equals(SessionUtil.getValForAttr(request, "passe_confirm"))){
+			throw new Exception("Password does not match the confirm password");
 		}
 		user.setIsingenieur(1);
 		user.setPasse(UtilCrypto.encrypt(user.getPasse()));
