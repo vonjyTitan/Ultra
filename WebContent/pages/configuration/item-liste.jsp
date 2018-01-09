@@ -14,6 +14,7 @@
 	builder.removeChamp(new String[]{"iditem","idunite"});
 	builder.getFilterBuilder().removeChamp(new String[]{"unite","iditem"});
 	builder.setLienForModif("main.jsp?cible=configuration/item-modif");
+	builder.setAddnewUrl("main.jsp?cible=configuration/item-ajout");
 %>
 <h3>List of all Items</h3>
 <%=builder.getFilterBuilder().getHTML("Filter") %>

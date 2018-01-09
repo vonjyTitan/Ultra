@@ -18,6 +18,7 @@
 	builder.getFieldByName("etat").setMethodForChamp("findActive");
 	builder.setOrdre(new String[]{"idutilisateur","nom","prenom","role","active"});
 	builder.setLienForId("main.jsp?cible=configuration/utilisateur-fiche");
+	builder.setAddnewUrl("main.jsp?cible=configuration/utilisateur-ajout");
 %>
 <%=builder.getFilterBuilder().getHTML("Filter",12)%>
 <%=HTMLBuilder.beginPanel("User list",12,"") %>

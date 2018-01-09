@@ -32,6 +32,7 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 	private Map<Champ,Champ> idchampForchamp=null;
 	private FilterBuilder filterBuilder=null;
 	private boolean isWithFilter=false;
+	private String addnewUrl;
 	
 	public TableBuilder(T entity,HttpServletRequest request) throws Exception{
 		super(entity,request);
@@ -113,10 +114,26 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 		}
 		reponse+="</tbody>";
 		reponse+= "</table>";
+		reponse+=getAddButton();
 		reponse+= getPaginnation();
 		reponse+="</div>";
 		return reponse;
 	}
+	public boolean IsShowAddNewButton(){
+		return this.getAddnewUrl()!=null && this.getAddnewUrl()!="";
+	}
+	public String getAddButton(){
+		if(IsShowAddNewButton())
+			return "<div class=\"col-lg-6\"><a class=\"btn btn-primary pull-left\" href=\""+this.getAddnewUrl()+"\">Add new</a></div>";
+		else return "";
+	}
+	public String getAddnewUrl() {
+		return this.addnewUrl;
+	}
+	public void setAddnewUrl(String url) {
+		this.addnewUrl = url;
+	}
+	
 	public String getOption(DataEntity ob) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		return ob.getOption();
 	}
@@ -128,7 +145,8 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 	public String getPaginnation() throws Exception
 	{
 		testData();
-		String reponse="<div class=\"col-lg-12\">";
+		String sizeClass = IsShowAddNewButton() ? "6" : "12";
+		String reponse="<div class=\"col-lg-"+sizeClass+"\">";
 		reponse+=  "<ul class=\"pagination  pull-right\">";
 		int page=((ListPaginner<T>)data).nbPage;
 		if(actualPage>1)

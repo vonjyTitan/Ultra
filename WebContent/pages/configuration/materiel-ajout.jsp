@@ -9,7 +9,7 @@
 <%
 	List<Unite> unites = DaoModele.getInstance().findPageGenerique(1, new Unite());
 %>
-<form action="material-insert" method="post" class="form-horizontal style-form">
+<form action="materiel-insert" method="post" class="form-horizontal style-form">
 <%=HTMLBuilder.beginPanel("Add new materials", 12)%>
 <table class="table table-striped table-advance table-hover table-bordered table-scrollable" >
 	<thead>

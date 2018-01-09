@@ -11,6 +11,7 @@
 	TableBuilder builder=new TableBuilder(new Unite(),request);
 	builder.setLienForModif("main.jsp?cible=configuration/unite-modif");
 	builder.setLienForDelete("crud-delete?classenom=com.mapping.Unite&cible=configuration/unite-liste");
+	builder.setAddnewUrl("main.jsp?cible=configuration/unite-ajout");
 %>
 <h3>Unit List</h3>
 <%=HTMLBuilder.beginPanel("", 6) %>
