@@ -33,7 +33,7 @@ public class Projet extends DataEntity {
 	private String client;
 	@Parameter(libelle="Client")
 	private String entreprise;
-	@Parameter(libelle="Start Advance")
+	@Parameter(libelle="Advance Payment")
 	private Double avance;
 	@Parameter(libelle="Advance rest")
 	private Double avanceactuel;

@@ -253,7 +253,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		Object dv = defaultValudeForField(f);
 		
 		String reponse="<input type=\"hidden\" value=\""+dv+"\" id=\""+f.getName()+"_val\" name=\""+f.getName()+"\"><input id=\""+f.getName()+"_lib\" value=\""+f.getForeignKeyLibValue(dv)+"\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" "
-				+ "onclick=\"window.open('popup.jsp?cible="+f.getFk().popupCible()+"&libtable="+f.getFk().libtable()+"&inputname="+f.getName()+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a>";
+				+ "onclick=\"window.open('popup.jsp?cible="+f.getFk().popupCible()+"&libtable="+f.getFk().libtable()+"&inputname="+f.getName()+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 2px;margin-top: 2px;\" class=\"btn btn-primary btn-xs\"><i class=\"fa fa-search\"></i></a>";
 		
 		return reponse;
 	}

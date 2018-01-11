@@ -127,7 +127,7 @@
                                     <%
                                     int compteurHaut = 0,compteurBas=pageActTrack;
                                     if(pageActTrack>3){
-                                    	%><a href="javascript:;">...</a><%
+                                    	%><a href="javascript:;"><i class=\"fa fa-search\"></i></a><%
                                     }
                                     	for(int i=1;i<=listHisto.nbPage;i++){
                                     		compteurBas--;
@@ -142,7 +142,7 @@
                                                 }
                                     		if(compteurHaut==2)
                                     		{
-                                    			%><a href="javascript:;">...</a><%
+                                    			%><a href="javascript:;"><i class=\"fa fa-search\"></i></a><%
                                     			break;
                                     		}
                                     		if(i>pageActTrack)

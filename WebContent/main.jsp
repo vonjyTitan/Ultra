@@ -483,7 +483,12 @@ try{
                 ]
             });
             $('.datepicker').datepicker({
-        		format: 'dd/mm/yyyy'
+        		format: 'dd/mm/yyyy',autoclose: true, minView: 2
+        	}).on("change",function(){
+        		$(this).datepicker('hide');
+        		if($(this).closest('.form-group').next().find('input')){
+        			$(this).closest('.form-group').next().find('input').focus();
+        		}
         	});
         });
         

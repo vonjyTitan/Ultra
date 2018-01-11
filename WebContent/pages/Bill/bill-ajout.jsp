@@ -47,7 +47,7 @@ $(document).ready(function(){
 	additem();
 });
 function additem(){
-	var node = "<tr><td><div class=\"col-sm-12\"><input id=\"iditem"+indice+"_val\" name=\"iditem\" type=\"hidden\"><input id=\"iditem"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-item&amp;libtable=libelle&amp;inputname=iditem"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\">...</a></div></td>";
+	var node = "<tr><td><div class=\"col-sm-12\"><input id=\"iditem"+indice+"_val\" name=\"iditem\" type=\"hidden\"><input id=\"iditem"+indice+"_lib\" disabled=\"true\" class=\"form-control\" style=\"float: left;width: 80%;\" type=\"text\"><a href=\"javascript:;\" onclick=\"window.open('popup.jsp?cible=Pop-up/popup-item&amp;libtable=libelle&amp;inputname=iditem"+indice+"', 'popupWindow','width=1200,height=800,scrollbars=yes');\" style=\"height:  30px !important;margin-left: 4px;margin-top: 1px;\" class=\"btn btn-primary btn-xs\"><i class=\"fa fa-search\"></i></a></div></td>";
 	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"pu\"/></td><td><input name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#items").append(node);

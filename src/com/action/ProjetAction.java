@@ -53,7 +53,7 @@ public class ProjetAction extends Action {
 			 conn.setAutoCommit(false);
 			 projet.setEtat(ConstantEtat.PROJET_CREADTED);
 			 DaoModele.getInstance().save(projet,conn);
-			LogService.getInstance().log("Create project", user.getIdutilisateur(), projet.getIdprojet(), "projet", conn);
+			int idfirstBill = 0;
 			 if(codebills!=null && codebills.length!=0){
 				 List<Bill> bills = new ArrayList<Bill>();
 				 Bill bill = null ;
@@ -69,13 +69,23 @@ public class ProjetAction extends Action {
 					 bills.add(bill);
 				 }
 				 DaoModele.getInstance().save(bills, conn);
+				 if(bills.size()!=0){
+					 idfirstBill = bills.get(0).getIdbill();
+				 }
 			 }
 			 
 			 ProjetService.getInstance().setEstimation(mois, estim, projet.getIdprojet(),user.getIdutilisateur(), conn);
 			 ProjetService.getInstance().setIngenieur(idingenieurs, projet.getIdprojet(), conn);
 			 FileService.getInstance().saveAndUploadFile(projet,conn);
+			 LogService.getInstance().log("Create project", user.getIdutilisateur(), projet.getIdprojet(), "projet", conn);
 			 conn.commit();
-			 goTo(request, response, "get","main.jsp?cible=projet/projet-fiche&id="+projet.getIdprojet());
+			 if(idfirstBill!=0){
+				 goTo(request, response, "get","main.jsp?cible=Bill/bill-fiche&id="+idfirstBill);
+			 }
+			 else{
+				 goTo(request, response, "get","main.jsp?cible=Bill/bill-ajout&id="+projet.getIdprojet());
+			 }
+			 
 		 }
 		 catch(Exception ex){
 			 if(conn!=null)
