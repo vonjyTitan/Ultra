@@ -456,7 +456,7 @@ try{
     <!--script for this page-->
     <script src="assets/js/sparkline-chart.js"></script>    
 	<script src="assets/js/zabuto_calendar.js"></script>	
-	
+	<script src="assets/js/polyfiller.js"></script>
 	
 	<script type="application/javascript">
         $(document).ready(function () {
@@ -490,6 +490,11 @@ try{
         			$(this).closest('.form-group').next().find('input').focus();
         		}
         	});
+            webshims.setOptions('forms-ext', {
+                replaceUI: 'auto',
+                types: 'number'
+            });
+            webshims.polyfill('forms forms-ext');
         });
         
         

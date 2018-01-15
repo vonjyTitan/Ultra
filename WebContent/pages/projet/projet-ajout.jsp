@@ -116,7 +116,7 @@ function addChildIng(){
 }
 function addChildEstim(){
 	var node = "<tr><td><input placeholder=\"dd/MM/yyyy\" class=\"datepicker\" type=\"text\" name=\"dateestimation\"/></td>";
-	node+="<td style=\"width: 100px;\"><input type=\"text\" name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
+	node+="<td style=\"width: 100px;\"><input type=\"number\"  data-number-stepfactor=\"100\" min=\"0\" step=\"0.01\" data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" name=\"estimation\"/></td><td><a href=\"javascript:;\" name=\"suppr\" class=\"suppr btn btn-danger btn-xs\"><i class=\"fa fa-trash-o\"></i></a></td></tr>";
 	
 	$("#estimates").append(node);
 	$('.datepicker').datepicker({
