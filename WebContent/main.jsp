@@ -56,6 +56,7 @@ try{
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script   src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"   integrity="sha256-xI/qyl9vpwWFOXz7+x/9WkG5j/SVnSw21viy8fWwbeE="   crossorigin="anonymous"></script>
 <script src="assets/js/bootstrap-datepicker-1.6.4-dist/js/bootstrap-datepicker.min.js"></script>
+<script src="http://www.decorplanit.com/plugin/autoNumeric-1.9.18.js"></script> 
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -455,8 +456,7 @@ try{
 
     <!--script for this page-->
     <script src="assets/js/sparkline-chart.js"></script>    
-	<script src="assets/js/zabuto_calendar.js"></script>	
-	<script src="assets/js/polyfiller.js"></script>
+	<script src="assets/js/zabuto_calendar.js"></script>
 	
 	<script type="application/javascript">
         $(document).ready(function () {
@@ -490,13 +490,11 @@ try{
         			$(this).closest('.form-group').next().find('input').focus();
         		}
         	});
-            webshims.setOptions('forms-ext', {
-                replaceUI: 'auto',
-                types: 'number'
-            });
-            webshims.polyfill('forms forms-ext');
+            
         });
-        
+        $(function($) {
+            $(".numeric").autoNumeric('init', {  lZero: 'deny', aSep: ',', mDec: 0 ,  vMax: '99999999999999999999999', vMin: '0'});    
+          }); 
         
         function myNavFunction(id) {
             $("#date-popover").hide();

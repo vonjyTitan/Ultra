@@ -1,5 +1,6 @@
 package com.affichage;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 
 import com.affichage.InsertUpdateBuilder.ERROR_SHOW;
+import com.annotations.MoneyType;
 import com.annotations.SELECT_TYPE;
 import com.mapping.DataEntity;
 import com.mapping.OptionObject;
@@ -217,7 +219,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 	}
 	private String getTypeForField(Champ f)throws Exception{
 		if(getEntity().isNumberType(f.getType())){
-			return "<input type=\"text\"";
+			return "<input type=\"number\"";
 		}
 		else if(f.getType().equals(Date.class) || f.getType().equals(java.sql.Date.class))
 		{
@@ -312,14 +314,18 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 	}
 	public String getClassForField(Field field){
 		String val=classForChamp.get(field);
+		String response = "";
+		if(field.getAnnotation(MoneyType.class)!=null){
+			response="numeric";
+		}
 		if(val==null)
 		{
 			if(typeSelectGenerique.containsKey(field)){
 				return defaultClassForSelect;
 			}
-			return defauldClassForInput;
+			return response+" "+defauldClassForInput;
 		}
-		return val;
+		return response+" "+val;
 	}
 	
 	public String getDefaultClassForInputContainer() {

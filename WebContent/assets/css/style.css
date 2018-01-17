@@ -2293,3 +2293,9 @@ label {
         cursor: default;
         opacity: 0.6;
     }
+    [type=number]{
+     text-align:  right;
+     padding-right: 15px;
+-webkit-appearance: none;
+-moz-appearance: textfield;
+    }

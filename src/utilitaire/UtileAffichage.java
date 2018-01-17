@@ -49,10 +49,10 @@ public class UtileAffichage {
 			return Integer.valueOf("0"+((String)value));
 		}
 		else if(type.equals(double.class) || type.equals(Double.class)){
-			return Double.valueOf("0"+((String)value));
+			return Double.valueOf(("0"+((String)value)).replaceAll(",", ""));
 		}
 		else if(type.equals(float.class) || type.equals(Float.class)){
-			return Float.valueOf("0"+((String)value));
+			return Float.valueOf(("0"+((String)value)).replaceAll(",", ""));
 		}
 		else return value;
 	}

@@ -2,6 +2,7 @@ package com.mapping;
 
 import com.annotations.Entity;
 import com.annotations.ForeignKey;
+import com.annotations.MoneyType;
 import com.annotations.Parameter;
 import com.annotations.Required;
 import com.annotations.SELECT_TYPE;
@@ -34,6 +35,7 @@ public class Projet extends DataEntity {
 	@Parameter(libelle="Client")
 	private String entreprise;
 	@Parameter(libelle="Advance Payment")
+	@MoneyType
 	private Double avance;
 	@Parameter(libelle="Advance rest")
 	private Double avanceactuel;
@@ -43,6 +45,7 @@ public class Projet extends DataEntity {
 	@Parameter(libelle="Less Retention Money (%)")
 	private Double retenue;
 	@Parameter(libelle="Contract value")
+	@MoneyType
 	private Double contrat;
 	
 	public Double getAvanceactuel() {
