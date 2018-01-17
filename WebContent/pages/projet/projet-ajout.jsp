@@ -10,6 +10,7 @@
 	InsertUpdateBuilder builder = new InsertUpdateBuilder(new Projet(),"projet-ajout",request);
 	builder.removeChamp(new String[]{"idprojet","etat"});
 	builder.setChampTextarea("description");
+	builder.addClassForChamp("avance", "number");
 	Utilisateur crit = new Utilisateur();
 	crit.setNomTable("ingenieur_libelle");
 	crit.setPackSize(100);
@@ -138,3 +139,9 @@ function changeUnite(select){
 	node.prop("target","_blank");
 }
 </script>
+  <script src="http://www.decorplanit.com/plugin/autoNumeric-1.9.18.js"></script>
+  <script type='text/javascript'>
+    $(function($) {
+      $('#avance').autoNumeric('init', {  lZero: 'deny', aSep: ',', mDec: 0 ,  vMax: '99999999999999999999999', vMin: '0'});    
+    });  
+  </script>
