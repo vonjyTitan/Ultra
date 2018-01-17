@@ -218,8 +218,8 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		return "value=\""+val+"\" />";
 	}
 	private String getTypeForField(Champ f)throws Exception{
-		if(getEntity().isNumberType(f.getType())){
-			return "<input type=\"number\"";
+		if(DataEntity.isNumberType(f.getType())){
+			return "<input type=\"text\"";
 		}
 		else if(f.getType().equals(Date.class) || f.getType().equals(java.sql.Date.class))
 		{
@@ -317,6 +317,9 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		String response = "";
 		if(field.getAnnotation(MoneyType.class)!=null){
 			response="numeric";
+		}
+		if(DataEntity.isNumberType(field.getType())){
+			response+=" number";
 		}
 		if(val==null)
 		{
