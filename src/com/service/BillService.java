@@ -54,8 +54,8 @@ public class BillService {
 				continue;
 			}
 			int iditem =Integer.valueOf("0"+iditems[i]);
-			double pu = Double.valueOf("0"+pus[i]);
-			double estimation = Double.valueOf("0"+estimations[i]);
+			double pu = Double.valueOf(("0"+pus[i]).replace(",", ""));
+			double estimation = Double.valueOf(("0"+pus[i]).replace(",", ""));
 			if(iditem==0){
 				throw new Exception("No items is selected");
 			}

@@ -316,7 +316,7 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		String val=classForChamp.get(field);
 		String response = "";
 		if(field.getAnnotation(MoneyType.class)!=null){
-			response="numeric";
+			response="money";
 		}
 		if(DataEntity.isNumberType(field.getType())){
 			response+=" number";

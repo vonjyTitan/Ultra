@@ -493,7 +493,7 @@ try{
             
         });
         $(function($) {
-            $(".numeric").autoNumeric('init', {  lZero: 'deny', aSep: ',', mDec: 0 ,  vMax: '99999999999999999999999', vMin: '0'});    
+            $(".money").autoNumeric('init', {  lZero: 'deny', aSep: ',', mDec: 0 ,  vMax: '99999999999999999999999', vMin: '0'});    
           }); 
         
         function myNavFunction(id) {

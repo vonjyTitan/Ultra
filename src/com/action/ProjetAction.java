@@ -135,7 +135,7 @@ public class ProjetAction extends Action {
 	}
 	public void modifmatonsite(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		int idmatonsite = Integer.valueOf(SessionUtil.getValForAttr(request, "idmatonsite"));
-		double pu = Double.valueOf(SessionUtil.getValForAttr(request, "pu"));
+		double pu = Double.valueOf(("0"+SessionUtil.getValForAttr(request, "pu")).replaceAll(",", ""));
 		if(pu<=0){
 			throw new Exception("PU must be positif");
 		}

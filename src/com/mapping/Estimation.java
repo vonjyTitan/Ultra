@@ -3,6 +3,7 @@ package com.mapping;
 import java.sql.Date;
 
 import com.annotations.Entity;
+import com.annotations.MoneyType;
 import com.annotations.Parameter;
 import com.annotations.Required;
 
@@ -12,6 +13,7 @@ public class Estimation extends DataEntity {
 	private int idprojet;
 	private int idutilisateur;
 	@Parameter(libelle="Estimate")
+	@MoneyType
 	private double estimation;
 	private double total;
 	@Required
@@ -22,6 +24,7 @@ public class Estimation extends DataEntity {
 	@Parameter(libelle="Date of certificate")
 	private Date datecertification;
 	@Parameter(libelle="Less Repayment of Advance")
+	@MoneyType
 	private double remboursement;
 	private int etat;
 	private double matonsitecredit;

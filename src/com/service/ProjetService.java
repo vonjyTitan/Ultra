@@ -64,7 +64,7 @@ public class ProjetService {
 				inter.setIdprojet(idprojet);
 				inter.setIdutilisateur(idutilisateur);
 				inter.setEtat(ConstantEtat.MOIS_CREATED);
-				inter.setEstimation(Double.valueOf(estimation[i]));
+				inter.setEstimation(Double.valueOf(estimation[i].replaceAll(",", "")));
 				inter.setMois((Date) UtileAffichage.parseFromRequest(dates[i], Date.class));
 				inter.setDatedecompte(inter.getMois());
 				inter.setRetenue(0.0);
@@ -98,7 +98,7 @@ public class ProjetService {
 		for(int i=0;i<taille;i++){
 			MatOnSite mos = new MatOnSite();
 			mos.setIdmateriel(Integer.valueOf(idmats[i]));
-			mos.setPu(Double.valueOf(pus[i]));
+			mos.setPu(Double.valueOf(("0"+pus[i]).replaceAll(",", "")));
 			mos.setDebit(0);
 			mos.setCredit(0);
 			mos.setIdprojet(idprojet);

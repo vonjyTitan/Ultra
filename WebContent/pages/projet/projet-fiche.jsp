@@ -371,7 +371,7 @@
             <div class="modal-body">
             	<input type="hidden" name="idmatonsite" id="idmatonsite"/>
             	<div id="codecontainer" class="form-group col-lg-12" style="margin-top:30px;"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="">Code Material : </label></div><div class="col-sm-7"><input name="codemateriel" id="codemateriel" class="form-control" disabled="true" value="" type="text"></div></div>
-                <div id="codecontainer" class="form-group col-lg-12"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="pu">Unit Price : </label></div><div class="col-sm-7"><input name="pu" id="pu" class="form-control" value="" type="text"></div></div>
+                <div id="codecontainer" class="form-group col-lg-12"><div class="col-sm-4 col-sm-4 "><label class="control-label" for="pu">Unit Price : </label></div><div class="col-sm-7"><input name="pu" id="pu" class="form-control money number" value="" type="text"></div></div>
             </div>
             
             <div class="modal-footer">
