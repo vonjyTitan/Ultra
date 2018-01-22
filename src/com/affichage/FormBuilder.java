@@ -240,14 +240,14 @@ public class FormBuilder<T extends DataEntity> extends HTMLBuilder<T> {
 		List<OptionObject> data;
 		
 		if((data=typeSelectGenerique.get(f))!=null){
-			return buildSelect(f,data,classe,false);
+			return buildSelect(f,data,classe.replaceAll("number", ""),false);
 		}
 		if(f.isForeignKey() && f.getFk().selecttype()==SELECT_TYPE.OPTION)
 		{
-			return buildSelect(f,f.getForeignKeyData(),classe,f.getFk().nullable());
+			return buildSelect(f,f.getForeignKeyData(),classe.replaceAll("number", ""),f.getFk().nullable());
 		}
 		else if(f.isForeignKey() && f.getFk().selecttype()==SELECT_TYPE.POP_UP){
-			return getInputWithPopup(f,classe);
+			return getInputWithPopup(f,classe.replaceAll("number", ""));
 		}
 		return "";
 	}

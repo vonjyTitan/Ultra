@@ -28,7 +28,7 @@ public class PopupTable<T extends DataEntity>  extends TableBuilder<T> {
 	@Override
 	public String getOption(DataEntity ob) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		String libelle = (String) ob.getValueForField(ob.getFieldByName(SessionUtil.getValForAttr(request, "libtable")));
-		return "<a href=\"javascript:;\" onclick=\"select("+ob.getValueForField(ob.getFieldByName(ob.getPkName()))+",'"+libelle+"')\" class=\"btn btn-success  btn-xs\"><i class=\"fa fa-check\"></i></a>";
+		return "<a href=\"javascript:;\" onclick=\"select("+ob.getValueForField(ob.getFieldByName(ob.getPkName()))+",'"+libelle+"')\" class=\"btn btn-success  btn-xs\">Select</a>";
 	}
 	@Override
 	public String getSimpleLien() throws Exception {

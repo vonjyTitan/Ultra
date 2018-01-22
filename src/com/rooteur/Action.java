@@ -28,9 +28,9 @@ public class Action {
 			if(res!=null){
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				Gson gs=new Gson();
-				gs.toJson(res);
-				response.getWriter().println(gs.toString());
+				Gson gs=new GsonBuilder().create(); 
+				String serialized = gs.toJson(res);
+				response.getWriter().println(serialized);
 			}
 		}
 		catch(MethodNotFoundException ex){

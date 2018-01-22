@@ -1,5 +1,6 @@
 package com.mapping;
 
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -32,33 +33,33 @@ import utilitaire.UtileAffichage;
 
 import com.annotations.DateRestrict;
 
-public abstract class DataEntity {
+public abstract class DataEntity implements Serializable {
 	// ===========================================================
     // Fields
     // ===========================================================
 	
-	private boolean isZeroInclue=false;
-	private Field[] fields;
-	private Class self=this.getClass();
-	private Map<Field,String> formError=null;
-	private TypeComparaison typeComparison=TypeComparaison.PARTIAL;
-	private boolean isIgnoreCase=true;
-	private String nomTable;
-	private int packSize=30;
-	private String dataBaseKey="boq";
-	private Map<String, String> concatString=new HashMap<String,String>();
-	private String nomChampOrder;
-	private String ordering;
+	private transient boolean isZeroInclue=false;
+	private transient Field[] fields;
+	private transient Class self=this.getClass();
+	private transient Map<Field,String> formError=null;
+	private transient TypeComparaison typeComparison=TypeComparaison.PARTIAL;
+	private transient boolean isIgnoreCase=true;
+	private transient String nomTable;
+	private transient int packSize=30;
+	private transient String dataBaseKey="boq";
+	private transient Map<String, String> concatString=new HashMap<String,String>();
+	private transient String nomChampOrder;
+	private transient String ordering;
 	public static final String ASC=" asc ";
 	public static final String DESC=" desc ";
-	private  List<Field> summField=new ArrayList<Field>();
-	private  List<Field> groupField=new ArrayList<Field>();
-	private Map<Field,String> referenceForField=new HashMap<Field,String>();
+	private  transient List<Field> summField=new ArrayList<Field>();
+	private  transient List<Field> groupField=new ArrayList<Field>();
+	private transient Map<Field,String> referenceForField=new HashMap<Field,String>();
 	private static Map<Class,Field[]> fieldsForClasses=new HashMap<Class,Field[]>();
-	private int count=0;
-	private String lienForModif="";
-	private String lienForDelete="";
-	private List<FileItem> fileItems=null;
+	private transient int count=0;
+	private transient String lienForModif="";
+	private transient String lienForDelete="";
+	private transient List<FileItem> fileItems=null;
 	public int findPackSize() {
 		return packSize;
 	}
