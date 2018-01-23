@@ -151,16 +151,28 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 		int page=((ListPaginner<T>)data).nbPage;
 		if(actualPage>1)
 			reponse+="<li><a href=\""+getCompletLien()+"&page="+(actualPage-1)+"\">&laquo;</a></li>";
-		int depart=actualPage-2;
-		while(depart<=0){
-			depart++;
+		int depart=actualPage-3;
+		int arriver = actualPage+3;
+		if(depart<=0 || depart==2){
+			depart=1;
 		}
-		for(int i=0;i<=5 && depart<=page;i++,depart++){
+		if(arriver>page || arriver==page-1){
+			arriver = page;
+		}
+		if(depart>1){
+			reponse+="<li><a href=\""+getCompletLien()+"&page="+1+"\"> "+1+" </a></li>";
+			reponse+="<li><a href=\"javascript:;\"> ... </a></li>";
+		}
+		for(;depart<=arriver;depart++){
 			if(depart==actualPage){
 				reponse+=" <li> <a href=\"javascript:;\" style=\"background: #0086de; color: white;\">"+depart+"</a></li>";
 			}
 			else
 				reponse+="<li><a href=\""+getCompletLien()+"&page="+depart+"\"> "+depart+" </a></li>";
+		}
+		if(page>arriver){
+			reponse+="<li><a href=\"javascript:;\"> ... </a></li>";
+			reponse+="<li><a href=\""+getCompletLien()+"&page="+page+"\"> "+page+" </a></li>";
 		}
 		if(actualPage<page){
 			reponse+="<li><a href=\""+getCompletLien()+"&page="+(actualPage+1)+"\">&raquo;</a></li> ";
@@ -178,9 +190,11 @@ public class TableBuilder<T extends DataEntity>  extends HTMLBuilder<T>{
 		{
 			String lastCh=entity.findNomChampOrder();
 			String lastOrd=entity.findOrdering();
+			int packSize = entity.findPackSize();
 			setEntity((T) entity.getClass().newInstance());
 			entity.setNomChampOrder(lastCh);
 			entity.setOrdering(lastOrd);
+			entity.setPackSize(packSize);
 		}
 		data=DaoModele.getInstance().findPageGenerique(actualPage, entity,apresWhere);
 	}
