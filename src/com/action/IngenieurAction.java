@@ -26,8 +26,8 @@ public class IngenieurAction extends Action {
 		}
 		user.setIsingenieur(1);
 		user.setEtat(1);
-		DaoModele.getInstance().save(user);
 		user.setPasse(UtilCrypto.encrypt(user.getPasse()));
+		DaoModele.getInstance().save(user);
 		if(isAjoutPopup(request))
 			afterPopupAjout(request, response, user);
 		else
